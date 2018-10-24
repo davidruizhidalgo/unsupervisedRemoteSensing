@@ -1,0 +1,1269 @@
+# Version 9
+
+#SG: Smart Grid
+#AMI: Advanced Metering Infrastructure
+#AMR: Automated Meter Reading
+#DG: Distributed Generation
+#PMU: Phasorial Measurement Unit
+#GIS: Graphical Information System
+#IT: Information Technologies
+#IED: Intelligent Electronic Devices
+#VVO: Volt/Var Optimization
+#HAN: Home Area Network
+
+---SMR
+
+--60% 1
+
+40% Su organización ha desarrollado una visión SG que oriente su mejoramiento operativo?
+0% No
+50% Solamente en una sola función (o línea de negocio)
+70% A múltiples funciones (involucra y trasciende a múltiples funciones)
+100% A la organización en general (involucra y trasciende a todas las funciones en la organización)
+
+35% Dentro de su organización existen implementaciones experimentales de conceptos SG?
+0% No
+40% Experimentación limitada con apoyo limitado de la organización
+55% Experimentación significativa con apoyo limitado de la organización
+70% Experimentación limitada con fuerte apoyo de la organización
+100% Experimentación significativa con fuerte apoyo de la organización
+
+25% La visión SG de su empresa ha sido discutida con entes reguladores?
+0% No
+70% Se han llevado a cabo discusiones informales
+100% Se han llevado a cabo discusiones formales y de manera amplia
+
+--60% 2
+
+30% A nivel gerencial o ejecutivo ha sido aprobada una estrategia SG y un plan de negocio?
+0% No
+50% En desarrollo
+70% Aprobado de forma provisional
+100% Aprobado formalmente
+
+15% En su organización ha sido formulada y aceptada una visión común SG?
+0% No
+50% En una sola función y/o línea de negocio
+70% A través de múltiples funciones y/o líneas de negocio
+100% A través de todas las funciones y/o líneas de negocio
+
+10% Las inversiones operacionales de su organización están alineadas con la estrategia y plan de negocio SG?
+0% No
+50% Parcialmente, alineado indirectamente (no enfocado específicamente hacía SG)
+70% Parcialmente, alineado de forma explícita (enfocado hacía SG)
+100% Significativo, alineado de forma explicita
+
+10% Existen presupuestos específicos para financiar la implementación de SG?
+0% No
+30% Muy limitado (<30% de lo requerido para financiar el año actual)
+55% Montos moderados (30% - 70%)
+100% Presupuesto adecuado (>70%)
+
+20% Su organización está trabajando en conjunto con las partes interesadas (incluidos los accionistas y  usuario final) y los entes reguladores en su estrategia y visión SG?
+0% No
+50% Sólo con las partes interesadas
+70% Sólo con los entes reguladores
+100% Con las partes interesadas y los entes reguladores
+
+15% Se proporciona apoyo y financiamiento para llevar a cabo proyectos de prueba de concepto SG (ej: AMI, DG)?
+0% No
+30% Limitado, con apoyo y financiamiento informal
+50% Significativo, con apoyo y financiamiento informal
+70% Limitado, con apoyo y financiamiento formal
+100% Significativo con apoyo y financiamiento formal
+
+--65% 3
+
+40% La visión, estrategia y plan de negocio SG ha sido incorporado en la visión y estrategia de su organización?
+0% No
+30% Parcialmente
+70% Ampliamente
+100% Completamente
+
+30% Ha establecido un modelo de gobierno SG para la gestión, toma de decisiones, administración de procesos y recursos SG?
+0% No
+50% Parcial
+70% Sí, un modelo propio no integrado al modelo de gobierno existente
+100% Sí, integrado al modelo de gobierno existente
+
+20% Tiene uno o más líderes SG con autoridad explícita a través de funciones y líneas de negocio que aseguren una implantación apropiada de una estrategia SG?
+0% No
+20% Múltiples líderes, pero sin alineación y límites claros
+70% Múltiples líderes, alineados
+100% Un único líder
+
+10% Las partes interesadas (accionistas, reguladores, usuarios, etc.) han autorizado las inversiones requeridas para el mejoramiento en SG?
+0% No
+20% Indirectamente
+60% Parcialmente
+100% Explícitamente y completamente
+
+--70% 4
+
+35% Su visión y estrategia SG guía la estrategia y gestión de la empresa en los niveles más altos (ej: nivel gerencial)?
+0% No
+50% SG tiene un impacto limitado o indirecto
+70% Impacto directo y significativo
+100% Guía la estrategia de desarrollo de la empresa
+
+35% Es SG una competencia fundamental en toda su organización?
+0% No
+50% En partes de la organización
+70% En toda la organización
+100% En toda la organización y orienta el futuro de la empresa
+
+30% Su estrategia SG se ha divulgado y revisado en colaboración con partes interesadas externas, excluyendo algunos aspectos estratégicos?
+0% No
+50% Con algunas partes interesadas
+70% Con las principales partes interesadas
+100% Con todas las partes interesadas
+
+--80% 5
+
+35% Su organización capitaliza los avance en SG y los toma como base para la introducción de nuevas ofertas de productos y servicios?
+0% No
+30% Poco
+50% Moderadamente
+100% Ampliamente
+
+30% Sus actividades de negocio SG proporcionan suficientes recursos económicos que permitirán el financiamiento continuo para la expansión y sostenimiento SG?
+0% No
+10% Parcialmente
+40% Sí, principalmente por medio de ahorros en costos y ganancias por eficiencia
+60% Sí, principalmente por medio de nuevos productos y servicios
+80% Sí, principalmente por medio de una tasa de recuperación óptima
+100% Sí, principalmente por medio de combinaciones de las anteriores
+
+35% Ha implementado nuevos modelos de negocios como resultado de los desarrollos SG?
+0% No
+20% Identificados, pero aún no implementados
+50% Al menos un modelo de negocio implementado
+100% Múltiples nuevos modelos de negocios implementados
+
+
+
+---OS
+
+--60% 1
+
+33.33% Su organización ha expresado (divulgado) la necesidad de construir competencias SG entre su personal?
+0% No
+70% Parcialmente (se ha divulgado en algunas partes de la organización)
+100% Ampliamente (se ha divulgado en todas las partes de la organización)
+
+33.33% Los líderes han demostrado un compromiso para genear el cambio en la empresa apoyados en el cumplimiento de los objetivos SG?
+0% No
+60% Los líderes de su organización han hecho declaraciones públicas con respecto a su compromiso con el cambio
+100% Los líderes de su organización han tomado acciones, tales como asignación de recursos y presupuesto
+
+33.33% Se han llevado a cabo esfuerzos de concientización dentro del personal de la empresa para respaldar las actividades SG?
+0% No
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+--60% 2
+
+25% Su visión SG ha empezado a guiar el cambio y afectar las prioridades asociadas refiriéndose a la necesidad de un personal calificado?
+0% No
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+22% Las operaciones de su organización se han alineado alrededor de procesos (completos) para impulsar las capacidades de SG?
+0% No
+50% Un poco (algunos procesos (completos) están alienados para impulsar las capacidades de Smart Grid)
+70% Moderadamente (muchos)
+100% Ampliamente (la mayoría o todos)
+
+22% Los grupos de desarrollo e implementación de SG incluyen participantes de todas las líneas de negocio y funciones comprometidas?
+0% No
+40% Parcialmente (<50% de los grupos afectados)
+70% Substancialmente (50% - 80%)
+100% Ampliamente (<80%)
+
+15% Se han identificado y ejecutado actividades de formación, entrenamiento y educación para el desarrollo de competencias SG?
+0% No
+30% Actualmente en desarrollo
+50% En al menos una de las funciones y/o líneas de negocio
+80% En múltiples funciones y/o líneas de negocio
+
+16% Existen planes de compensación y/o desarrollo para el personal, que motiven el alcnce de los objetivos de la estrategia SG?
+0% No
+50% Un plan documentado que incluye cronogramas y presupuestos
+70% Un plan en ejecución
+100% Sí, un plan ejecutado
+
+--60% 3
+
+25% La estrategia y visión de SG guían los cambios de su organización(perfiles, interacciones, criterios de contratación, etc.)?
+0% No
+30% Indirectamente
+50% En una sola función y/o línea de negocio
+70% A través de dos o más funciones y/o líneas de negocio
+100% A través de todas las funciones y/o líneas de negocio
+
+20% Los sistemas de medición de su organización incorporan elementos de medición SG (Relacionado con el plan estratégico)?
+0% No
+30% Indirectamente
+50% En una sola función y/o líneas de negocio
+70% En dos o más funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+10% La compensación y/o evaluación del rendimiento del personal están relacionados con el éxito de SG (beneficios tangibles resultado de la aplicación o implementación de SG)?
+0% No
+30% Para unas pocas personas seleccionadas
+50% Para los líderes asociados a SG
+70% Para todos los líderes de la empresa
+100% Para todo el grupo de trabajo SG (líderes y equipo de trabajo)
+
+20% Los líderes de su organización son coherentes con la visión y una estrategia SG tanto en su gestión como en su divulgación?
+0 %No
+50% En alguna medida (<40% de sus líderes, incluyendo administradores)
+70% Moderadamente (40% - 80%)
+100% En gran medida (>80%)
+
+10% Su organización tiene un grupo administrativo o una herramienta para apoyar o soportar las actividades SG?
+0% No
+10% Se está implementando y evaluando
+30% Se ha finalizado la evaluación y ningún cambio fue necesario para adaptarse a las nuevas capacidades SG
+70% Se ha completado la evaluación y se han documentado los cambios requeridos
+100% Se ha completado la evaluación y los cambios se han implementado
+
+15% Sus programas de formación y educación estan alineados para explotar las capacidades SG?
+0% No
+50% En al menos una sola función y/o líneas de negocio
+70% En dos o más funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+--70% 4
+
+33% Los sistemas de administración y estructura organizacional son capaces de aprovechar mejor las capacidades de control y visibilidad que se han incrementado gracias a la inserción de SG?
+0% No
+50% De forma limitada
+70% Ampliamente
+100% Sí
+
+33% Su organización tiene una observabilidad completa de la red que pueda ser aprovechada por las partes interesadas tanto internas como externas?
+0% No
+50% De forma limitada (<60% de las partes interesadas)
+70% Ampliamente (60-90%)
+100% Sí (>90%)
+
+34% La toma de decisiones se da en el punto más cercano de la red en donde ocurre el evento, como resultado de una estructura organizacional eficiente y el incremento de la disponibilidad de la información gracias a SG?
+0%  No
+40% De forma limitada
+70% Ampliamente
+100% Sí
+
+--80% 5
+
+40% La estructura de su organización permite la colaboración con todas las partes interesadas o comprometidas con la red para optimizar su estado y operación general?
+0% No
+50% Un poco (La organización participa a algunos de los interesado sobre el estado y operación de la red)
+70% Moderadamente (La organización participa a la mayoría de los interesados sobre el estado y operación de la red)
+100% Sí (La organización lidera a todos los interesados en temas relacionados con el estado y operación de la red)
+
+40% Su organización y su estructura se están adaptando con prontitud para respaldar nuevos proyectos, productos y servicios que surjan como resultado de SG?
+0% No
+50% De forma limitada
+70% Ampliamente
+100% Sí
+
+20% Se han establecido canales para identificar y desarrollar ideas y premiar a aquellos que ayudan a dar forma a los futuros avances en procesos, competencias laborales y tecnología?
+0% No
+50% De forma limitada
+70% Ampliamente
+100 %Sí
+
+
+
+---GO
+
+--60% 1
+
+20% Tiene un caso de negocio para nuevos equipos y sistemas relacionados con SG para al menos una función o línea de negocio (ej: AMI, desconexión remota, PMUs, etc.)?
+0% No
+50% En desarrollo
+70% Aprobado
+100% En ejecución
+
+20% Está evaluando nuevos sensores, switches y tecnologías de comunicación para el monitoreo y control de la red?
+0% No
+30% En alguna medida, no directamente para SG
+70% En alguna medida, orientados para SG
+100% En gran medida (ej: numerosas evaluaciones en marcha o finalizadas)
+
+20% Tiene proyectos en marcha de prueba de concepto y/o prueba de componentes para monitoreo y control de la red?
+0% No
+30% En alguna medida, no directamente para SG
+70% En alguna medida, orientados para SG
+100% En gran medida (ej: numerosas evaluaciones en marcha o finalizadas)
+
+20% Usted está evaluando las fallas y sistemas de gestión de distribución relacionados con automatización de subestaciones (más allá de SCADA)?
+0% No
+30% En alguna medida, no directamente para SG
+70% En alguna medida, orientados para SG
+100% En gran medida (ej: numerosas evaluaciones en marcha o completadas)
+
+20% Los requerimientos de seguridad (física e informática) son considerados en todas las iniciativas de la operación en la red?
+0% No
+40% Algo (<50%)
+70% La mayoría (50% - 90%)
+100% Sí, para esencialmente todas las iniciativas (>90%)
+
+--60% 2
+
+27% Ha automatizado subestaciones de distribución e implementado enlaces de comunicación para actividades de automatización remota del sistema de distribución (ej: maniobra inteligente en campo)?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En progreso
+70% Parcialmente completo (<70% de las subestaciones)
+100% Ampliamente desarrollado (>=70%)
+
+20% Está implementado esquemas avanzados de restauración de fallas que se resuelvan automáticamente (auto-restauración) o reduzcan la magnitud de los apagones inesperados?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% En progreso
+100% Muchos finalizados (>20% de la red)
+
+26% Aparte de SCADA, está poniendo a prueba el monitoreo remoto de los principales activos de la red que respalden la toma de decisiones manuales?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% En proceso de prueba
+100% Pruebas completas o la tecnología está siendo instalada
+
+27% Está invirtiendo en redes de comunicación expandidas para respaldar las operaciones en la red?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En progreso
+70% Parcialmente completo (instaladas y funcionando para >20% de la red)
+100% Extensamente completo (>80%)
+
+--60% 3
+
+18% La información obtenida de la red inteligente (SG)está disponible para el análisis del sistema o de las funciones o líneas de negocio de la empresa?
+0% No
+30% En desarrollo
+50% Disponible para unas pocas funciones o líneas de negocio de la empresa
+100% Disponible para la mayoría de funciones o líneas de negocio de la empresa
+
+10% Ha mejorado la capacidad de toma de decisiones sobre las líneas de negocio de la empresa, gracias a la implementación de nuevas herramientas y estrategias de análisis de control (Ej. Datos, equipos, tecnologías y técnicas de análisis)?
+0% No
+50% En líneas de negocio individuales
+70% En varias líneas de negocio
+100% En la mayoría o todas las líneas de negocio
+
+18% Los desarrollos realizados en Redes Inteligentes (SG) han permitido que la planeación de las operaciones de la red no se hagan basado en estimaciones sino en hechos, datos e información? 
+0% No
+20% Un poco (<25% de la planeación se basa en hechos)
+50% Moderadamente (25% - 75%)
+70% En gran medida (75% - 90%)
+100% Completamente (>90%)
+
+18% Los medidores inteligentes se han convertido en sensores importantes para la administración de la red?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+50% Moderadamente (<40% de la red usa medidores como sensores para la administración de la red)
+100% En gran medida (>=40%)
+
+18% Los datos obtenidos gracias al conocimiento del estado y a las actividades de diagnóstico de la red, se usan para respaldar su seguridad física e informática?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+50% Se ha implantado para una o más funciones críticas
+70% Se ha implantado para todas las funciones críticas
+100% Implantado de forma integral a través de la red
+
+18% Existe una toma de decisiones automatizada en los esquemas de protección, es decir, aprovechando las mayores capacidades analíticas y de comunicación de los sistemas de protección?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% Se toman decisiones basadas en análisis que informan a operadores humanos
+70% Al menos una decisión basada en el análisis está siendo ejecutada automáticamente
+100% Un gran número de decisiones basadas en análisis están siendo ejecutadas automáticamente
+
+--70% 4
+
+20% Los datos de operación obtenidos desde los desarrollos SG están siendo utilizados para optimizar procesos a través de la organización?
+0% No
+40% Un poco (<50% de los procesos donde SG tenga impacto)
+70% En gran medida (50% - 80%)
+100% Completamente (>80%)
+
+20% La gestión operacional de la red está basado en datos cercanos a tiempo-real (gestión dinámica de la red)?
+0% No
+20% Un poco (<25% de decisiones operacionales utilizando datos cercanos a tiempo-real)
+50% Moderadamente (25% - 75%)
+80% En gran medida (75% - 90%)
+100% Completamente (>90%)
+
+20% Sus predicciones operacionales están basadas en datos recopilados a partir de las capacidades SG?
+0% No
+20% Un poco (<25% de predicciones operacionales se basan en datos SG)
+50% Moderadamente (25% - 75%)
+80% En gran medida (75% - 90%)
+100% Completamente (>90%)
+
+20% La información relacionada con la operación de la red se ha puesto a disposición de la organización a través de las funciones y las líneas de negocio (existe observabilidad completa)?
+0% No
+30% Un poco (<50% de las funciones y líneas de negocio tienen acceso a datos de la red)
+70% En gran medida (50% - 80%)
+100% Completamente (>80%)
+
+20% Existe toma de decisiones en los esquemas de protección basados en medición y supervisión de área amplia (más allá de sus límites operacionales)?
+0% No
+30% Se toman decisiones basadas en análisis de área amplia que informan a operadores humanos
+50% Al menos una decisión basada en análisis de área amplia está siendo ejecutada automáticamente
+100% Un gran número de decisiones basadas en análisis de área amplia están siendo ejecutadas automáticamente
+
+--80% 5
+
+40% Qué porcentaje de su red emplea operaciones de auto-recuperación?
+0% 0%
+15% 1% - 25%
+30% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+60% En el sistema completo existe toma decisiones de forma automatizada y basada en análisis?
+0% No
+30% Un poco (Menos de un <50% del sistema)
+70% En gran medida (50% - 80%)
+100% Completamente (>80%)
+
+---WAM
+
+--60% 1
+
+35% Tiene un caso de negocio aprobado a nivel funcional para las mejoras en la gestión de los recursos laborales y activos vía SG?
+0% No
+50% En desarrollo
+70% Aprobado
+100% Aprobado y en ejecución
+
+30% Está evaluando usos potenciales de supervisión remota de activos?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% En progreso
+100% Finalizado
+
+35% Está evaluando o ha evaluado equipos y sistemas para la gestión de los recursos laborales y activos para enfocarlos hacia la visión SG?
+0% No
+20% Sí, pero no enfocado hacia la visión SG
+70% Sí, enfocado hacia la visión SG
+100% Sí, y enofcado con los casos de negocio SG
+
+--60% 2
+
+45% Ha definido una forma de rastrear, llevar inventarios y preservar un historial de eventos de los activos utilizando capacidades SG?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% En prueba
+100% Finalizado
+
+35% Ha desarrollado una visión integrada de GIS para la supervisión de activos con base en su localización, estado e interconectividad (nodal)?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% En prueba
+100% Finalizado
+
+20% Se ha desarrollado una estrategia para los recursos móviles de forma que impacte de manera integral en la organización?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% Se está desarrollando una estrategia
+100% Se ha finalizado la estrategia
+
+--70% 3
+
+14% Qué porcentaje de componentes individuales en sus sistemas físicos e informáticos tienen datos disponibles de rendimiento, análisis de tendencias y control de eventos?
+0% 0%
+20% 1% - 25%
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+14% Para qué porcentaje de componentes claves ha implementado un plan de mantenimiento, que guíe las decisiones de mantenimiento y reemplazo,   basado en datos en tiempo-real que provienen de un sistema de supervisión de activos?
+0% 0%
+20% 1% - 25%
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+14% Ha integrado la supervisión remota de activos con el sistema de gestión de activos?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Finalizado para una o más clases de activos
+100% Finalizado (>80% de las clases de activos)
+
+14% Ha integrado capacidades de supervisión remota de activos con recursos laborales móviles para automatizar la creación de órdenes de trabajo?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Finalizado para una o más clases de activos
+100% Finalizado (>80% de las clases de activos)
+
+14% Ha implementado una visión integrada de GIS y supervisión de activos basados en localización, estado e interconectividad?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Finalizado para uno o más clases de activos
+100% Finalizado (>80% de las clases de activos)
+
+15% Qué porcentaje de su inventario de activos tiene un proceso de seguimiento utilizando algún nivel de automatización desde la fuente hasta el punto de utilización (ej: desde el proveedor hasta el lugar de instalación)?
+0% 0%
+20% 1% - 25%
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Se está construyendo un modelo de inversión en activos para componentes claves basados en datos SG?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Finalizado para uno o más componentes
+100% Finalizado (>80% de los componentes)
+
+--70% 4
+
+25% Qué porcentaje de los diferentes tipos de recursos y activos tienen una observabilidad completa (incluyendo localización e interrelaciones) basado en el conocimiento de su estado (incluyendo estado de seguridad), conectividad y proximidad?
+0% 0%
+20% 1% - 25%
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+25% Qué porcentaje de sus modelos de activos (análisis financiero y ciclo de vida) están basados en datos provenientes del sistema de supervisión SG y rendimiento reales (histórico y actual)?
+0% 0%
+20% 1% - 25%
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+25% Está optimizando el desempeño y uso de los activos (desde su adquisición hasta darle de baja) considerando las diferentes categorías de activos? 
+0% 0%
+20% 1% - 25% (de las categorías de activos están optimizadas)
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+25% Realiza mantenimiento predictivo y basado en condiciones para los componentes claves del sistema?
+0% 0% 0%
+20% 1% - 25% (de los componentes claves)
+40% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+--80% 5
+
+50% Está optimizando el uso de los activos entre y a través de los participantes de la cadena de suministro?
+0% No
+10% Muy pocos (<10% de las clases de activos o asociados)
+30% Algunos (10% - 49%)
+70% Muchos (50% - 80%)
+100% Sí (>80%)
+
+50% Sus activos son utilizados al máximo, incluyendo la dada de baja de los activos en el momento oportuno, basado en datos y sistemas SG?
+0% No
+10% Muy pocos (<10% de las clases de activos o asociados)
+30% Algunos (10% - 49%)
+70% Muchos (50% - 80%)
+100% Sí (>80%)
+
+---TECH
+
+--60% 1
+
+20% Tiene una arquitectura IT definida para la empresa?
+0% No
+50% Se están evaluando los beneficios de algunas arquitecturas candidatas
+70% En desarrollo
+100% Sí
+
+20% Ha evaluado su arquitectura IT propuesta o existente con los atributos de calidad (Ej: interoperabilidad, actualización, seguridad, costo y rendimiento) que respaldarán las aplicaciones SG?
+0% No
+50% En planeación
+70% Evaluaciones informales
+100% Evaluaciones formales
+
+20% Tiene un proceso de control de cambios (ej: gestión de configuraciones y actualizaciones) para sus aplicaciones e infraestructura IT?
+0% No
+30% Proceso informal
+50% Proceso formal implementado para al menos una clase de aplicación o un elemento de la infraestructura de IT (ej: servidores, enrutadores)
+70% Proceso formal implementado para un gran número de clases y/o elementos
+100% Proceso formal implementado para todas las clases y elementos
+
+20% Ha identificado en donde la tecnología podría mejorar el rendimiento de departamentos funcionales (ej: reducir costos, mejorar el flujo de trabajo, simplificar, automatizar, reducir riesgos, mejorar flexibilidad/adaptabilidad)?
+0% No
+50% Parcialmente
+90% Completamente
+100% Previamente establecido en la empresa
+
+20% Tiene un proceso para evaluar y seleccionar tecnologías armonizado con su visión/estrategia SG?
+0% No
+30% Indirectamente (No específico para SG)
+50% Se tiene un proceso informal
+70% Sí, se tiene un proceso formal para al menos una función y/o línea de negocio
+100% Sí, se tiene un proceso formal para la mayoría o todas las funciones y/o líneas de negocio
+
+--60% 2
+
+16% Armoniza las inversiones claves en IT con su arquitectura IT empresarial?
+0% No
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+16%  Se están implementando cambios en la arquitectura IT de la empresa para habilitar SG?
+0% No
+30% En progreso
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+16% Ha seleccionado normas estándares que apoyen el desarrollo de su estrategia SG dentro de su arquitectura IT empresarial?
+0% No
+50% Siendo evaluada y/o desarrollada
+70% Normatividad clave seleccionada
+100% La mayoría o toda la normatividad necesaria ha sido seleccionada
+
+12% Su organización aplica un proceso  de selección y evaluación de tecnología estándar para las actividades SG, incluyendo la selección de proveedores y fuentes externas?
+0% No
+50% Proceso informal
+70% Proceso formal implementado para al menos una función/línea de negocio
+100% Proceso formal implementado para la mayoría de funciones/líneas de negocio
+
+16% Tiene una estrategia de comunicaciones de datos para su red eléctrica?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Completa y aprobada
+100% En ejecución
+
+12% Existen proyectos de pruebas pilotos en curso para aplicaciones de unidades estratégicas de negocio basadas en conectividad a IED's (ej: procesadores remotos)?
+0% No, no se ha implementado conectividad con IED's
+0% No se han planeado pruebas pilotos para unidades estratégicas de negocio
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% Se están llevando a cabo pruebas piloto
+100% Se han finalizado las pruebas piloto
+
+12% Qué porcentaje de iniciativas SG tienen consideraciones de seguridad informática incorporadas desde su concepción?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+--60% 3
+
+17% Los procesos de negocio impactados por SG están orientados por la arquitectura IT de su empresa a través de líneas de negocio?
+0% No
+30% En desarrollo
+50% Un poco (<30% de los procesos impactados SG)
+70% En gran medida (30% - 70%)
+100% Completamente (>70%)
+
+17% Qué porcentaje de los sistemas de su empresa se incorporan a  su arquitectura IT smart grid?
+0% 0%
+30% 1% - 25%
+505 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+17% Ha implementado tecnología específica SG para mejorar el rendimiento entre las líneas de negocio (ej: gestión de demanda pico, detección de fallas, VVO integrado)?
+0% No
+30% Sólo como proyectos demostrativos
+50% En dos funciones y/o líneas de negocio
+70% Integrado a través de múltiples funciones y/o líneas de negocio
+100% Integrado a través de todas las funciones y/o líneas de negocio
+
+15% Tiene capacidades de análisis e inteligencia distribuida que estén disponibles por medio de tecnología SG?
+0% No
+30% En desarrollo
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+17% Tiene un plan de sensado avanzado (ej: conocimiento del estado de la red, control cercano a tiempo-real, usando PMUs u otros sensores sofisticados)?
+0% No
+30% En desarrollo
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+17% Tiene establecida una estrategia de comunicación de datos detallada (Ej: infraestructura física de comunicación, protocolos o estándares)?
+0% No
+30% En desarrollo
+50% En una sola función y/o línea de negocio
+70% En múltiples funciones y/o líneas de negocio
+100% En todas las funciones y/o líneas de negocio
+
+--70% 4
+
+17% Tiene acceso al flujo de datos en su sistema, "end-to-end", desde los clientes hasta la generación (donde los requerimientos de seguridad, privacidad y otros, lo permitan)?
+0% No
+30% En desarrollo
+50% Un poco (conecta <50% de los clientes y las fuentes)
+70% En gran medida (50% - 80%)
+100% Sí (>80%)
+
+15% Qué porcentaje de sus procesos de negocio son optimizados aprovechando la arquitectura de información IT empresarial?
+0% 0%
+30% 1% - 25% (de los procesos impactados)
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+19% Sus sistemas tienen suficientes datos y conocimiento de toda el área de influencia ("wide-area") para estar en capacidad de supervisar/controlar/atenuar los efectos de eventos complejos (ej: desastres naturales, clima severo, fluctuaciones de demanda extrema, etc.)?
+0% 0%
+30% 1% - 25% (de los sistemas en donde aplica)
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Usa modelado predictivo y/o simulación cercana a tiempo-real para optimizar los procesos de soporte técnico del sistema (Ej: mantenimiento, gestión de potencia, "call center", respaldo en la toma de decisiones)?
+0% 0% No
+30% En desarrollo
+30% 1% - 25% (de los sistemas en donde aplica)
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+19% El desempeño de su empresa está siendo mejorando debido al uso de sistemas sofisticados que toman datos e información SG (Ej: inteligencia de negocios o sistemas de gestión del conocimiento)?
+0% No
+50% En desarrollo
+70% Algo
+100% En gran medida
+
+15% Sus tácticas y estrategias de seguridad evolucionan continuamente basadas en cambios en los ambientes operacionales y las lecciones aprendidas?
+0% No
+50% Sólo en respuesta a cambios en normatividad y requerimientos de regulación
+70% Sí, de manera específica
+100% Sí, como parte de un proceso continuo
+
+--80% 5
+
+40% Ha implementado sistemas de computación autónoma utilizando máquinas de aprendizaje?
+0% No
+30% En desarrollo
+50% Implementación limitada
+100% Implementación extensa
+
+60% Sus sistemas de información identifican, atenúan y se recuperan de incidentes informáticos de forma automática?
+0% No
+30% En desarrollo
+50% Implementación limitada
+70% Implementación extensa
+100% Implementación completa, los sistemas automáticamente informan a las partes interesadas relevantes
+
+---CUST
+
+--60% 1
+
+25% Está llevando a cabo investigaciones sobre el uso de tecnología SG para mejorar la experiencia, beneficios y participación de sus usuarios?
+0% No
+50% Indirectamente (no como parte de sus iniciativas SG, pero proporcionando una perspectiva SG)
+70% Directamente como sea necesario
+100% Continuamente como parte de su proceso normal
+
+25% Está investigando las implicaciones de privacidad y seguridad de las nuevas tecnologías y funciones de negocio que faciliten la participación del usuario en SG?
+0% No
+50% Indirectamente (no como parte de sus iniciativas SG, pero proporcionando una perspectiva SG)
+70% Directamente como necesidad del usuario
+100% Continuamente como parte de su proceso normal
+
+25% Está divulgando y explicando su visión de la red del futuro a sus clientes (ej: explicando los beneficios de SG y describiendo potenciales escenarios de casos de uso)?
+0% No
+50% Informalmente, no existe divulgación estructurada
+70% Indirectamente a través de medios de comunicación y otros canales
+100% Directamente a los usuarios
+
+25% Está consultando con comisiones de servicio públicos y/o otras organizaciones gubernamentales sobre el impacto en los clientes que tiene su estrategia SG, antes de ser aplicada?
+0% No
+50%De forma limitada (la colaboración no es frecuente y no hace parte del proceso normal de negocio)
+100% Ampliamente (la colaboración es frecuente y hace parte del proceso normal de negocio)
+
+--60% 2
+
+17% Ha realizado pruebas de AMI y/o AMR en clientes residenciales?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+70% Hay pruebas en marcha
+100% Se han finalizado las pruebas o se han implementado
+
+17% Recopila datos de consumo residencial con una frecuencia mayor a la mensual para su uso en análisis y planeación operacional?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Parcialmente instalado en algunos clientes (<40%)
+100% En gran medida (>40%)
+
+15% Está modelando la confiabilidad de los equipos de la red?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+50% En desarrollo
+70% Sí, para al menos una clase de activos
+100% Sí, para múltiples clases de activos
+
+17% Ha realizado pruebas piloto de tecnologías de conexión/desconexión remota para clientes residenciales?
+0% No
+30% Existe un plan documentado que incluye cronogramas y presupuestos
+70% Hay pruebas en marcha
+100% Se han finalizado las pruebas o se han implementado
+
+17%Está evaluando el impacto en los clientes, de nuevos servicios y procesos de despacho tales como "Home Area Networks" (HAN), instalaciones de medidores inteligentes, precios dinámicos, y/o apagado o encendido remoto?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% En proceso
+100% Finalizado
+
+17% Qué porcentaje de pruebas piloto relacionadas con SG y Requerimientos de Licitacines y Propuestas, especifican los requerimientos de seguridad y privacidad para la protección del usuario?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+--60% 3
+
+10% Tiene clasificado a los clientes residenciales de tal forma que esté en capacidad de ofrecerles servicios ajustados a sus necesidades ("customize")?
+0% No
+30% En evaluación
+70% Existen categorías (categorías basadas en un criterio simple)
+100% Altamente categorizado (categorías basadas en combinaciones de criterios)
+
+12% Qué porcentaje de los medidores de los clientes residenciales tienen capacidades de comunicación bidireccional (ej: AMI)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+10% Qué porcentaje de clientes residenciales tienen habilitada la capacidad de conexión y desconexión remota?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+12% Qué porcentaje de clientes residenciales tienen habilitado respuesta a la demanda o control de carga remoto?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+12% Qué porcentaje de subestaciones están equipadas con detección automáticas de apagones?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+12% Qué porcentaje de los clientes residenciales tienen acceso por solicitud de los datos de su consumo diario (o con mayor frecuencia)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+10% Ha implementado una experiencia de acceso a la información con los clientes (Ej: usabilidad y consistencia de la información, disponibilidad) a través de al menos dos canales de comunicación con clientes residenciales?
+0% No
+30% En un plan documentado
+50% En proceso
+70% Completo para al menos dos canales (ej: web, respuesta por voz, interfaz móvil)
+100% Completo a través de múltiples canales (ej: web, respuesta por voz, interfaz móvil)
+
+12% Proporciona educación al cliente sobre cómo utilizar los servicios SG para reducir el consumo en las horas pico?
+0% No
+50% Sí, disponible a través de canales pasivos (ej: web)
+70% Sí, activo, indirecto a través de medios de comunicación u otros canales de transmisión
+100% Sí, activo, directo y dirigido a usuarios individuales
+
+10% Qué porcentaje de productos y servicios para los clientes tienen incorporados controles de seguridad y privacidad que cumplan la normatividad gubernamental e industrial?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+--70% 4
+
+15% Proporciona respaldo a los clientes para ayudarles a analizar y comparar su consumo actual en comparación con todos los programas de precios disponibles?
+0% No, o en desarrollo
+50% Limitado (<50% de los clientes o programas)
+70% Amplio (50% - 90%)
+100% Sí, para esencialmente todos los clientes y programas (>90%)
+
+13% Qué porcentaje de circuitos están equipados con notificación autónoma y detección automática de cortes o apagones?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Qué porcentaje de clientes tienen acceso por solicitud a los datos de consumo cercanos a tiempo-real (por minuto)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Qué porcentaje de clientes participan en programas de respuesta a la demanda o control de carga remoto?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Qué porcentaje de clientes residenciales se les proporciona la capacidad de respuesta automática a señales de cambios de precios para los principales dispositivos de consumo de energía en su residencia?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Para qué porcentaje de clientes están disponibles los programas de facturación neta en casa (ej: crédito/pago de paneles solares, eólicos, etc.)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+12% Ha integrado una experiencia de acceso a la información con los clientes a través de todos los canales de comunicación de los clientes residenciales para todos los servicios ofrecidos (ej: impulsando fuentes de datos comunes)?
+0% No
+30% En progreso
+50% Completo para al menos dos canales
+70% Completo a través de múltiples canales
+100% Completo a través de todos los canales
+
+--80% 5
+
+22% Qué porcentaje de clientes pueden gestionar completamente sus niveles de consumo y suministro de energía (fuentes renovables de energía y mixtos)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+22% Qué porcentaje de clientes (incluyendo los residenciales) tienen detección automática de apagones?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+22% Qué porcentaje de clientes están soportados mediante generación propia "plug-and-play" (incluyendo la infraestructura de respaldo necesaria para facturación neta, control, etc.)?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+15% Puede proveer evidencia convincente que garantice la seguridad y privacidad de los datos del cliente que son almacenados transmitidos o procesados?
+0% No
+30% Evidencia autogenerada (ej: revisiones de diseño, revisiones de código)
+70% Evidencia generada externamente (ej: certificaciones de terceros, revisiones de terceros)
+100% Ambos
+
+19% Juega un papel de liderazgo a nivel de la industria en esfuerzos de desarrollo de normativas e intercambio de información para SG?
+0% No
+50% Para la protección de la seguridad y privacidad del usuario
+50% Para la promoción de control y selección del usuario
+100% Ambos
+
+---VCI
+
+--60% 1
+
+15% Ha identificado los activos y programas necesarios para facilitar la gestión de carga?
+0% No
+50% En un plan documentado que incluye cronogramas y presupuestos
+70% Evaluación e identificación en marcha
+100% Identificación finalizada
+
+20% Ha identificado fuentes de generación distribuida y las capacidades necesarias para soportarlas?
+0% No
+50% En un plan documentado que incluye cronogramas y presupuestos
+70% Evaluación e identificación en marcha
+100% Identificación finalizada
+
+20% Ha identificado sistemas de almacenamiento de energía y las capacidades necesarias para soportarlas?
+0% No
+50% En un plan documentado que incluye cronogramas y presupuestos
+70% Evaluación e identificación en marcha
+100% Identificación finalizadas
+
+30% Tiene alguna estrategia para desarrollar, habilitar, y gestionar un portafolio de diferentes fuentes de energía (ej: integración de nuevos recursos como respuesta a la demanda, generación distribuida, etc.)?
+0% No
+30% En proceso de crear una estrategia
+70% Completo
+100% En ejecución
+
+15% Ha identificado requerimientos de seguridad para facilitar la interacción con un amplio portafolio de socios de la cadena de valor?
+0% No
+50% En un plan documentado que incluye cronogramas y presupuestos
+70% Evaluación e identificación en marcha
+100% Identificación completada
+
+--60% 2
+
+25% Está proporcionando apoyo para los sistemas de gestión de energía residenciales (ej: vía portales de usuario o "Home Display")?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En progreso
+70% Moderadamente (<40% de los usuarios)
+100% En gran medida (>40%)
+
+25% Ha redefinido la cadena de valor según las capacidades SG (incluyendo generación distribuida, microgeneración, almacenamiento de energía y nuevos usuarios y proveedores)?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En progreso
+100% Finalizado
+
+30% Está realizando pruebas piloto que respalde un portafolio de diversas fuentes de energía (ej: generación distribuida, gestión de demanda, respuesta a la demanda, almacenamiento, etc.)?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% Piloto en marcha
+70% Actividades piloto finalizadas
+100% Piloto finalizado e implantación en progreso
+
+20% Está realizando pruebas piloto que propendan por una interacción segura con un amplio portafolio de socios de la cadena de valor?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% Piloto en marcha
+70% Actividades piloto finalizadas
+100% Piloto finalizado y en desarrollo
+
+--60% 3
+
+30% Tiene un plan de recursos integrado que incluya nuevas tecnologías y fuentes de energía (ej: sistemas de gestión Volt/Var, respuesta a la demanda, generación distribuida, etc.)?
+0% No
+30% En desarrollo
+50% Parcialmente instalado (apoyando al menos un recurso)
+70% Instalado en su mayoría (apoyando múltiples recursos)
+100% Totalmente instalado (apoyando todos los recursos disponibles)
+
+25% Ha habilitado soluciones de gestión de energía para los clientes (incluyendo comerciales, industriales y residenciales) con información de consumo y mercado?
+0% No
+30% En desarrollo
+50% Un poco (<10% de todos los clientes)
+70% En gran medida (10% - 70%)
+100% Completamente (>70%)
+
+30% Se están habilitando o implementando recursos adicionales (ej: vehículos eléctricos, almacenamiento, generación distribuida) para ser reemplazados por productos del mercado que proporcionen confiabilidad u otros objetivos?
+0% No
+30% Se han identificado recursos pero no se han habilitado
+50% Se ha habilitado al menos un recurso
+70% Se han habilitado numerosos recursos
+100% Hay un proceso continuo de identificación y habilitación de nuevos recursos
+
+15% Ha desarrollado procesos de supervisión y gestión de seguridad para la proteger la interacción con un amplio portafolio de socios de la cadena de valor?
+0% No
+30% En desarrollo
+50% Los procesos de seguridad están establecidos en su organización
+70% Los procesos de seguridad colaborativos están establecidos en la organización con al menos uno de los socios de la cadena de valor
+100% Los procesos de seguridad colaborativos están establecidos a través de toda su cadena de valor.
+
+--70% 4
+
+25% Son sus fuentes de energía (incluyendo recursos como Volt/Var, respuesta a la demanda, generación distribuida) gestionables e intercambiables?
+0% No
+30% En desarrollo
+50% Para un recurso
+70% Para dos o más recursos
+100% Para todos los recursos disponibles
+
+25% Ha implementado modelos de optimización del portafolio de servicios que abarque los recursos disponibles y los mercados en tiempo-real (ej: para habilitar la respuesta a condiciones de mercados/suministro dinámicos)
+0% No
+30% En desarrollo
+50% Para un recurso
+70% Para dos o más recursos
+100% Para todos los recursos disponibles
+
+25% Para qué porcentaje de los usuarios residenciales les ofrece comunicación bidireccional segura vía HAN?
+0% Ninguno
+30% En desarrollo
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+25% Para qué porcentaje de los clientes residenciales tiene visibilidad y control de los electrodomésticos de gran consumo (ej: aire acondicionado, calentador de agua)?
+0% Ninguno
+30% En desarrollo
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+--80% 5
+
+33% Ha automatizado la optimización de activos de energía a través de toda la cadena de valor?
+0% No
+30% En desarrollo
+50% Algo (<50% de activos de energía)
+70% Substancialmente (50% - 80%)
+100% Extensamente (>80%)
+
+33% Sus recursos realizan un adecuado despacho y control de forma que se pueda tomar ventaja de las opciones del mercado granular (precio marginal localizable)?
+0% Ninguno
+30% En desarrollo
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+34% Sus esquemas de control automatizado y de optimización  de recursos consideran y respaldan la optimización  de la red regional y/o nacional?
+0% No
+30% En desarrollo
+50% En una medida limitada
+100% Sí, de forma significativa
+
+---SE
+
+--60% 1
+
+40% Su estrategia o visión SG guía el rol de la empresa en temas ambientales o sociales?
+0% No
+50% Rol aceptado
+70% Rol aceptado y metas establecidas
+100% Rol aceptado, metas establecidas y estrategia detallada
+
+25% Ha promovido públicamente los beneficios ambientales de su visión y estrategia SG?
+0% No
+50% Informalmente, no hay comunicación estructurada
+65% Indirectamente a través de medios de comunicación y otros canales
+80% Directamente con los usuarios
+100% Tanto directa como indirectamente
+
+25% Se ha puesto a disposición de la inspección pública su registro de conformidades con las regulaciones ambientales?
+0% No
+50% Disponible bajo solicitud específica
+70% Disponible bajo solicitud a través de múltiples canales
+100% Disponible y públicas de forma activa
+
+10% Su visión y estrategia SG especifica su rol en la protección de la infraestructura crítica nacional?
+0% No
+50% Rol aceptado
+70% Rol aceptado y metas establecidas
+100% Rol aceptado, metas establecidas y estrategia detallada
+
+--60% 2
+
+20% Su estrategia y planes de trabajo SG abordan temas ambientales y sociales (incremento de costos, calentamiento global, polución, materiales peligrosos, control de derrames y otras inquietudes públicas)?
+0% No
+30% En desarrollo
+50% Moderadamente (los planes de trabajo y estrategias SG abordan unos pocos problemas)
+100% Ampliamente (abordan un amplio rango de problemas)
+
+25% Ha establecido programas de eficiencia energética para los usuarios?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+50% En prueba
+70% Para al menos una categoría o segmento de clientes
+100% Para todos los clientes
+
+20% Su organización considera una visión "triple balance" al tomar decisiones (considerando mediciones de rendimiento financiero, social y ambiental)?
+0% No
+30% Bajo consideración
+50% En al menos una función y/o línea de negocio
+100% A través de todas las funciones y/o líneas de negocio
+
+18% Ha implementado proyectos de prueba de conceptos ambientales (ej: generación solar o eólica) que demuestren los beneficios de SG en aspectos soliales y ambientales?
+0% No
+30% En un plan documentado que incluye cronogramas y presupuestos
+70% En progreso
+100% Completo
+
+17% Ha puesto a disposición de los usuarios información de consumo incrementalmente granular y con mayor frecuencia?
+0% No
+30% Información del consumo mensual disponible
+70% Más frecuente que mensual
+100% Diariamente o con mayor frecuencia
+
+--60% 3
+
+25% Sus programas sociales y ambientales en su estrategia SG son mediblemente efectivos?
+0% No
+30% Sólo medición de rendimiento de manera informal
+50% Se está implementando medición de rendimiento de manera formal
+70% Se está implementando medición de rendimiento de manera formal alcanzando las metas propuestas
+100% Se está implementando medición de rendimiento de manera formal excediendo las metas propuestas
+
+25% Su organización pone a disposición de los clientes (incluyendo comerciales, industriales y residenciales) información clasificada y a la medida que incluya beneficios y costos ambientales y sociales?
+0% No
+10% En desarrollo
+30% Un poco (<30% de todos los clientes)
+70% Moderadamente (30% - 80%)
+100% En gran medida (>80%)
+
+25% Su organización ha establecido programas que fomenten el consumo de los usuarios fuera de las horas pico?
+0% No
+10% En un plan documentado
+30% Un poco (<30% de todos los clientes)
+70% Moderadamente (30% - 80%)
+100% En gran medida (>80%)
+
+25% Su organización reporta de forma regular el impacto social y ambiental de sus programas y tecnologías SG?
+0% No
+50% Disponible bajo demanda específica
+70% Disponible a través de múltiples canales bajo demanda
+100% Disponible y públicas de forma activa
+
+--70% 4
+
+20% Su organización colabora con las partes interesadas externas direccionados hacia problemas sociales y ambientales?
+0% No
+50% Con las partes interesadas externas claves para problemas claves
+70% Con todas las partes interesadas externas para problemas claves
+100% Con todas las partes interesadas externas para todos los problemas
+
+20% Su organización lleva un "ranking" público en temas ambientales y sociales?
+0% No
+50% De forma limitada
+70% Extensamente
+100% Completamente
+
+20% Ha implementado programas SG (ej: programas de respuesta a la demanda, señales de precios dinámicos o manejo del control de dispositivos) para recortar la demanda en las horas pico?
+0% No
+30% En desarrollo
+50% De forma limitada (ej: disponible para un conjunto limitado de clientes o con opciones limitadas)
+100% Extensamente (ej: disponible para >90% de clientes con múltiples opciones)
+
+20% Para qué porcentaje de clientes (incluyendo comerciales, industriales o residenciales)a través de su red se puede gestionar activamente el consumo y los dispositivos del cliente final?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+20% Su organización satisface las metas de flexibilidad de su infraestructura crítica y contribuye a los de la región y la nación?
+0% No existen metas
+30% Algunas metas están siendo alcanzadas
+50% Todas las metas se cumplen adecuadamente
+70% Las metas están siendo probadas y demostradas para cumplirse adecuadamente
+100% Existe evidencia convincente de cumplimiento de metas y de contribuciones a la región y la nación
+
+--80% 5
+
+35% Las metas de "triple balance" de su organización están alineadas con los objetivos locales, regionales y nacionales?
+0% No
+50% Alineamiento limitado
+70% Alineado
+100% Alineado y las metas se cumplen
+
+35% Qué porcentaje de clientes tienen habilitado el control de su huella ambiental energética a través de optimización  automática de su nivel de consumo y suministro de energía completo (fuentes de energía y mixto) basado en las preferencias del usuario?
+0% 0%
+30% 1% - 25%
+50% 26% - 50%
+70% 51% - 75%
+100% 76% - 100%
+
+30% Su organización es líder en el desarrollo y la promoción de mejores prácticas y/o tecnologías para la protección de la infraestructura crítica nacional?
+0% No
+30% No, pero miembros de su organización participan en foros relevantes de la industria y/o gobierno
+70% Sí, miembros de su organización lideran foros relevantes de la industria y/o gobierno
+100% Sí, somos pioneros y promotores de mejores prácticas, métodos y/o tecnologías para la adaptación SG
+
