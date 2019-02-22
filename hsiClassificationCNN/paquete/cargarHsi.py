@@ -1,4 +1,7 @@
-#Clase cargar datos de una imagen HSI y retornarlos en formato numpy
+#Clase para cargar datos de una imagen HSI y retornarlos en formato numpy
+#Permite graficar un canal de la imagen o el ground truth
+#Permite normalizar los datos y codificarlos para usar en las redes 
+#Permite extraer conjuntos de entrenamiento, validacion y prueba
 import scipy.io as sio
 import numpy as np
 
