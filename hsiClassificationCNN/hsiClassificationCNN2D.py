@@ -2,5 +2,5 @@
 from paquete.cargarHsi import CargarHsi
 
 #COMIENZO PROGRAMA PRINCIPAL
-data = CargarHsi('Salinas')
+data = CargarHsi('Indian_pines')
 print(data)
