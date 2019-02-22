@@ -26,3 +26,6 @@ class CargarHsi:
                f"Datos:\t\t {self.imagen[0]}\n" \
                f"Dimensiones GT:\t {self.groundTruth.shape}\n" \
                f"Datos GT:\t\t {self.groundTruth}\n"
+
+    def graficarHsi(self):
+        print('FUNCION PARA GRAFICAR UN CANAL DE LA IMAGEN o el GT')

@@ -4,3 +4,4 @@ from paquete.cargarHsi import CargarHsi
 #COMIENZO PROGRAMA PRINCIPAL
 data = CargarHsi('Indian_pines')
 print(data)
+data.graficarHsi()
