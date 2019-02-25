@@ -4,6 +4,7 @@
 #Permite extraer conjuntos de entrenamiento, validacion y prueba
 import scipy.io as sio
 import numpy as np
+import matplotlib.pyplot as plt
 
 class CargarHsi:
     def __init__(self,name_data):
@@ -18,17 +19,26 @@ class CargarHsi:
         print(data_t.shape)
         for i in range(data.shape[0]): # Transponer cada canal para ajustar los ejes coordenados
             data_t[i] = data[i].T 
-        self.imagen = data_t
+
+        #NORMALIZAR DATOS DE ENTRADA
+        mean = data_t.mean(axis=0)
+        data_t -= mean
+        std = data_t.std(axis=0)
+        data_t /= std
+        self.imagen = data_t   #IMAGEN DE ENTRADA NORMALIZADA
         #CARGAR GROUND TRUTH
         mat = sio.loadmat(dicData[name_data][2]) # Cargar archivo Ground Truth .mat
         data = np.array(mat[dicData[name_data][3]]) # Convertir Ground Truth a numpy array
-        self.groundTruth = data
+        self.groundTruth = data         #GROUND TRUTH
 
     def __str__(self):
-        return f"Dimensiones:\t {self.imagen.shape}\n" \
+        return f"Dimensiones Imagen:\t {self.imagen.shape}\n" \
                f"Datos:\t\t {self.imagen[0]}\n" \
-               f"Dimensiones GT:\t {self.groundTruth.shape}\n" \
+               f"Dimensiones Ground Truth:\t {self.groundTruth.shape}\n" \
                f"Datos GT:\t\t {self.groundTruth}\n"
 
-    def graficarHsi(self):
-        print('FUNCION PARA GRAFICAR UN CANAL DE LA IMAGEN o el GT')
+
+    def graficarHsi(self,imageChannel):
+        plt.imshow(imageChannel)
+        plt.colorbar()
+        plt.show()
