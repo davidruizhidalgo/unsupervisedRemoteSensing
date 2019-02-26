@@ -1,7 +1,7 @@
-#Clase para cargar datos de una imagen HSI y retornarlos en formato numpy
+#Permite cargar datos de una imagen HSI y retornarlos en formato numpy
+#Permite normalizar los datos de entrada
 #Permite graficar un canal de la imagen o el ground truth
-#Permite normalizar los datos y codificarlos para usar en las redes 
-#Permite extraer conjuntos de entrenamiento, validacion y prueba
+
 import scipy.io as sio
 import numpy as np
 import matplotlib.pyplot as plt
@@ -16,7 +16,6 @@ class CargarHsi:
         data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array
         data = data.T   # Transponer para ajustar los ejes coordenados      
         data_t = np.zeros( (data.shape[0],data.shape[2],data.shape[1]) )
-        print(data_t.shape)
         for i in range(data.shape[0]): # Transponer cada canal para ajustar los ejes coordenados
             data_t[i] = data[i].T 
 
@@ -39,6 +38,7 @@ class CargarHsi:
 
 
     def graficarHsi(self,imageChannel):
+        plt.figure(1)
         plt.imshow(imageChannel)
         plt.colorbar()
         plt.show()
