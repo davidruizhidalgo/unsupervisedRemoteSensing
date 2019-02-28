@@ -1,5 +1,4 @@
-#Permite extraer conjuntos de entrenamiento, validacion y prueba
-
+#Permite extraer conjuntos de entrenamiento, validacion y prueba en 1D y 2D
 import math
 import numpy as np
 import matplotlib.pyplot as plt

@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class CargarHsi:
+    
     def __init__(self,name_data):
         dicData = {'Indian_pines' : ['C:/Users/david/Documents/SoftwareDesarrollado/dataSets/indian_pines.mat', 'indian_pines_corrected', 'C:/Users/david/Documents/SoftwareDesarrollado/dataSets/indian_pines_gt.mat', 'indian_pines_gt'],
                     'Salinas' : ['C:/Users/david/Documents/SoftwareDesarrollado/dataSets/salinas.mat', 'salinas_corrected', 'C:/Users/david/Documents/SoftwareDesarrollado/dataSets/salinas_gt.mat', 'salinas_gt'],
