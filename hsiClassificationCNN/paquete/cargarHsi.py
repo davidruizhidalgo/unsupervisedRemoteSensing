@@ -36,7 +36,6 @@ class CargarHsi:
                f"Dimensiones Ground Truth:\t {self.groundTruth.shape}\n" \
                f"Datos GT:\t\t {self.groundTruth}\n"
 
-
     def graficarHsi(self,imageChannel):
         plt.figure(1)
         plt.imshow(imageChannel)

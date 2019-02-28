@@ -10,7 +10,7 @@ groundTruth = data.groundTruth
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
 preparar = PrepararDatos(imagen, groundTruth)
-datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos1D()
+datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,50)
 
 #preparar.funcionPrueba()
 
