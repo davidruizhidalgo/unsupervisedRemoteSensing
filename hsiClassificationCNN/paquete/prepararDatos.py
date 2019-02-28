@@ -112,6 +112,3 @@ class PrepararDatos:
           etiquetasPrueba[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
 
         return datosPrueba, etiquetasPrueba
-
-    def funcionPrueba(self):
-        pass
