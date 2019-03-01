@@ -4,7 +4,7 @@ from paquete.prepararDatos import PrepararDatos
 from paquete.PCA import princiapalComponentAnalysis
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-data = CargarHsi('Salinas')
+data = CargarHsi('Indian_pines')
 imagen = data.imagen
 groundTruth = data.groundTruth
 
@@ -14,9 +14,10 @@ datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis(imagen)
-imagenPCA = pca.pca_calculate(6)
-pca.graficarPCA(imagenPCA,0)
+imagenPCA = pca.pca_calculate(0.95)
 
 
-#GRAFICAR GROUND TRUTH
-data.graficarHsi(groundTruth)
+
+#GRAFICAS
+#pca.graficarPCA(imagenPCA,0)
+#data.graficarHsi(groundTruth)
