@@ -8,6 +8,7 @@ from paquete.PCA import princiapalComponentAnalysis
 from keras import layers
 from keras import models
 from keras import regularizers
+import matplotlib.pyplot as plt
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 data = CargarHsi('Indian_pines')
@@ -32,7 +33,7 @@ model.add(layers.Conv2D(64, (3, 3), kernel_regularizer=regularizers.l2(0.001),ac
 #model.add(layers.MaxPooling2D((2, 2)))
 #model.add(layers.Dropout(0.5))
 model.add(layers.Conv2D(64, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-#AÑADE UN CLASIFICADOR EN EL TOPE DE LA CONVNET
+#AÑADE UN CLASIFICADOR MLR EN EL TOPE DE LA CONVNET
 model.add(layers.Flatten())
 model.add(layers.Dense(64, kernel_regularizer=regularizers.l2(0.001), activation='relu'))
 model.add(layers.Dropout(0.5))
@@ -50,6 +51,30 @@ print(test_acc)
 datosSalida = model.predict(datosPrueba)
 datosSalida = datosSalida.argmax(axis=1)
 datosSalida = datosSalida.reshape((groundTruth.shape[0],groundTruth.shape[1]))
+
+#GRAFICAR TRAINING AND VALIDATION LOSS
+plt.figure(1)
+plt.subplot(211)
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+epochs = range(1, len(loss) + 1)
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and validation loss')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.subplot(212)
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and validation accuracy')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+plt.show()
 
 #GRAFICAS
 data.graficarHsi(groundTruth)

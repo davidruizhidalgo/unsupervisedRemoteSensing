@@ -48,7 +48,7 @@ partial_y_train = one_hot_train_labels[1000:]
 
 history = model.fit(partial_x_train,partial_y_train,epochs=20,batch_size=512,validation_data=(x_val, y_val))
 
-#PLOTING TRAINING AND VALIDATIOS LOSS
+#PLOTING TRAINING AND VALIDATION LOSS
 plt.figure(1)
 plt.subplot(211)
 loss = history.history['loss']
