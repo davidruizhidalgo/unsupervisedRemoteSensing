@@ -49,25 +49,25 @@ class PrepararDatos:
 
         return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
     
-    def extraerDatos2D(self,porEntrenamiento, porValidacion):
+    def extraerDatos2D(self,porEntrenamiento, porValidacion, ventana):
         #Datos de entrenamiento
         numtrain = self.dataImagen.shape[1]*self.dataImagen.shape[2]*porEntrenamiento/100
         numtrain = math.floor(numtrain)
-        datosEntrenamiento = np.zeros( (numtrain,3,3,self.dataImagen.shape[0]) )
+        datosEntrenamiento = np.zeros( (numtrain,ventana,ventana,self.dataImagen.shape[0]) )
         etiquetasEntrenamiento =  np.zeros( numtrain )
-        paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+2,self.dataImagen.shape[2]+2))
-        paddingImage[:,1:-1,1:-1] =  self.dataImagen #imagen aunmentada para padding
+        paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+ventana-1,self.dataImagen.shape[2]+ventana-1))
+        paddingImage[:,math.floor((ventana-1)/2):self.dataImagen.shape[1]+math.floor((ventana-1)/2),math.floor((ventana-1)/2):self.dataImagen.shape[2]+math.floor((ventana-1)/2)] =  self.dataImagen #imagen aunmentada para padding
         for i in range(numtrain):
-          datosEntrenamiento[i] = paddingImage[:,self.indices[0,i]:self.indices[0,i]+3,self.indices[1,i]:self.indices[1,i]+3].T
+          datosEntrenamiento[i] = paddingImage[:,self.indices[0,i]:self.indices[0,i]+ventana,self.indices[1,i]:self.indices[1,i]+ventana].T
           etiquetasEntrenamiento[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
 
         #Datos de validación
         numVal = self.dataImagen.shape[1]*self.dataImagen.shape[2]*porValidacion/100
         numVal = math.floor(numVal)
-        datosValidacion = np.zeros( (numVal,3,3,self.dataImagen.shape[0]) )
+        datosValidacion = np.zeros( (numVal,ventana,ventana,self.dataImagen.shape[0]) )
         etiquetasValidacion =  np.zeros( numVal )
         for i in range(numVal):
-            datosValidacion[i] = paddingImage[:,self.indices[0,numtrain+i]:self.indices[0,numtrain+i]+3,self.indices[1,numtrain+i]:self.indices[1,numtrain+i]+3].T
+            datosValidacion[i] = paddingImage[:,self.indices[0,numtrain+i]:self.indices[0,numtrain+i]+ventana,self.indices[1,numtrain+i]:self.indices[1,numtrain+i]+ventana].T
             etiquetasValidacion[i] = self.groundTruth[self.indices[0,numtrain+i],self.indices[1,numtrain+i]]
 
         #Codificar etiquetas de entrenamiento y validacion ONE HOT
@@ -89,12 +89,12 @@ class PrepararDatos:
         etiquetasPrueba =  np.zeros( numprueba )
         
         for i in range(numprueba):
-            datosPrueba[i,:] = self.dataImagen[:,self.indices[0,i],self.indices[1,i]]
-            etiquetasPrueba[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
+            datosPrueba[i,:] = self.dataImagen[:,indices[0,i],indices[1,i]]
+            etiquetasPrueba[i] = self.groundTruth[indices[0,i],indices[1,i]]
 
         return datosPrueba, etiquetasPrueba
 
-    def extraerDatosPrueba2D(self):
+    def extraerDatosPrueba2D(self,ventana):
         k=0 #Generacion de vector de indices de datos en la imagen HSI
         indices = np.zeros( (2,self.dataImagen.shape[1]*self.dataImagen.shape[2]), dtype=np.int16 )
         for i in range(self.dataImagen.shape[1]):
@@ -103,12 +103,15 @@ class PrepararDatos:
                 k += 1
         #Datos de Prueba
         numData = self.dataImagen.shape[1]*self.dataImagen.shape[2]
-        datosPrueba = np.zeros( (numData,3,3,self.dataImagen.shape[0]) )
+        datosPrueba = np.zeros( (numData,ventana,ventana,self.dataImagen.shape[0]) )
         etiquetasPrueba =  np.zeros( numData )
-        paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+2,self.dataImagen.shape[2]+2))
-        paddingImage[:,1:-1,1:-1] =  self.dataImagen #imagen aunmentada para padding
+        paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+ventana-1,self.dataImagen.shape[2]+ventana-1))
+        paddingImage[:,math.floor((ventana-1)/2):self.dataImagen.shape[1]+math.floor((ventana-1)/2),math.floor((ventana-1)/2):self.dataImagen.shape[2]+math.floor((ventana-1)/2)] =  self.dataImagen #imagen aunmentada para padding
         for i in range(numData):
-          datosPrueba[i] = paddingImage[:,self.indices[0,i]:self.indices[0,i]+3,self.indices[1,i]:self.indices[1,i]+3].T
-          etiquetasPrueba[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
+          datosPrueba[i] = paddingImage[:,indices[0,i]:indices[0,i]+ventana,indices[1,i]:indices[1,i]+ventana].T
+          etiquetasPrueba[i] = self.groundTruth[indices[0,i],indices[1,i]]
+        
+        #Codificar etiquetas de prueba en ONE HOT
+        etiquetasPrueba = to_categorical(etiquetasPrueba)
 
         return datosPrueba, etiquetasPrueba
