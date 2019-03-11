@@ -4,7 +4,6 @@
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
 from paquete.cargarHsi import CargarHsi
 from paquete.prepararDatos import PrepararDatos
-from paquete.prepararDatosSinFondo import PrepararDatosSinFondo
 from paquete.PCA import princiapalComponentAnalysis
 from keras import layers
 from keras import models
@@ -12,6 +11,7 @@ from keras import regularizers
 import matplotlib.pyplot as plt
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
+clases = 17 #CLASES PRESENTES EN LA IMAGEN
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 data = CargarHsi('Indian_pines')
 imagen = data.imagen
@@ -22,7 +22,7 @@ pca = princiapalComponentAnalysis(imagen)
 imagenPCA = pca.pca_calculate(0.95)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
-preparar = PrepararDatos(imagenPCA, groundTruth)
+preparar = PrepararDatos(imagenPCA, groundTruth, False)
 datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
@@ -51,8 +51,7 @@ test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
 print(test_acc)
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 datosSalida = model.predict(datosPrueba)
-datosSalida = datosSalida.argmax(axis=1)
-datosSalida = datosSalida.reshape((groundTruth.shape[0],groundTruth.shape[1]))
+datosSalida = preparar.predictionToImage(datosSalida)
 
 #GRAFICAR TRAINING AND VALIDATION LOSS
 plt.figure(1)

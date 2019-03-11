@@ -22,9 +22,9 @@ pca = princiapalComponentAnalysis(imagen)
 imagenPCA = pca.pca_calculate(0.95)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
-preparar = PrepararDatos(imagenPCA, groundTruth)
+preparar = PrepararDatos(imagenPCA, groundTruth, False)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
-datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,0, clases)
+datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,4, clases)
 
 #CARGAR RED CONVOLUCIONAL
 model = load_model('hsiClassificationCNN2D.h5')
@@ -35,9 +35,7 @@ print(test_acc)
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 datosSalida = model.predict(datosPrueba)
-datosSalida = datosSalida.argmax(axis=1)
-datosSalida = datosSalida.reshape((groundTruth.shape[0],groundTruth.shape[1]))
+datosSalida = preparar.predictionToImage(datosSalida)
 
 #GRAFICAS
-data.graficarHsi(groundTruth)
-data.graficarHsi(datosSalida)
+data.graficarHsi_VS(groundTruth, datosSalida)

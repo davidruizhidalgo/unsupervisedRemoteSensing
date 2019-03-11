@@ -6,16 +6,27 @@ from keras.utils import to_categorical
 
 class PrepararDatos:
     
-    def __init__(self,dataImagen, groundTruth):
+    def __init__(self, dataImagen, groundTruth, backGround = True):
         self.dataImagen = dataImagen
         self.groundTruth = groundTruth
-        self.indices = np.zeros( (2,dataImagen.shape[1]*dataImagen.shape[2]), dtype=np.int16 )
-        k=0 #Generacion de vector de indices de datos en la imagen HSI
-        for i in range(dataImagen.shape[1]):
-            for j in range(dataImagen.shape[2]):
-                self.indices[:,k] = [i, j]
-                k += 1
-        np.random.shuffle(self.indices.T)  
+        self.indices_org = []
+        
+        if backGround == True:
+            for i in range(dataImagen.shape[1]):
+                for j in range(dataImagen.shape[2]):
+                    self.indices_org.append([i, j]) 
+            self.indices_org = np.array(self.indices_org, dtype=np.int16).T
+            self.indices = self.indices_org.copy()
+            np.random.shuffle(self.indices.T)  
+
+        if backGround == False:
+            for i in range(dataImagen.shape[1]):
+                for j in range(dataImagen.shape[2]):
+                    if self.groundTruth[i,j] != 0:
+                        self.indices_org.append([i, j]) 
+            self.indices_org = np.array(self.indices_org, dtype=np.int16).T
+            self.indices = self.indices_org.copy()
+            np.random.shuffle(self.indices.T) 
         
     def __str__(self):
         return f"Dimensiones Imagen:\t {self.dataImagen.shape}\n" \
@@ -24,6 +35,7 @@ class PrepararDatos:
 
     def extraerDatos1D(self,porEntrenamiento, porValidacion):
         #Datos de entrenamiento
+        print(self.indices.shape)
         numtrain = self.indices.shape[1]*porEntrenamiento/100
         numtrain = math.floor(numtrain)
         datosEntrenamiento = np.zeros( (numtrain,self.dataImagen.shape[0]) )
@@ -77,12 +89,7 @@ class PrepararDatos:
         return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
 
     def extraerDatosPrueba1D(self):
-        k=0 #Generacion de vector de indices de datos en la imagen HSI
-        indices = np.zeros( (2,self.indices.shape[1]), dtype=np.int16 )
-        for i in range(self.dataImagen.shape[1]):
-            for j in range(self.dataImagen.shape[2]):
-                indices[:,k] = [i, j]
-                k += 1
+        indices = self.indices_org.copy()
         #Datos de Prueba
         numprueba = self.indices.shape[1]
         datosPrueba = np.zeros( (numprueba,self.dataImagen.shape[0]) )
@@ -95,12 +102,7 @@ class PrepararDatos:
         return datosPrueba, etiquetasPrueba
 
     def extraerDatosPrueba2D(self,ventana):
-        k=0 #Generacion de vector de indices de datos en la imagen HSI
-        indices = np.zeros( (2,self.indices.shape[1]), dtype=np.int16 )
-        for i in range(self.dataImagen.shape[1]):
-            for j in range(self.dataImagen.shape[2]):
-                indices[:,k] = [i, j]
-                k += 1
+        indices = self.indices_org.copy()
         #Datos de Prueba
         numData = self.indices.shape[1]
         datosPrueba = np.zeros( (numData,ventana,ventana,self.dataImagen.shape[0]) )
@@ -147,3 +149,12 @@ class PrepararDatos:
         etiquetasClase = np.array(etiquetasClase)
         etiquetasClase = to_categorical(etiquetasClase, num_classes=numCls)
         return datosClase, etiquetasClase
+
+    def predictionToImage(self, dataPrediction):
+        imgSalida = np.zeros((self.groundTruth.shape[0],self.groundTruth.shape[1]))
+        datosSalida = dataPrediction.argmax(axis=1)
+        
+        for i in range(self.indices_org.shape[1]):
+            imgSalida[self.indices_org[0,i],self.indices_org[1,i]] = datosSalida[i]
+         
+        return imgSalida

@@ -38,7 +38,14 @@ class CargarHsi:
                f"Datos GT:\t\t {self.groundTruth}\n"
 
     def graficarHsi(self,imageChannel):
-        plt.figure(1)
+        plt.figure()
         plt.imshow(imageChannel)
-        plt.colorbar()
+        plt.show()
+
+    def graficarHsi_VS(self, img_1, img_2):
+        plt.figure(1)
+        plt.subplot(1,2,1)
+        plt.imshow(img_1)
+        plt.subplot(1,2,2)
+        plt.imshow(img_2)
         plt.show()
