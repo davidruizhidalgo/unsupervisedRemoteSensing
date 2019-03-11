@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 class princiapalComponentAnalysis:
     
     def __init__(self,dataImagen):
-        self.dataImagen = dataImagen
+        self.dataImagen = dataImagen.copy()
 
     def __str__(self):
         return f"Dimensiones Imagen:\t {self.dataImagen.shape}\n" 

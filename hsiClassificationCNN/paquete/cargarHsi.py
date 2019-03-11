@@ -25,11 +25,11 @@ class CargarHsi:
         data_t -= mean
         std = data_t.std(axis=0)
         data_t /= std
-        self.imagen = data_t   #IMAGEN DE ENTRADA NORMALIZADA
+        self.imagen = data_t.copy()   #IMAGEN DE ENTRADA NORMALIZADA
         #CARGAR GROUND TRUTH
         mat = sio.loadmat(dicData[name_data][2]) # Cargar archivo Ground Truth .mat
         data = np.array(mat[dicData[name_data][3]]) # Convertir Ground Truth a numpy array
-        self.groundTruth = data         #GROUND TRUTH
+        self.groundTruth = data.copy()         #GROUND TRUTH
 
     def __str__(self):
         return f"Dimensiones Imagen:\t {self.imagen.shape}\n" \
