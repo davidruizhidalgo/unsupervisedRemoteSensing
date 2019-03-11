@@ -2,9 +2,9 @@
 #Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
 #una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-from paquete.cargarHsi import CargarHsi
-from paquete.prepararDatos import PrepararDatos
-from paquete.PCA import princiapalComponentAnalysis
+from package.cargarHsi import CargarHsi
+from package.prepararDatos import PrepararDatos
+from package.PCA import princiapalComponentAnalysis
 from keras import layers 
 from keras import models
 import matplotlib.pyplot as plt

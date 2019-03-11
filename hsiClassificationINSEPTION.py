@@ -4,9 +4,9 @@
 #espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs 
 #de la imagen original.
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-from paquete.cargarHsi import CargarHsi
-from paquete.prepararDatos import PrepararDatos
-from paquete.PCA import princiapalComponentAnalysis
+from package.cargarHsi import CargarHsi
+from package.prepararDatos import PrepararDatos
+from package.PCA import princiapalComponentAnalysis
 from keras import layers
 from keras.models import Model
 from keras.layers import Input
