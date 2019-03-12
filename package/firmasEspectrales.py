@@ -41,7 +41,6 @@ class FirmasEspectrales:
 
         return classSignature
 
-
     def graficarFirmas(self, firmas):
         bandas = np.linspace(1, firmas.shape[1], firmas.shape[1])
 
@@ -53,10 +52,10 @@ class FirmasEspectrales:
             for i in range (firmas.shape[0]):
                 plt.plot(bandas, firmas[i], label='Clase '+str(i))
                 plt.title("Firmas Espectrales por Clase")
+                plt.legend()
         
         plt.xlabel('Banda Espectral')
         plt.ylabel('Valor')
  
-        plt.legend()
         plt.grid()
         plt.show()
