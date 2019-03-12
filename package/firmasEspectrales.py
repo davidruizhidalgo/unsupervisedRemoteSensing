@@ -7,7 +7,7 @@ from keras.utils import to_categorical
 
 class FirmasEspectrales:
     
-    def __init__(self, dataImagen, groundTruth, numclases):
+    def __init__(self, dataImagen, groundTruth):
         self.dataImagen = dataImagen
         self.groundTruth = groundTruth
         self.numclases = groundTruth.max()+1
