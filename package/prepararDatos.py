@@ -35,56 +35,65 @@ class PrepararDatos:
 
     def extraerDatos1D(self,porEntrenamiento, porValidacion):
         #Datos de entrenamiento
-        print(self.indices.shape)
+        numCls = self.groundTruth.max()+1
         numtrain = self.indices.shape[1]*porEntrenamiento/100
         numtrain = math.floor(numtrain)
         datosEntrenamiento = np.zeros( (numtrain,self.dataImagen.shape[0]) )
         etiquetasEntrenamiento =  np.zeros( numtrain )
-        
+        numEntrenamiento = np.zeros((numCls,))
         for i in range(numtrain):
             datosEntrenamiento[i,:] = self.dataImagen[:,self.indices[0,i],self.indices[1,i]]
             etiquetasEntrenamiento[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
-
+            numEntrenamiento[self.groundTruth[self.indices[0,i],self.indices[1,i]]] += 1
         #Datos de validación
         numVal = self.indices.shape[1]*porValidacion/100
         numVal = math.floor(numVal)
         datosValidacion = np.zeros( (numVal,self.dataImagen.shape[0]) )
         etiquetasValidacion =  np.zeros( numVal )
-
+        numValidacion = np.zeros((numCls,))
         for i in range(numVal):
             datosValidacion[i,:] = self.dataImagen[:,self.indices[0,numtrain+i],self.indices[1,numtrain+i]]
             etiquetasValidacion[i] = self.groundTruth[self.indices[0,numtrain+i],self.indices[1,numtrain+i]]
-        
+            numValidacion[self.groundTruth[self.indices[0,numtrain+i],self.indices[1,numtrain+i]]] += 1
         #Codificar etiquetas de entrenamiento y validacion ONE HOT
         etiquetasEntrenamiento = to_categorical(etiquetasEntrenamiento)
-        etiquetasValidacion = to_categorical(etiquetasValidacion)     
+        etiquetasValidacion = to_categorical(etiquetasValidacion)    
+
+        print('CANTIDAD DATOS ENTRENEMIENTO:'+ str(numEntrenamiento))
+        print('CANTIDAD DATOS VALIDACIÓN: '+ str(numValidacion))
 
         return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
     
     def extraerDatos2D(self,porEntrenamiento, porValidacion, ventana):
         #Datos de entrenamiento
+        numCls = self.groundTruth.max()+1
         numtrain = self.indices.shape[1]*porEntrenamiento/100
         numtrain = math.floor(numtrain)
         datosEntrenamiento = np.zeros( (numtrain,ventana,ventana,self.dataImagen.shape[0]) )
         etiquetasEntrenamiento =  np.zeros( numtrain )
         paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+ventana-1,self.dataImagen.shape[2]+ventana-1))
         paddingImage[:,math.floor((ventana-1)/2):self.dataImagen.shape[1]+math.floor((ventana-1)/2),math.floor((ventana-1)/2):self.dataImagen.shape[2]+math.floor((ventana-1)/2)] =  self.dataImagen #imagen aunmentada para padding
+        numEntrenamiento = np.zeros((numCls,))
         for i in range(numtrain):
           datosEntrenamiento[i] = paddingImage[:,self.indices[0,i]:self.indices[0,i]+ventana,self.indices[1,i]:self.indices[1,i]+ventana].T
           etiquetasEntrenamiento[i] = self.groundTruth[self.indices[0,i],self.indices[1,i]]
-
+          numEntrenamiento[self.groundTruth[self.indices[0,i],self.indices[1,i]]] += 1
         #Datos de validación
         numVal = self.indices.shape[1]*porValidacion/100
         numVal = math.floor(numVal)
         datosValidacion = np.zeros( (numVal,ventana,ventana,self.dataImagen.shape[0]) )
         etiquetasValidacion =  np.zeros( numVal )
+        numValidacion = np.zeros((numCls,))
         for i in range(numVal):
             datosValidacion[i] = paddingImage[:,self.indices[0,numtrain+i]:self.indices[0,numtrain+i]+ventana,self.indices[1,numtrain+i]:self.indices[1,numtrain+i]+ventana].T
             etiquetasValidacion[i] = self.groundTruth[self.indices[0,numtrain+i],self.indices[1,numtrain+i]]
-
+            numValidacion[self.groundTruth[self.indices[0,numtrain+i],self.indices[1,numtrain+i]]] += 1
         #Codificar etiquetas de entrenamiento y validacion ONE HOT
         etiquetasEntrenamiento = to_categorical(etiquetasEntrenamiento)
         etiquetasValidacion = to_categorical(etiquetasValidacion)        
+
+        print('CANTIDAD DATOS ENTRENEMIENTO:'+ str(numEntrenamiento))
+        print('CANTIDAD DATOS VALIDACIÓN: '+ str(numValidacion))
 
         return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
 

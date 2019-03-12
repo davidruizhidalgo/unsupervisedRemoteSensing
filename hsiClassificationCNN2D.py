@@ -77,8 +77,7 @@ plt.legend()
 plt.show()
 
 #GRAFICAS
-data.graficarHsi(groundTruth)
-data.graficarHsi(datosSalida)
+data.graficarHsi_VS(groundTruth, datosSalida)
 
 #GUARDAR MODELO DE RED CONVOLUCIONAL
 model.save('hsiClassificationCNN2D.h5')

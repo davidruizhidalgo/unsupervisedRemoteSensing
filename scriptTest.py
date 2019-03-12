@@ -17,5 +17,11 @@ imagenPCA = pca.pca_calculate(0.95)
 
 
 ####### EN DESARROLLO ##########################
-# 1. Mejorar la selección aleatoria de datos para entrenamiento y validación => prepararDatos.py
+# 1. Modificar archivos TEST_.py para presentar resultados en:
+        # OA - Overall Accuracy
+        # AA - Average Accuracy
+        # k  - Kappa Coefficient
 # 2. Desarrollar un esquema de data augmentation => prepararDatos.py
+# 3. Implementar extracion de caracterristicas espaciales con Atributte Profiles.
+# 4. Evaluar el uso de SOM en el proceso de reduccion dimensional como etapa previa a la CNN.
+# 5. Revisar documentacion reciente del estado del arte.
