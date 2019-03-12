@@ -23,7 +23,7 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
 4. git push origin master
 ### Notas: 
 - La programación de los scripts es realizada en visual studio code
-- Tener en cuenta el directorio donde se encuentran los datasets. En este caso: C:/Users/david/Documents/SoftwareDesarrollado/dataSets/
+- Tener en cuenta el directorio donde se encuentran los datasets. En este caso: C:/Users/david/Documents/dataSets/
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
 
