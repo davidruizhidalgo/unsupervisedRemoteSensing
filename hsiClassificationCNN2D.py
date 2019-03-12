@@ -11,7 +11,6 @@ from keras import regularizers
 import matplotlib.pyplot as plt
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-clases = 17 #CLASES PRESENTES EN LA IMAGEN
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 data = CargarHsi('Indian_pines')
 imagen = data.imagen

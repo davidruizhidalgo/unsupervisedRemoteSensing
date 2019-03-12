@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 from keras.models import load_model
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-clases = 17 #CLASES PRESENTES EN LA IMAGEN
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 data = CargarHsi('Indian_pines')
 imagen = data.imagen
@@ -19,12 +18,12 @@ groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis(imagen)
-imagenPCA = pca.pca_calculate(0.95)
+imagenPCA = pca.pca_calculate(0.95) 
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
 preparar = PrepararDatos(imagenPCA, groundTruth, False)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
-datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,4, clases)
+datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,4) #Numero de la clase que se desea extraer
 
 #CARGAR RED CONVOLUCIONAL
 model = load_model('hsiClassificationCNN2D.h5')

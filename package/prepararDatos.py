@@ -118,10 +118,10 @@ class PrepararDatos:
 
         return datosPrueba, etiquetasPrueba
 
-    def extraerDatosClase1D(self, clase, numCls):
+    def extraerDatosClase1D(self, clase):
         datosClase = []
         etiquetasClase = []
-        
+        numCls = self.groundTruth.max()+1
         for i in range(self.dataImagen.shape[1]):
             for j in range(self.dataImagen.shape[2]):
                 if clase == self.groundTruth[i,j]:
@@ -133,9 +133,10 @@ class PrepararDatos:
         etiquetasClase = to_categorical(etiquetasClase, num_classes=numCls)
         return datosClase, etiquetasClase
 
-    def extraerDatosClase2D(self, ventana, clase, numCls):
+    def extraerDatosClase2D(self, ventana, clase):
         datosClase = []
         etiquetasClase = []
+        numCls = self.groundTruth.max()+1
         paddingImage = np.zeros((self.dataImagen.shape[0],self.dataImagen.shape[1]+ventana-1,self.dataImagen.shape[2]+ventana-1))
         paddingImage[:,math.floor((ventana-1)/2):self.dataImagen.shape[1]+math.floor((ventana-1)/2),math.floor((ventana-1)/2):self.dataImagen.shape[2]+math.floor((ventana-1)/2)] =  self.dataImagen #imagen aunmentada para padding
         
