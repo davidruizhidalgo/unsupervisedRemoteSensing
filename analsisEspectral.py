@@ -17,8 +17,8 @@ imagenPCA = pca.pca_calculate(0.95)
 #PROMEDIAR FIRMAS ESPECTRALES
 espectros = FirmasEspectrales(imagen, groundTruth)
 firmas = espectros.promediarFirmas() # Promedios de todas las firmas espectrales
-firmasclase = espectros.firmasClase(1) # Arreglo con las firmas de la clase n
+#firmasclase = espectros.firmasClase(1) # Arreglo con las firmas de la clase n
 
 #GRAFICAR FIRMAS ESPECTRALES
 espectros.graficarFirmas(firmas) # Grafica de los promedios de todas las firmas espectrales
-espectros.graficarFirmas(firmasclase) #Grafica del arreglo con las firmas de la clase n
+#espectros.graficarFirmas(firmasclase) #Grafica del arreglo con las firmas de la clase n

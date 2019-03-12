@@ -1,0 +1,37 @@
+########################################################################################################
+AVIRIS Airbone Visible/Infrared Imaging Spectrometer
+http://aviris.jpl.nasa.gov/index.html
+
+http://aviris.jpl.nasa.gov/alt_locator/
+
+f150210t01p00r05
+
+Radiancia y Reflectancia
+https://sites.google.com/site/pdidistrital/home/radiancia-y-reflectancia
+
+http://yceo.yale.edu/how-convert-landsat-dns-top-atmosphere-toa-reflectance
+
+http://www.harrisgeospatial.com/docs/ENVIHeaderFiles.html
+
+
+########################################################################################################
+Hyperspectral Remote Sensing of Vegetation
+http://onlinelibrary.wiley.com/doi/10.1111/j.1749-8198.2008.00182.x/pdf
+########################################################################################################
+TRETRACAM
+
+Multiespectral Camera
+http://www.tetracam.com/Products-Micro_MCA.htm
+
+Pix4DMapper Software
+http://www.tetracam.com/Products_Pix4DMapper.htm
+
+Filter Bands Description
+http://www.tetracam.com/Tetracam%20-%20Recommendations%20for%20Band%20Pass%20Filter%20Selection.htm
+
+Multispectral Image gallery
+http://www.tetracam.com/Sample%20Imagery.htm
+########################################################################################################
+
+
+

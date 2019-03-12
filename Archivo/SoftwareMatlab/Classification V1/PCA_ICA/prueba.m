@@ -1,0 +1,3 @@
+JICi=(1/12)*((1/size(Zica,2))*sum((Zica.^3),2)).^2+...
+    (1/48)*(((1/size(Zica,2))*sum((Zica.^4),2))-3).^2;
+[B,I] = sort(JICi,'descend');
