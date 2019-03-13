@@ -8,7 +8,10 @@ from package.PCA import princiapalComponentAnalysis
 from keras import layers 
 from keras import models
 import matplotlib.pyplot as plt
+import numpy as np
 from keras.models import load_model
+from keras.utils import to_categorical
+from sklearn.metrics import confusion_matrix, precision_score, recall_score, cohen_kappa_score
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 #CARGAR IMAGEN HSI Y GROUND TRUTH
@@ -20,17 +23,31 @@ groundTruth = data.groundTruth
 pca = princiapalComponentAnalysis(imagen)
 imagenPCA = pca.pca_calculate(0.95) 
 
-#PREPARAR DATOS PARA ENTRENAMIENTO
+#PREPARAR DATOS PARA EJECUCIÓN
 preparar = PrepararDatos(imagenPCA, groundTruth, False)
-datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
-datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,4) #Numero de la clase que se desea extraer
-
-#CARGAR RED CONVOLUCIONAL
+#CARGAR RED INCEPTION
 model = load_model('hsiClassificationCNN2D.h5')
 print(model.summary())
-#EVALUAR MODELO
-test_loss, test_acc = model.evaluate(datosClase, etiquetasClase)
-print(test_acc)
+
+
+#GENERACION OA - Overall Accuracy 
+datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS
+test_loss, OA = model.evaluate(datosPrueba, etiquetasPrueba)            #EVALUAR MODELO
+
+#GENERACION AA - Average Accuracy 
+AA = 0 
+ClassAA = np.zeros(groundTruth.max()+1)
+for i in range(1,groundTruth.max()+1):                      #QUITAR 1 para incluir datos del fondo
+    datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,i) #MUESTRAS DE UNA CLASE
+    test_loss, ClassAA[i] = model.evaluate(datosClase, etiquetasClase)      #EVALUAR MODELO PARA LA CLASE
+    AA += ClassAA[i]
+AA /= groundTruth.max()                                     #SUMAR 1 para incluir datos del fondo
+#GENERACION Kappa Coefficient
+kappa = 0
+
+print('OA = '+ str(OA))                          #Overall Accuracy 
+print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
+print('kappa = '+ str(kappa))                    #Kappa Coefficient
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 datosSalida = model.predict(datosPrueba)

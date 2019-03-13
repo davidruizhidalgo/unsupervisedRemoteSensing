@@ -24,6 +24,16 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
 ### Notas: 
 - La programación de los scripts es realizada en visual studio code
 - Tener en cuenta el directorio donde se encuentran los datasets. En este caso: C:/Users/david/Documents/dataSets/
+- Los programas TEST_xxx.py ejecutan los modelos entrenados de las redes y proporcionan las metricas de desempeño:
+                OA - Overall Accuracy : número total de items correctamente clasificados sobre el total de elementos.
+                AA - Average Accuracy : promedio generado entre los porcentajes de aciertos de cada una de las clases
+                k - Kappa Coefficient : El coeficiente Kappa se genera a partir de una prueba estadística para evaluar la precisión de la clasificación. Básicamente, Kappa evalúa qué tan bien se realizó la clasificación en comparación con la asignación de valores aleatorios, es decir, evalua si la clasificación funcionó mejor que la aleatoria. El coeficiente de Kappa puede variar de -1 t0 1. Un valor de 0 indica que la clasificación no es mejor que una clasificación aleatoria. Un número negativo indica que la clasificación es significativamente peor que aleatoria. Un valor cercano a 1 indica que la clasificación es significativamente mejor que aleatoria.
+
+                average accuracy is the average of each accuracy per class (sum of accuracy for each class predicted/number of class)
+
+Overall accuracy : number of correctly predicted items/total of item to predict..
+
+
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
 
@@ -43,8 +53,11 @@ hsiClassificationCNN2D.py => Entrenamiento de una  red convolucional 2d para cla
 TEST_hsiClassificationCNN2D.py => Carga y ejecución de una  red convolucional 2d para clasificación usando HSI. 
 
 ## 4. Clasificación de una HSI usando un Modelo Inseption
-Se utiliza la topología de red de grafos INCEPTION para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de características espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs de la imagen original.
+hsiClassificationINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de características espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs de la imagen original.
 
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
 
 Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
+
+TEST_hsiClassificationINCEPTION.py => Carga y ejecución de una  red INCEPTION para clasificación usando HSI. 
+

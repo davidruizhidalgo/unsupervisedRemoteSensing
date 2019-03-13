@@ -37,8 +37,8 @@ model.add(layers.Conv2D(64, (3, 3), kernel_regularizer=regularizers.l2(0.001),ac
 #AÑADE UN CLASIFICADOR MLR EN EL TOPE DE LA CONVNET
 model.add(layers.Flatten())
 model.add(layers.Dense(64, kernel_regularizer=regularizers.l2(0.001), activation='relu'))
-model.add(layers.Dropout(0.5))
-model.add(layers.Dense(17, activation='softmax'))
+#model.add(layers.Dropout(0.5))
+model.add(layers.Dense(groundTruth.max()+1, activation='softmax'))
 print(model.summary())
 
 #ENTRENAMIENTO DE LA RED CONVOLUCIONAL

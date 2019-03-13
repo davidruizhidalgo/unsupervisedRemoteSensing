@@ -51,7 +51,7 @@ branch_d = layers.Conv2D(64, (3,3), activation='relu', padding='same')(branch_d)
 output = layers.concatenate([branch_a, branch_b, branch_c, branch_d], axis=-1)
 # Se añade como capa final de salida un clasificador tipo Multinomial logistic regression
 output = Flatten()(output)
-out    = Dense(17, activation='softmax')(output)
+out    = Dense(groundTruth.max()+1, activation='softmax')(output)
 # Se define el modelo total de la red 
 model = Model(inputs = input_tensor, outputs = out)
 #print(model.summary())
