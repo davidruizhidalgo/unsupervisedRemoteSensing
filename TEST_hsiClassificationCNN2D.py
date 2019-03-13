@@ -29,7 +29,6 @@ preparar = PrepararDatos(imagenPCA, groundTruth, False)
 model = load_model('hsiClassificationCNN2D.h5')
 print(model.summary())
 
-
 #GENERACION OA - Overall Accuracy 
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS
 test_loss, OA = model.evaluate(datosPrueba, etiquetasPrueba)            #EVALUAR MODELO
@@ -42,16 +41,21 @@ for i in range(1,groundTruth.max()+1):                      #QUITAR 1 para inclu
     test_loss, ClassAA[i] = model.evaluate(datosClase, etiquetasClase)      #EVALUAR MODELO PARA LA CLASE
     AA += ClassAA[i]
 AA /= groundTruth.max()                                     #SUMAR 1 para incluir datos del fondo
+
+#GENERAR MAPA FINAL DE CLASIFICACIÓN
+datosSalida = model.predict(datosPrueba)
+etiquetasPred = datosSalida.copy()
+datosSalida = preparar.predictionToImage(datosSalida)      
+
 #GENERACION Kappa Coefficient
-kappa = 0
+etiquetasPred = etiquetasPred.argmax(axis=1)
+etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
+kappa = cohen_kappa_score(etiquetasPrueba, etiquetasPred)
+
 
 print('OA = '+ str(OA))                          #Overall Accuracy 
 print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
 print('kappa = '+ str(kappa))                    #Kappa Coefficient
-
-#GENERAR MAPA FINAL DE CLASIFICACIÓN
-datosSalida = model.predict(datosPrueba)
-datosSalida = preparar.predictionToImage(datosSalida)
 
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
