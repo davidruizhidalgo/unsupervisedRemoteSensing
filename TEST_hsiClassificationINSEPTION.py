@@ -52,7 +52,9 @@ datosSalida = preparar.predictionToImage(datosSalida)
 
 #GENERACION Kappa Coefficient
 etiquetasPred = etiquetasPred.argmax(axis=1)
-etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
+etiquetasPred = to_categorical(etiquetasPred)
+print(etiquetasPrueba.shape)
+print(etiquetasPred.shape)
 kappa = cohen_kappa_score(etiquetasPrueba, etiquetasPred)
 
 
