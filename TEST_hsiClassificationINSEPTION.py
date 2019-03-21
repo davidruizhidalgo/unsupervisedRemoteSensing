@@ -8,6 +8,7 @@
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
+from package.MorphologicalProfiles import morphologicalProfiles
 from keras import layers 
 from keras import models
 import matplotlib.pyplot as plt
@@ -23,13 +24,17 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
-pca = princiapalComponentAnalysis(imagen)
-imagenPCA = pca.pca_calculate(0.95) 
+pca = princiapalComponentAnalysis()
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95) 
+
+#ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
+mp = morphologicalProfiles()
+imagenEAP = mp.EAP(imagenPCA)
 
 #PREPARAR DATOS PARA EJECUCIÓN
-preparar = PrepararDatos(imagenPCA, groundTruth, False)
+preparar = PrepararDatos(imagenEAP, groundTruth, False)
 #CARGAR RED INCEPTION
-model = load_model('hsiClassificationINCEPTION.h5')
+model = load_model('hsiClassificationCNN2D.h5')
 print(model.summary())
 
 #GENERACION OA - Overall Accuracy 
@@ -52,9 +57,7 @@ datosSalida = preparar.predictionToImage(datosSalida)
 
 #GENERACION Kappa Coefficient
 etiquetasPred = etiquetasPred.argmax(axis=1)
-etiquetasPred = to_categorical(etiquetasPred)
-print(etiquetasPrueba.shape)
-print(etiquetasPred.shape)
+etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
 kappa = cohen_kappa_score(etiquetasPrueba, etiquetasPred)
 
 

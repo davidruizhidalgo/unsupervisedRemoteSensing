@@ -1,4 +1,4 @@
-#Permite extraer conjuntos de entrenamiento, validacion y prueba en 1D y 2D
+#Permite extraer conjuntos de entrenamiento, validacion y prueba en 1D, 2D y 3D
 import math
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,9 +29,7 @@ class PrepararDatos:
             np.random.shuffle(self.indices.T) 
         
     def __str__(self):
-        return f"Dimensiones Imagen:\t {self.dataImagen.shape}\n" \
-               f"Dimensiones Ground Truth:\t {self.groundTruth.shape}\n" \
-               f"Dimensiones Vector Indices:\t {self.indices.shape}\n"
+        pass
 
     def extraerDatos1D(self,porEntrenamiento, porValidacion):
         #Datos de entrenamiento
@@ -97,6 +95,12 @@ class PrepararDatos:
 
         return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
 
+    def extraerDatos3D(self,porEntrenamiento, porValidacion, ventana):
+        datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = self.extraerDatos2D(porEntrenamiento, porValidacion,ventana)
+        datosEntrenamiento = datosEntrenamiento.reshape( (datosEntrenamiento.shape[0],datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3],1) ) 
+        datosValidacion = datosValidacion.reshape( (datosValidacion.shape[0],datosValidacion.shape[1],datosValidacion.shape[2],datosValidacion.shape[3],1) ) 
+        return datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion
+
     def extraerDatosPrueba1D(self):
         indices = self.indices_org.copy()
         #Datos de Prueba
@@ -125,6 +129,11 @@ class PrepararDatos:
         #Codificar etiquetas de prueba en ONE HOT
         etiquetasPrueba = to_categorical(etiquetasPrueba)
 
+        return datosPrueba, etiquetasPrueba
+
+    def extraerDatosPrueba3D(self,ventana):
+        datosPrueba, etiquetasPrueba = self.extraerDatosPrueba2D(ventana)
+        datosPrueba = datosPrueba.reshape( (datosPrueba.shape[0],datosPrueba.shape[1],datosPrueba.shape[2],datosPrueba.shape[3],1) ) 
         return datosPrueba, etiquetasPrueba
 
     def extraerDatosClase1D(self, clase):
@@ -158,6 +167,11 @@ class PrepararDatos:
         datosClase = np.array(datosClase)
         etiquetasClase = np.array(etiquetasClase)
         etiquetasClase = to_categorical(etiquetasClase, num_classes=numCls)
+        return datosClase, etiquetasClase
+
+    def extraerDatosClase3D(self, ventana, clase):
+        datosClase, etiquetasClase = self.extraerDatosClase2D(ventana, clase)
+        datosClase = datosClase.reshape( (datosClase.shape[0],datosClase.shape[1],datosClase.shape[2],datosClase.shape[3],1) ) 
         return datosClase, etiquetasClase
 
     def predictionToImage(self, dataPrediction):

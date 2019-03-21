@@ -5,6 +5,7 @@
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
+from package.MorphologicalProfiles import morphologicalProfiles
 from keras import layers 
 from keras import models
 import matplotlib.pyplot as plt
@@ -20,15 +21,18 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
-pca = princiapalComponentAnalysis(imagen)
-imagenPCA = pca.pca_calculate(0.95) 
+pca = princiapalComponentAnalysis()
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95) 
+
+#ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
+mp = morphologicalProfiles()
+imagenEAP = mp.EAP(imagenPCA)
 
 #PREPARAR DATOS PARA EJECUCIÓN
-preparar = PrepararDatos(imagenPCA, groundTruth, False)
+preparar = PrepararDatos(imagenEAP, groundTruth, False)
 #CARGAR RED INCEPTION
 model = load_model('hsiClassificationCNN2D.h5')
 print(model.summary())
-
 
 #GENERACION OA - Overall Accuracy 
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS
@@ -42,16 +46,21 @@ for i in range(1,groundTruth.max()+1):                      #QUITAR 1 para inclu
     test_loss, ClassAA[i] = model.evaluate(datosClase, etiquetasClase)      #EVALUAR MODELO PARA LA CLASE
     AA += ClassAA[i]
 AA /= groundTruth.max()                                     #SUMAR 1 para incluir datos del fondo
+
+#GENERAR MAPA FINAL DE CLASIFICACIÓN
+datosSalida = model.predict(datosPrueba)
+etiquetasPred = datosSalida.copy()
+datosSalida = preparar.predictionToImage(datosSalida)      
+
 #GENERACION Kappa Coefficient
-kappa = 0
+etiquetasPred = etiquetasPred.argmax(axis=1)
+etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
+kappa = cohen_kappa_score(etiquetasPrueba, etiquetasPred)
+
 
 print('OA = '+ str(OA))                          #Overall Accuracy 
 print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
 print('kappa = '+ str(kappa))                    #Kappa Coefficient
-
-#GENERAR MAPA FINAL DE CLASIFICACIÓN
-datosSalida = model.predict(datosPrueba)
-datosSalida = preparar.predictionToImage(datosSalida)
 
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)

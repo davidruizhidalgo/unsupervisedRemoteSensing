@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 class CargarHsi:
     
     def __init__(self,name_data):
-        dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/indian_pines.mat', 'indian_pines_corrected', 'C:/Users/david/Documents/dataSets/indian_pines_gt.mat', 'indian_pines_gt'],
-                    'Salinas' : ['C:/Users/david/Documents/dataSets/salinas.mat', 'salinas_corrected', 'C:/Users/david/Documents/dataSets/salinas_gt.mat', 'salinas_gt'],
-                    'Pavia' : ['C:/Users/david/Documents/dataSets/pavia.mat', 'pavia', 'C:/Users/david/Documents/dataSets/pavia_gt.mat', 'pavia_gt'], }
+        dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/Indian_pines.mat', 'indian_pines_corrected', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
+                    'Salinas' : ['C:/Users/david/Documents/dataSets/Salinas.mat', 'salinas_corrected', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
+                    'Pavia' : ['C:/Users/david/Documents/dataSets/Pavia.mat', 'pavia', 'C:/Users/david/Documents/dataSets/Pavia_gt.mat', 'pavia_gt'], }
         #CARGAR CUBO DE DATOS
         mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
         data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array
@@ -32,14 +32,12 @@ class CargarHsi:
         self.groundTruth = data.copy()         #GROUND TRUTH
 
     def __str__(self):
-        return f"Dimensiones Imagen:\t {self.imagen.shape}\n" \
-               f"Datos:\t\t {self.imagen[0]}\n" \
-               f"Dimensiones Ground Truth:\t {self.groundTruth.shape}\n" \
-               f"Datos GT:\t\t {self.groundTruth}\n"
+        pass
 
     def graficarHsi(self,imageChannel):
         plt.figure()
         plt.imshow(imageChannel)
+        plt.colorbar()
         plt.show()
 
     def graficarHsi_VS(self, img_1, img_2):

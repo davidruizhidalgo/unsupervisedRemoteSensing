@@ -13,9 +13,7 @@ class FirmasEspectrales:
         self.numclases = groundTruth.max()+1
                
     def __str__(self):
-        return f"Dimensiones Imagen:\t {self.dataImagen.shape}\n" \
-               f"Dimensiones Ground Truth:\t {self.groundTruth.shape}\n" \
-               f"Número de Clases:\t {self.numclases}\n"
+        pass
 
     def promediarFirmas(self):
         firmas = np.zeros((self.numclases,self.dataImagen.shape[0]))

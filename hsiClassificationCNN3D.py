@@ -1,7 +1,13 @@
-#ENTRENAMIENTO DE RED CONVOLUCIONAL 2D - CLASIFICACION HSI 
-#Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
+#ENTRENAMIENTO DE RED CONVOLUCIONAL 3D - CLASIFICACION HSI 
+#Se utiliza PCA y EAP para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
 #una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
+
+###INICIO FORZAR EJECUCION EN LA CPU
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'    
+###FIN FORZAR EJECUCION EN LA CPU
+
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
@@ -12,10 +18,9 @@ from keras import regularizers
 import matplotlib.pyplot as plt
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-
-#CARGAR IMAGEN HSI Y GROUND TRUTH 
+#CARGAR IMAGEN HSI Y GROUND TRUTH
 data = CargarHsi('Indian_pines')
-imagen = data.imagen 
+imagen = data.imagen
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
@@ -27,15 +32,18 @@ mp = morphologicalProfiles()
 imagenEAP = mp.EAP(imagenPCA)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
-preparar = PrepararDatos(imagenEAP, groundTruth, False)
-datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
-datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
+preparar = PrepararDatos(imagenPCA, groundTruth, False)
+datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos3D(50,30,ventana)
+datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba3D(ventana)
 
 #DEFINICION RED CONVOLUCIONAL
 model = models.Sequential()
-model.add(layers.Conv2D(48, (5, 5), kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])))
-model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+model.add(layers.Conv3D(48, (5, 5, 5), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3],1)))
+model.add(layers.AveragePooling3D((3,3,3), strides=(1,1,1), padding='same'))
+model.add(layers.Conv3D(96, (3, 3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+model.add(layers.AveragePooling3D((3,3,3), strides=(1,1,1), padding='same'))
+model.add(layers.Conv3D(96, (3, 3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+model.add(layers.AveragePooling3D((3,3,3), strides=(1,1,1), padding='same'))
 #CAPA FULLY CONNECTED
 model.add(layers.Flatten())
 model.add(layers.Dropout(0.5))
@@ -45,6 +53,7 @@ model.add(layers.Dense(1024, kernel_regularizer=regularizers.l2(0.001), activati
 #AÑADE UN CLASIFICADOR MLR EN EL TOPE DE LA CONVNET
 model.add(layers.Dense(groundTruth.max()+1, activation='softmax'))
 print(model.summary())
+
 
 #ENTRENAMIENTO DE LA RED CONVOLUCIONAL
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
@@ -85,4 +94,4 @@ plt.show()
 data.graficarHsi_VS(groundTruth, datosSalida)
 
 #GUARDAR MODELO DE RED CONVOLUCIONAL
-model.save('hsiClassificationCNN2D.h5')
+#model.save('hsiClassificationCNN3D.h5')

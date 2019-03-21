@@ -8,6 +8,7 @@
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
+from package.MorphologicalProfiles import morphologicalProfiles
 from keras import layers
 from keras.models import Model
 from keras.layers import Input
@@ -23,11 +24,15 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
-pca = princiapalComponentAnalysis(imagen)
-imagenPCA = pca.pca_calculate(0.95)
+pca = princiapalComponentAnalysis()
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+
+#ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
+mp = morphologicalProfiles()
+imagenEAP = mp.EAP(imagenPCA)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
-preparar = PrepararDatos(imagenPCA, groundTruth, False)
+preparar = PrepararDatos(imagenEAP, groundTruth, False)
 datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
