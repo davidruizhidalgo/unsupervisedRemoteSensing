@@ -12,6 +12,7 @@ Este proyecto contiene diferentes aplicaciones con código desarrollado en pytho
 6. conda install matplotlib
 7. conda install pylint
 8. conda install scikit-learn
+9. conda install -c conda-forge scikit-image
 
 ### Sincronización con Repositorio en GitHub
 Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyecto introducir los siguientes comandos:
@@ -44,6 +45,8 @@ prepararDatos.py => Permite extraer conjuntos de datos de entrenamiento, validac
 PCA.py => Implementa el análisis de componentes principales sobre la imagen hiperespectral de entrada.
 
 firmasEspectrales.py => Recoge las firmas espectrales de cada una de las clases en la imagen. Calcula el promedio y grafica las firmas espectrales con el objetivo de determinar posibles diferencias en las curvas. 
+
+MorphologicalProfiles.py => Extrae los perfiles morfologicos de cada uno de los canales en una imagen. Implementa Extended Attribute Profules para la generación de caracteristicas espaciales.
 
 ## 2. Análisis de firmas espectrales 
 analisisEspectral.py => Permite realizar el análisis de las firmas espectrales de cada una de las clases presentes en la imagen hiperespectral. Se promedia la firma espectral de cada clase y se grafican para observar las diferencias de los espectros.
