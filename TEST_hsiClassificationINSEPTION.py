@@ -34,7 +34,7 @@ imagenEAP = mp.EAP(imagenPCA)
 #PREPARAR DATOS PARA EJECUCIÓN
 preparar = PrepararDatos(imagenEAP, groundTruth, False)
 #CARGAR RED INCEPTION
-model = load_model('hsiClassificationCNN2D.h5')
+model = load_model('hsiClassificationINCEPTION.h5')
 print(model.summary())
 
 #GENERACION OA - Overall Accuracy 

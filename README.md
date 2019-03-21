@@ -1,5 +1,5 @@
 # Sistema no Supervisado para Sensado Remoto Usando HSI
-Sensado remoto de vegetación y cultivos usando imágenes hiperespectrales y métodos de entrenamiento no supervisados
+Sensado remoto de vegetación y cultivos usando imágenes hiperespectrales y métodos de entrenamiento tanto supervisados como no supervisados
 
 Este proyecto contiene diferentes aplicaciones con código desarrollado en python.
 
@@ -29,11 +29,6 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
                 OA - Overall Accuracy : número total de items correctamente clasificados sobre el total de elementos.
                 AA - Average Accuracy : promedio generado entre los porcentajes de aciertos de cada una de las clases
                 k - Kappa Coefficient : El coeficiente Kappa se genera a partir de una prueba estadística para evaluar la precisión de la clasificación. Básicamente, Kappa evalúa qué tan bien se realizó la clasificación en comparación con la asignación de valores aleatorios, es decir, evalua si la clasificación funcionó mejor que la aleatoria. El coeficiente de Kappa puede variar de -1 t0 1. Un valor de 0 indica que la clasificación no es mejor que una clasificación aleatoria. Un número negativo indica que la clasificación es significativamente peor que aleatoria. Un valor cercano a 1 indica que la clasificación es significativamente mejor que aleatoria.
-
-                average accuracy is the average of each accuracy per class (sum of accuracy for each class predicted/number of class)
-
-Overall accuracy : number of correctly predicted items/total of item to predict..
-
 
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
