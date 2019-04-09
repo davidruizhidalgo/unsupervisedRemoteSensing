@@ -1,24 +1,23 @@
-#ARCHIVO DE PRUEBA PARA LAS FUNCIONES DESARROLLADAS EN EL PAQUETE
 from package.cargarHsi import CargarHsi
+from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
 from package.MorphologicalProfiles import morphologicalProfiles
-import matplotlib.pyplot as plt 
-
-ventana = 9 #VENTANA 2D de PROCESAMIENTO
-clases = 17 #CLASES PRESENTES EN LA IMAGEN
+from keras import layers
+from keras import models
+from keras import regularizers
+import matplotlib.pyplot as plt
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH 
-data = CargarHsi('Indian_pines')
+data = CargarHsi('PaviaU')
 imagen = data.imagen 
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+print(imagenPCA.shape)
 
-#ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
-mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA)
+
 
 ####### EN DESARROLLO ##########################
 # 1. Desarrollar una arquitectura de red convolucional en 3D
