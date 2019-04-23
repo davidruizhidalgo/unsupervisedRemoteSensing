@@ -101,5 +101,4 @@ plt.show()
 
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
-
 fichero.close()
