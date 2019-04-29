@@ -15,9 +15,9 @@ from keras.optimizers import SGD
 from io import open
 
 def loadSomData(name_data):
-    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
-                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
-                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
+    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
+                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
+                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
         #CARGAR CUBO DE DATOS
     mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
     data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array
@@ -48,7 +48,7 @@ fichero = open('logger_indianSOM.txt','w')
 fichero.write('Datos SOM + INCEPTION')
 #CARGAR DATOS
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-imagen, groundTruth = loadSomData('PaviaU')
+imagen, groundTruth = loadSomData('Salinas')
 #FIRMAS ESPECTRALES
 espectros = FirmasEspectrales(imagen, groundTruth)
 firmas = espectros.promediarFirmas() # Promedios de todas las firmas espectrales

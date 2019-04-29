@@ -8,6 +8,7 @@ __pycache__/
 
 # REDES ENTRENADAS
 *.h5
+*.mat
 
 # Distribution / packaging
 .Python
