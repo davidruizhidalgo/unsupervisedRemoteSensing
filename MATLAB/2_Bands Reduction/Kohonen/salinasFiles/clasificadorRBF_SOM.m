@@ -33,7 +33,7 @@ for i=1:imgSize(1)
     end
 end
 
-imgTh=load('../../Salinas_gt.mat');
+imgTh=load('../../../../../dataSets/Salinas_gt.mat');
 imgTh=imgTh.salinas_gt; figure;
 imagesc(imgTh);    %IMAGEN DE CLASIFICACION DESEADA
 title('Imagen Deseada'); axis off;

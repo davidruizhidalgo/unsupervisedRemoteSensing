@@ -1,6 +1,6 @@
 %DATOS ENTRENAMIENTO CON KOHONEN
 clear, clc, close all;
-sData=load('../../indian_pines_gt.mat');
+sData=load('../../../../../dataSets/Indian_pines_gt.mat');
 dataGround=sData.indian_pines_gt;
 imgSize=size(dataGround);
 

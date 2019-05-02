@@ -7,7 +7,7 @@ figure;
 imagesc(imgOutSOM); %IMAGEN DE CLASIFICACIÓN FILTRADA
 title('Imagen Resultante Wavelet FILTRADA'); axis off;
 
-imgTh=load('../../Salinas_gt.mat');
+imgTh=load('../../../../../dataSets/Salinas_gt.mat');
 imgTh=imgTh.salinas_gt;
 
 Accuracy=zeros(1,16);

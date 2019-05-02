@@ -6,7 +6,7 @@ imgSize=size(imgOutSOM);
 figure;
 imagesc(imgOutSOM);
 
-imgTh=load('../../Salinas_gt.mat');
+imgTh=load('../../../../../dataSets/Salinas_gt.mat');
 imgTh=imgTh.salinas_gt;
 figure;
 imagesc(imgTh);

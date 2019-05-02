@@ -1,6 +1,6 @@
 %DATOS ENTRENAMIENTO CON KOHONEN
 clear, clc, close all;
-sData=load('../../Salinas_gt.mat');
+sData=load('../../../../../dataSets/Salinas_gt.mat');
 dataGround=sData.salinas_gt;
 imgSize=size(dataGround);
 

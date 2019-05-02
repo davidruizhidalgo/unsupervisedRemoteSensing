@@ -15,9 +15,9 @@ from keras.optimizers import SGD
 from io import open
 
 def loadSomData(name_data):
-    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
-                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
-                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
+    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
+                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
+                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
         #CARGAR CUBO DE DATOS
     mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
     data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array
@@ -25,6 +25,11 @@ def loadSomData(name_data):
     data_t = np.zeros( (data.shape[0],data.shape[2],data.shape[1]) )
     for i in range(data.shape[0]): # Transponer cada canal para ajustar los ejes coordenados
         data_t[i] = data[i].T 
+    #NORMALIZAR DATOS DE ENTRADA
+    mean = data_t.mean(axis=0)
+    data_t -= mean
+    std = data_t.std(axis=0)
+    data_t /= std
     imagen = data_t.copy()   #IMAGEN DE ENTRADA SOM
     #CARGAR GROUND TRUTH
     mat = sio.loadmat(dicData[name_data][2]) # Cargar archivo Ground Truth .mat
@@ -48,7 +53,7 @@ fichero = open('logger_indianSOM.txt','w')
 fichero.write('Datos SOM + INCEPTION')
 #CARGAR DATOS
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-imagen, groundTruth = loadSomData('Salinas')
+imagen, groundTruth = loadSomData('Indian_pines')
 #FIRMAS ESPECTRALES
 espectros = FirmasEspectrales(imagen, groundTruth)
 firmas = espectros.promediarFirmas() # Promedios de todas las firmas espectrales
@@ -66,17 +71,17 @@ for i in range(0, numTest):
     # Cada rama tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas 
     # en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
     # Rama A
-    branch_a = layers.Conv2D(64, (1,1), activation='relu', padding='same')(input_tensor)
+    branch_a = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
     # Rama B
-    branch_b = layers.Conv2D(64, (1,1), activation='relu', padding='same')(input_tensor)
-    branch_b = layers.Conv2D(64, (3,3), activation='relu', padding='same')(branch_b)
+    branch_b = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
+    branch_b = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_b)
     # Rama C
     branch_c = layers.AveragePooling2D((3,3), strides=(1,1), padding='same')(input_tensor)
-    branch_c = layers.Conv2D(64, (3,3), activation='relu', padding='same')(branch_c)
+    branch_c = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_c)
     # Rama D
-    branch_d = layers.Conv2D(64, (1,1), activation='relu', padding='same')(input_tensor)
-    branch_d = layers.Conv2D(64, (3,3), activation='relu', padding='same')(branch_d)
-    branch_d = layers.Conv2D(64, (3,3), activation='relu', padding='same')(branch_d)
+    branch_d = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
+    branch_d = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_d)
+    branch_d = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_d)
     # Se concatenan todas las rama  para tener un solo modelo en output
     output = layers.concatenate([branch_a, branch_b, branch_c, branch_d], axis=-1)
     # Se añade como capa final de salida un clasificador tipo Multinomial logistic regression

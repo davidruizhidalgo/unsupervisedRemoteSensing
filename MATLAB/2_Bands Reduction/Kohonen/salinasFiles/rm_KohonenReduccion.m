@@ -5,8 +5,8 @@ net=net.net;
 wi=net.IW{1}; %Pesos Asociados a Cada Entrada de la Red Neuronal
 
 %Cargar Datos Hiperespectrales
-sData=load('../../Salinas_corrected.mat');
-dataCube=(10^3).*sData.salinas_corrected;
+sData=load('../../../../../dataSets/Salinas_corrected.mat');
+dataCube=(10^0).*sData.salinas_corrected;
 imgSize=size(dataCube);
 
 dataSOM=zeros(imgSize(1),imgSize(2),size(wi,1)); %Matriz Entrada RNA 

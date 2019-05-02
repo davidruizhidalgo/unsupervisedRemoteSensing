@@ -12,9 +12,9 @@ from keras import regularizers
 from io import open
 
 def loadSomData(name_data):
-    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
-                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
-                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM5/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
+    dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
+                'Salinas' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_2.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
+                'PaviaU' : ['C:/Users/david/Documents/dataSets/DatosSOM72/dataSOM_3.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }
         #CARGAR CUBO DE DATOS
     mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
     data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array
@@ -22,6 +22,11 @@ def loadSomData(name_data):
     data_t = np.zeros( (data.shape[0],data.shape[2],data.shape[1]) )
     for i in range(data.shape[0]): # Transponer cada canal para ajustar los ejes coordenados
         data_t[i] = data[i].T 
+    #NORMALIZAR DATOS DE ENTRADA
+    mean = data_t.mean(axis=0)
+    data_t -= mean
+    std = data_t.std(axis=0)
+    data_t /= std
     imagen = data_t.copy()   #IMAGEN DE ENTRADA SOM
     #CARGAR GROUND TRUTH
     mat = sio.loadmat(dicData[name_data][2]) # Cargar archivo Ground Truth .mat
@@ -60,17 +65,10 @@ for i in range(0, numTest):
 
     #DEFINICION RED CONVOLUCIONAL
     model = models.Sequential()
-    model.add(layers.Conv2D(48, (5, 5), kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])))
-    model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
-    model.add(layers.Conv2D(192, (3, 3), padding='same', kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+    model.add(layers.Conv2D(128, (5, 5), kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])))
+    model.add(layers.Conv2D(128, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+    model.add(layers.Conv2D(256, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+
     #CAPA FULLY CONNECTED
     model.add(layers.Flatten())
     model.add(layers.Dropout(0.5))

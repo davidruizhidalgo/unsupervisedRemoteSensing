@@ -1,7 +1,7 @@
 %ENTRENAMIENTO MAPA AUTO-ORGANIZADO DE KOHONEN PARA REDUCCION DIMENSIONAL
 clear, clc, close all;
-sData=load('../../indian_pines_corrected_0.mat');
-dataCube=(10^3).*sData.dataCube;
+sData=load('../../../../../dataSets/Indian_pines.mat');
+dataCube=(10^0).*sData.indian_pines_corrected;
 imgSize=size(dataCube);
 
 x=zeros(imgSize(3),imgSize(1)*imgSize(2)); %Matriz Entrada RNA 

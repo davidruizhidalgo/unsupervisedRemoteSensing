@@ -1,7 +1,7 @@
 %ENTRENAMIENTO MAPA AUTO-ORGANIZADO DE KOHONEN PARA REDUCCION DIMENSIONAL
 clear, clc, close all;
-sData=load('../../Salinas_corrected.mat');
-dataCube=(10^3).*sData.salinas_corrected;
+sData=load('../../../../../dataSets/Salinas_corrected.mat');
+dataCube=(10^0).*sData.salinas_corrected;
 imgSize=size(dataCube);
 
 x=zeros(imgSize(3),imgSize(1)*imgSize(2)); %Matriz Entrada RNA 

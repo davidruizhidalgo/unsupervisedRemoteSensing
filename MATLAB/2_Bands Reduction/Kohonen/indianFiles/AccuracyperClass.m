@@ -5,9 +5,9 @@ imgSize=size(imgOutSOM);
 
 figure;
 imagesc(imgOutSOM); %IMAGEN DE CLASIFICACIÓN FILTRADA
-title('Imagen Resultante Wavelet FILTRADA'); axis off;
+title('Imagen Resultante FILTRADA'); axis off;
 
-imgTh=load('../../indian_pines_gt.mat');
+imgTh=load('../../../dataSets/Indian_pines_gt.mat');
 imgTh=imgTh.indian_pines_gt;
 
 Accuracy=zeros(1,16);

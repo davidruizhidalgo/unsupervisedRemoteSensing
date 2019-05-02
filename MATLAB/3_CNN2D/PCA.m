@@ -1,6 +1,6 @@
 %PCA => PRINCIPAL COMPONENT ANALISYS. 
 clear, clc, close all;
-data = load('dataSets/Indian_pines.mat');
+data = load('../../../dataSets/Indian_pines.mat');
 data = data.indian_pines_corrected;
 
 %NORMALIZAR

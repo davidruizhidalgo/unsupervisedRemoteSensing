@@ -33,7 +33,7 @@ for i=1:imgSize(1)
     end
 end
 
-imgTh=load('../../indian_pines_gt.mat');
+imgTh=load('../../../../../dataSets/Indian_pines_gt.mat');
 imgTh=imgTh.indian_pines_gt; figure;
 imagesc(imgTh);    %IMAGEN DE CLASIFICACION DESEADA
 title('Imagen Deseada'); axis off;
@@ -100,7 +100,7 @@ end
 
 figure;
 imagesc(imgOutSOM); %IMAGEN DE CLASIFICACIÓN FILTRADA
-title('Imagen Resultante Wavelet FILTRADA'); axis off;
+title('Imagen Resultante FILTRADA'); axis off;
 
 
 mdl = fitlm(imgTh(:),imgOutSOM(:));

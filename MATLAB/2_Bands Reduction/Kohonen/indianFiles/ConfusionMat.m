@@ -6,7 +6,7 @@ imgSize=size(imgOutSOM);
 figure;
 imagesc(imgOutSOM);
 
-imgTh=load('../../indian_pines_gt.mat');
+imgTh=load('../../../dataSets/Indian_pines_gt.mat');
 imgTh=imgTh.indian_pines_gt;
 figure;
 imagesc(imgTh);
