@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 class CargarHsi:
     
     def __init__(self,name_data):
-        dicData = {'Indian_pines' : ['C:/Users/david/Documents/dataSets/Indian_pines.mat', 'indian_pines_corrected', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
+        dicData = {'IndianPines' : ['C:/Users/david/Documents/dataSets/Indian_pines.mat', 'indian_pines_corrected', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
                     'Salinas' : ['C:/Users/david/Documents/dataSets/Salinas.mat', 'salinas_corrected', 'C:/Users/david/Documents/dataSets/Salinas_gt.mat', 'salinas_gt'],
                     'Pavia' : ['C:/Users/david/Documents/dataSets/Pavia.mat', 'pavia', 'C:/Users/david/Documents/dataSets/Pavia_gt.mat', 'pavia_gt'],
                     'PaviaU' : ['C:/Users/david/Documents/dataSets/PaviaU.mat', 'paviaU', 'C:/Users/david/Documents/dataSets/PaviaU_gt.mat', 'paviaU_gt'], }

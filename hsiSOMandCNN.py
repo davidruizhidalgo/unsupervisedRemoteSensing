@@ -7,11 +7,8 @@ import matplotlib.pyplot as plt
 from package.prepararDatos import PrepararDatos
 from package.firmasEspectrales import FirmasEspectrales
 from keras import layers
-from keras.models import Model
-from keras.layers import Input
-from keras.layers import Flatten
-from keras.layers import Dense
-from keras.optimizers import SGD
+from keras import models
+from keras import regularizers
 from io import open
 
 def loadSomData(name_data):
@@ -64,38 +61,25 @@ for i in range(0, numTest):
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
-    #DEFINICION RED CONVOLUCIONAL INCEPTION 
-    input_tensor = Input(shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3]))
-    # Cada rama tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas 
-    # en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
-    # Rama A
-    branch_a = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
-    # Rama B
-    branch_b = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
-    branch_b = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_b)
-    # Rama C
-    branch_c = layers.AveragePooling2D((3,3), strides=(1,1), padding='same')(input_tensor)
-    branch_c = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_c)
-    # Rama D
-    branch_d = layers.Conv2D(128, (1,1), activation='relu', padding='same')(input_tensor)
-    branch_d = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_d)
-    branch_d = layers.Conv2D(128, (3,3), activation='relu', padding='same')(branch_d)
-    # Se concatenan todas las rama  para tener un solo modelo en output
-    output = layers.concatenate([branch_a, branch_b, branch_c, branch_d], axis=-1)
-    # Se añade como capa final de salida un clasificador tipo Multinomial logistic regression
-    output = Flatten()(output)
-    out    = Dense(groundTruth.max()+1, activation='softmax')(output)
-    # Se define el modelo total de la red 
-    model = Model(inputs = input_tensor, outputs = out)
-    #print(model.summary())
+    #DEFINICION RED CONVOLUCIONAL
+    model = models.Sequential()
+    model.add(layers.Conv2D(128, (5, 5), kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])))
+    model.add(layers.Conv2D(128, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+    model.add(layers.Conv2D(256, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
 
-    #ENTRENAMIENTO DE LA RED CONVOLUCIONAL INCEPTION
-    epochs = 25
-    lrate = 0.01
-    decay = lrate/epochs
-    sgd = SGD(lr=lrate, momentum=0.9, decay=decay, nesterov=False)
-    model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
-    history = model.fit(datosEntrenamiento,etiquetasEntrenamiento,epochs=epochs,batch_size=256,validation_data=(datosValidacion, etiquetasValidacion))
+    #CAPA FULLY CONNECTED
+    model.add(layers.Flatten())
+    model.add(layers.Dropout(0.5))
+    model.add(layers.Dense(1024, kernel_regularizer=regularizers.l2(0.001), activation='relu'))
+    model.add(layers.Dropout(0.5))
+    model.add(layers.Dense(1024, kernel_regularizer=regularizers.l2(0.001), activation='relu'))
+    #AÑADE UN CLASIFICADOR MLR EN EL TOPE DE LA CONVNET
+    model.add(layers.Dense(groundTruth.max()+1, activation='softmax'))
+    print(model.summary())
+
+    #ENTRENAMIENTO DE LA RED CONVOLUCIONAL
+    model.compile(optimizer='rmsprop', loss='categorical_crossentropy', metrics=['accuracy'])
+    history = model.fit(datosEntrenamiento,etiquetasEntrenamiento,epochs=25,batch_size=512,validation_data=(datosValidacion, etiquetasValidacion))
 
     #EVALUAR MODELO
     test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
@@ -103,7 +87,7 @@ for i in range(0, numTest):
 
     #LOGGER DATOS DE ENTRENAMIENTO
     #CREAR DATA LOGGER
-    nlogg = 'logger_'+dataSet+'SOMINC.txt'
+    nlogg = 'logger_'+dataSet+'SOMCNN.txt'
     fichero = open(nlogg,'w')  
     fichero.write('Datos SOM + INCEPTION')    
     loss = history.history['loss']
@@ -116,7 +100,7 @@ for i in range(0, numTest):
     fichero.write('\n'+str(val_acc))
         
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    model.save('hsiSOMandINCEPTION'+str(i)+'.h5')
+    model.save('hsiSOM_CNN2D'+str(i)+'.h5')
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 datosSalida = model.predict(datosPrueba)

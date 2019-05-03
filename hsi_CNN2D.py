@@ -29,7 +29,7 @@ imagenPCA = pca.pca_calculate(imagen, componentes=4)
 mp = morphologicalProfiles()
 imagenEAP = mp.EAP(imagenPCA)
 
-for i in range(0, 10):
+for i in range(0, 1):
     #PREPARAR DATOS PARA ENTRENAMIENTO
     preparar = PrepararDatos(imagenEAP, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
@@ -38,8 +38,11 @@ for i in range(0, 10):
     #DEFINICION RED CONVOLUCIONAL
     model = models.Sequential()
     model.add(layers.Conv2D(48, (5, 5), kernel_regularizer=regularizers.l2(0.001),activation='relu', input_shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])))
+    #model.add(layers.MaxPooling2D((2,2), data_format='channels_last', strides=(1,1), padding='same'))
     model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+    #model.add(layers.MaxPooling2D((2,2), data_format='channels_last', strides=(1,1), padding='same'))
     model.add(layers.Conv2D(96, (3, 3), kernel_regularizer=regularizers.l2(0.001),activation='relu'))
+    #model.add(layers.MaxPooling2D((2,2), data_format='channels_last', strides=(1,1), padding='same'))
     #CAPA FULLY CONNECTED
     model.add(layers.Flatten())
     model.add(layers.Dropout(0.5))

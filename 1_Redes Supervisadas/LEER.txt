@@ -1,0 +1,14 @@
+ESTRUCTURA DE ARCHIVOS
+Para ejecutar cualquiera de estos archivos, deben ser copiados en la misma carpeta del compendio
+de funciones package. Igualmente se debe respetar la siguiente estructura de archivos. 
+
+unsupervisedRemoteSensing
+	||package
+		=>cargarHSI.py
+		=>firmasEspectrales.py
+		=>MorphologicalProfiles.py
+		=>PCA.py
+		=>prepararDatos.py
+	||red1.py
+	||red2.py
+	||red3.py

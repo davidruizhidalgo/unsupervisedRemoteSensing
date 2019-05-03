@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-data = CargarHsi('Indian_pines')
+data = CargarHsi('IndianPines')
 imagen = data.imagen
 groundTruth = data.groundTruth
 
