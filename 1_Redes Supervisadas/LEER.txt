@@ -2,8 +2,17 @@ ESTRUCTURA DE ARCHIVOS
 Para ejecutar cualquiera de estos archivos, deben ser copiados en la misma carpeta del compendio
 de funciones package. Igualmente se debe respetar la siguiente estructura de archivos. 
 
-unsupervisedRemoteSensing
-	||package
+dataSets/
+        ||DatosSOM/
+                =>...
+        ||Indian_pines.mat
+        ||Indian_pines_gt.mat
+        ||Salinas.mat
+        ||Salinas_gt.mat
+        ||PaviaU.mat
+        ||PaviaU_gt.mat
+unsupervisedRemoteSensing/
+	||package/
 		=>cargarHSI.py
 		=>firmasEspectrales.py
 		=>MorphologicalProfiles.py
