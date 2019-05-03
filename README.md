@@ -87,5 +87,5 @@ hsiSOMandCNN.py => Entrenamiento de una  red convolucional para clasificación u
 ## 8. Clasificación de una HSI usando SOM y un Modelo Inseption 
 hsiSOMandINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para clasificación usando HSI. Se utiliza self organized mapas (SOM) para reduccion dimensional y estraccion de caracteristicas espectrales.
 
-#Esquemas NO Supervisados
+## Esquemas NO Supervisados
 
