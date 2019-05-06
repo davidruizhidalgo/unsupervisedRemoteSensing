@@ -49,6 +49,10 @@ numTest = 1
 dataSet = 'IndianPines'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 imagen, groundTruth = loadSomData(dataSet)
+
+nlogg = 'logger_'+dataSet+'SOMCNN.txt'
+fichero = open(nlogg,'w')  
+fichero.write('Datos SOM + INCEPTION')   
 #FIRMAS ESPECTRALES
 espectros = FirmasEspectrales(imagen, groundTruth)
 firmas = espectros.promediarFirmas() # Promedios de todas las firmas espectrales
@@ -87,9 +91,6 @@ for i in range(0, numTest):
 
     #LOGGER DATOS DE ENTRENAMIENTO
     #CREAR DATA LOGGER
-    nlogg = 'logger_'+dataSet+'SOMCNN.txt'
-    fichero = open(nlogg,'w')  
-    fichero.write('Datos SOM + INCEPTION')    
     loss = history.history['loss']
     val_loss = history.history['val_loss']
     acc = history.history['acc']

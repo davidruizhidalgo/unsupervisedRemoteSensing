@@ -51,40 +51,29 @@ unsupervisedRemoteSensing/
 	||red3.py
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
-
 cargarHSI.py => Permite cargar un archivo .mat con la imagen hiperespectral y el groundtruth. Realiza la normalización de los valores de entrada utilizando la media y la desviación estándar de cada firma espectral. Esto permite obtener datos con media cero y desviación uno. El archivo implementa también funciones de graficar una o dos imágenes de un solo canal.
-
 prepararDatos.py => Permite extraer conjuntos de datos de entrenamiento, validación y prueba en 1D, 2D y 3D, utilizando ventanas y porcentajes de datos variables.
-
 PCA.py => Implementa el análisis de componentes principales sobre la imagen hiperespectral de entrada.
-
 firmasEspectrales.py => Recoge las firmas espectrales de cada una de las clases en la imagen. Calcula el promedio y grafica las firmas espectrales con el objetivo de determinar posibles diferencias en las curvas. 
-
 MorphologicalProfiles.py => Extrae los perfiles morfologicos de cada uno de los canales en una imagen. Implementa Extended Attribute Profules (EAP) para la generación de caracteristicas espaciales.
 ## 2. Análisis de firmas espectrales 
 analisisEspectral.py => Permite realizar el análisis de las firmas espectrales de cada una de las clases presentes en la imagen hiperespectral. Se promedia la firma espectral de cada clase y se grafican para observar las diferencias de los espectros.
-## 3. Clasificación de una HSI usando EAP y una 2D CNN
+## 3. Prueba de Redes Entranadas
+TEST_Networks.py => Carga y ejecución de las redes entrenadas. Genera los coeficientes OA, AA y kappa.  
+## 4. Clasificación de una HSI usando EAP y una 2D CNN
 hsiCNN2D.py => Entrenamiento de una  red convolucional 2d para clasificación usando HSI. Se utiliza PCA y EAP para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-
-TEST_CNN2D.py => Carga y ejecución de una  red convolucional 2d para clasificación usando HSI. 
-## 4. Clasificación de una HSI usando un Modelo Inseption
+## 5. Clasificación de una HSI usando un Modelo Inseption
 hsiINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de características espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs de la imagen original.
-
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
-
 Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
-
-TEST_INCEPTION.py => Carga y ejecución de una  red INCEPTION para clasificación usando HSI. 
-## 5. Clasificación de una HSI usando 3D CNN
+## 6. Clasificación de una HSI usando 3D CNN
 hsiCNN3D.py => Entrenamiento de una  red convolucional 3d para clasificación usando HSI. Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce un tensor 5D de la imagen original para la generacion de caracteristicas a partir de la convolucion. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-
-## 6. Clasificación de una HSI usando un Modelo Inseption 3D
+## 7. Clasificación de una HSI usando un Modelo Inseption 3D
 hsiINCEPTION3D.py => Se utiliza la topología de red de grafos INCEPTION con una modificacion para CNN 3D, para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Se extrae un tensor 5D utilizando una ventana sxs de la imagen original.
-
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
-## 7. Clasificación de una HSI usando SOM y CNN
+## 8. Clasificación de una HSI usando SOM y CNN
 hsiSOMandCNN.py => Entrenamiento de una  red convolucional para clasificación usando HSI. Se utiliza self organized mapas (SOM) para reduccion dimensional y estraccion de caracteristicas espectrales.
-## 8. Clasificación de una HSI usando SOM y un Modelo Inseption 
+## 9. Clasificación de una HSI usando SOM y un Modelo Inseption 
 hsiSOMandINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para clasificación usando HSI. Se utiliza self organized mapas (SOM) para reduccion dimensional y estraccion de caracteristicas espectrales.
 
 ## Esquemas NO Supervisados

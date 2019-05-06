@@ -1,7 +1,9 @@
-#PRUEBA DE RED CONVOLUCIONAL 2D - CLASIFICACION HSI 
-#Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
-#una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
-#Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
+#PRUEBA DE REDES PROFUNDAS.
+# Se crea el archivo xxx_TEST.txt y se carga las redes entrenadas para econtrar: 
+    #Overall Accuracy 
+    #Average Accuracy 
+    #Kappa Coefficient
+
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
@@ -14,32 +16,36 @@ from keras.models import load_model
 from keras.utils import to_categorical
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, cohen_kappa_score
 from io import open
-fichero = open('logger_PaviaU_TEST.txt','w')  
-fichero.write('Datos PCA + CNN')
 
-
-ventana = 9 #VENTANA 2D de PROCESAMIENTO
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-data = CargarHsi('PaviaU')
+numTest = 1
+dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+ventana = 9 #VENTANA 2D de PROCESAMIENTO
+data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
+nlogg = 'logger_'+dataSet+'_TEST.txt'
+fichero = open(nlogg,'w')  
+fichero.write('Datos PCA + CNN 3D')                          #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95) 
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 mp = morphologicalProfiles()
 imagenEAP = mp.EAP(imagenPCA)
 
-for i in range(0, 10):
+for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenPCA, groundTruth, False)
-    #CARGAR RED RED
-    model = load_model('hsiClassificationCNN2D'+str(i)+'.h5')
+    #CARGAR RED INCEPTION
+    model = load_model('hsi_CNN3D'+str(i)+'.h5')             #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
     print(model.summary())
 
-    #GENERACION OA - Overall Accuracy 
+ #GENERACION OA - Overall Accuracy 
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS
     test_loss, OA = model.evaluate(datosPrueba, etiquetasPrueba)            #EVALUAR MODELO
 
@@ -62,16 +68,12 @@ for i in range(0, 10):
     etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
     kappa = cohen_kappa_score(etiquetasPrueba, etiquetasPred)
 
-
     print('OA = '+ str(OA))                          #Overall Accuracy 
     print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
     print('kappa = '+ str(kappa))                    #Kappa Coefficient
-    
+
     fichero.write('\n'+'OA = '+ str(OA))
     fichero.write('\n'+'AA = '+ str(AA)+' ='+ str(ClassAA))
     fichero.write('\n'+'kappa = '+ str(kappa))
     
-
-    #GRAFICAS
-    #data.graficarHsi_VS(groundTruth, datosSalida)
 fichero.close()
