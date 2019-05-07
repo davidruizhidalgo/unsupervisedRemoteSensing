@@ -10,26 +10,34 @@ from keras import layers
 from keras import models
 from keras import regularizers
 import matplotlib.pyplot as plt
+import numpy as np
 from io import open
-fichero = open('logger_PaviaU.txt','w')  
-fichero.write('Datos EAP + CNN')
 
+#CARGAR IMAGEN HSI Y GROUND TRUTH
+numTest = 10
+dataSet = 'IndianPines'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
-
-#CARGAR IMAGEN HSI Y GROUND TRUTH 
-data = CargarHsi('Salinas')
-imagen = data.imagen 
+data = CargarHsi(dataSet)
+imagen = data.imagen
 groundTruth = data.groundTruth
+
+#nlogg = 'logger_'+dataSet+'.txt'
+#fichero = open(nlogg,'w')  
+#fichero.write('Datos EAP + CNN2D')
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, componentes=4)
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+#imagenPCA = pca.pca_calculate(imagen, componentes=4)
+print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA)
-
-for i in range(0, 1):
+imagenEAP = mp.EAP(imagenPCA,num_thresholds=10)
+print(imagenEAP.shape)
+OA = 0
+vectOA = np.zeros(numTest)
+for i in range(0, numTest):
     #PREPARAR DATOS PARA ENTRENAMIENTO
     preparar = PrepararDatos(imagenEAP, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
@@ -60,48 +68,48 @@ for i in range(0, 1):
     #EVALUAR MODELO
     test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
     print(test_acc)
-
+    vectOA[i] = test_acc
+    OA = OA+test_acc
     #LOGGER DATOS DE ENTRENAMIENTO
-    loss = history.history['loss']
-    val_loss = history.history['val_loss']
-    acc = history.history['acc']
-    val_acc = history.history['val_acc']
-
-    fichero.write('\n'+str(loss))
-    fichero.write('\n'+str(val_loss))
-    fichero.write('\n'+str(acc))
-    fichero.write('\n'+str(val_acc))
-        
+    #loss = history.history['loss']
+    #val_loss = history.history['val_loss']
+    #acc = history.history['acc']
+    #val_acc = history.history['val_acc']
+    #CREAR DATA LOGGER
+    #fichero.write('\n'+str(loss))
+    #fichero.write('\n'+str(val_loss))
+    #fichero.write('\n'+str(acc))
+    #fichero.write('\n'+str(val_acc))
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    model.save('hsiClassificationCNN2D'+str(i)+'.h5')
-
+    #model.save('hsiCNN2D'+str(i)+'.h5')
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
+print('dataOA = '+ str(vectOA)) 
+print('OA = '+ str(OA/numTest)) 
 datosSalida = model.predict(datosPrueba)
 datosSalida = preparar.predictionToImage(datosSalida)
-
-'''
-#GRAFICAR TRAINING AND VALIDATION LOSS
-plt.figure(1)
-plt.subplot(211)
-epochs = range(1, len(loss) + 1)
-plt.plot(epochs, loss, 'bo', label='Training loss')
-plt.plot(epochs, val_loss, 'b', label='Validation loss')
-plt.title('Training and validation loss')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-
-plt.subplot(212)
-plt.plot(epochs, acc, 'bo', label='Training acc')
-plt.plot(epochs, val_acc, 'b', label='Validation acc')
-plt.title('Training and validation accuracy')
-plt.xlabel('Epochs')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
-'''
-
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
-fichero.close()
+#fichero.close()
+
+#######################################################
+##GRAFICAR TRAINING AND VALIDATION LOSS
+#plt.figure(1)
+#plt.subplot(211)
+#epochs = range(1, len(loss) + 1)
+#plt.plot(epochs, loss, 'bo', label='Training loss')
+#plt.plot(epochs, val_loss, 'b', label='Validation loss')
+#plt.title('Training and validation loss')
+#plt.xlabel('Epochs')
+#plt.ylabel('Loss')
+#plt.legend()
+
+#plt.subplot(212)
+#plt.plot(epochs, acc, 'bo', label='Training acc')
+#plt.plot(epochs, val_acc, 'b', label='Validation acc')
+#plt.title('Training and validation accuracy')
+#plt.xlabel('Epochs')
+#plt.ylabel('Loss')
+#plt.legend()
+#plt.show()
+##

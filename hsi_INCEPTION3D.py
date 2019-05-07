@@ -35,6 +35,7 @@ fichero.write('Datos PCA + INCEPTION 3D')
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+#imagenPCA = pca.pca_calculate(imagen, componentes=4)
 print(imagenPCA.shape)
 
 for i in range(0, numTest):
