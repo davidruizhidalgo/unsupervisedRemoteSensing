@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 from io import open
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
+numTest = 10
 dataSet = 'IndianPines'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)

@@ -3,6 +3,7 @@
     #Overall Accuracy 
     #Average Accuracy 
     #Kappa Coefficient
+# Cambiar cargar datos 2D o 3D dependiendo de la prueba realizada
 
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
@@ -18,7 +19,7 @@ from sklearn.metrics import confusion_matrix, precision_score, recall_score, coh
 from io import open
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
+numTest = 10
 dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -27,7 +28,7 @@ groundTruth = data.groundTruth
 
 nlogg = 'logger_'+dataSet+'_TEST.txt'
 fichero = open(nlogg,'w')  
-fichero.write('Datos PCA + CNN 3D')                          #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+fichero.write('Datos PCA + CNN 3D')                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
@@ -42,18 +43,18 @@ for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenPCA, groundTruth, False)
     #CARGAR RED INCEPTION
-    model = load_model('hsi_CNN3D'+str(i)+'.h5')             #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+    model = load_model('hsi_CNN3D'+str(i)+'.h5')            #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
     print(model.summary())
 
  #GENERACION OA - Overall Accuracy 
-    datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS
+    datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba3D(ventana)   #TOTAL MUESTRAS                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
     test_loss, OA = model.evaluate(datosPrueba, etiquetasPrueba)            #EVALUAR MODELO
 
     #GENERACION AA - Average Accuracy 
     AA = 0 
     ClassAA = np.zeros(groundTruth.max()+1)
     for i in range(1,groundTruth.max()+1):                      #QUITAR 1 para incluir datos del fondo
-        datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,i) #MUESTRAS DE UNA CLASE
+        datosClase, etiquetasClase = preparar.extraerDatosClase3D(ventana,i) #MUESTRAS DE UNA CLASE                 #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
         test_loss, ClassAA[i] = model.evaluate(datosClase, etiquetasClase)      #EVALUAR MODELO PARA LA CLASE
         AA += ClassAA[i]
     AA /= groundTruth.max()                                     #SUMAR 1 para incluir datos del fondo
