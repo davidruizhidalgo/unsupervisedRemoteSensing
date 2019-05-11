@@ -15,15 +15,15 @@ from io import open
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
+dataSet = 'PaviaU'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
-#nlogg = 'logger_'+dataSet+'.txt'
-#fichero = open(nlogg,'w')  
-#fichero.write('Datos EAP + CNN2D')
+nlogg = 'logger_'+dataSet+'.txt'
+fichero = open(nlogg,'w')  
+fichero.write('Datos EAP + CNN2D')
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
@@ -33,7 +33,7 @@ print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA,num_thresholds=10)
+imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)  #####################
 print(imagenEAP.shape)
 OA = 0
 vectOA = np.zeros(numTest)
@@ -67,21 +67,20 @@ for i in range(0, numTest):
 
     #EVALUAR MODELO
     test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
-    print(test_acc)
     vectOA[i] = test_acc
     OA = OA+test_acc
     #LOGGER DATOS DE ENTRENAMIENTO
-    #loss = history.history['loss']
-    #val_loss = history.history['val_loss']
-    #acc = history.history['acc']
-    #val_acc = history.history['val_acc']
+    loss = history.history['loss']
+    val_loss = history.history['val_loss']
+    acc = history.history['acc']
+    val_acc = history.history['val_acc']
     #CREAR DATA LOGGER
-    #fichero.write('\n'+str(loss))
-    #fichero.write('\n'+str(val_loss))
-    #fichero.write('\n'+str(acc))
-    #fichero.write('\n'+str(val_acc))
+    fichero.write('\n'+str(loss))
+    fichero.write('\n'+str(val_loss))
+    fichero.write('\n'+str(acc))
+    fichero.write('\n'+str(val_acc))
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    #model.save('hsiCNN2D'+str(i)+'.h5')
+    model.save('hsiCNN2D'+str(i)+'.h5')
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 print('dataOA = '+ str(vectOA)) 
@@ -90,7 +89,7 @@ datosSalida = model.predict(datosPrueba)
 datosSalida = preparar.predictionToImage(datosSalida)
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
-#fichero.close()
+fichero.close()
 
 #######################################################
 ##GRAFICAR TRAINING AND VALIDATION LOSS

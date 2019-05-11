@@ -1,5 +1,5 @@
 clear, clc, close all;
-data2 = load('Logger/3_EAP_INCEPTION/logger_PaviaU_TEST.txt');
+data2 = load('Logger/1_EAP_CNN/logger_IndianPines_TEST.txt');
 % 0_PCA_CNN 1_EAP_CNN  2_PCA_INCEPTION  3_EAP_INCEPTION
 % IndianPines  Salinas  PaviaU
 

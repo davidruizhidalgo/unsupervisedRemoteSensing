@@ -1,5 +1,5 @@
 clear, clc, close all;
-data = load('Logger/0_PCA_CNN/logger_PaviaU.txt');
+data = load('Logger/0_PCA_CNN/logger_IndianPines.txt');
 x=1:25;
 loss=zeros(10,size(data,2)); j=1;
 for i=1:4:40
@@ -24,7 +24,7 @@ subplot(2,1,2)
 errorbar(x,acc,std_acc); hold on; grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-data = load('Logger/1_EAP_CNN/logger_PaviaU.txt');
+data = load('Logger/1_EAP_CNN/logger_IndianPines.txt');
 
 loss=zeros(10,size(data,2)); j=1;
 for i=1:4:40
@@ -48,7 +48,7 @@ subplot(2,1,2)
 errorbar(x,acc,std_acc); grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-data = load('Logger/2_PCA_INCEPTION/logger_PaviaU.txt');
+data = load('Logger/2_PCA_INCEPTION/logger_IndianPines.txt');
 
 loss=zeros(10,size(data,2)); j=1;
 for i=1:4:40

@@ -20,7 +20,7 @@ from io import open
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+dataSet = 'Salinas'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -28,22 +28,22 @@ groundTruth = data.groundTruth
 
 nlogg = 'logger_'+dataSet+'_TEST.txt'
 fichero = open(nlogg,'w')  
-fichero.write('Datos EAP + INCEPTION')                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+fichero.write('Datos EAP + INCPTION')                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
+#imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+imagenPCA = pca.pca_calculate(imagen, componentes=4)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA)
+imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)                               #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 
 for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenEAP, groundTruth, False)
     #CARGAR RED INCEPTION
-    model = load_model('hsiINCEPTION'+str(i)+'.h5')          #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+    model = load_model('hsiINCEPTION'+str(i)+'.h5')        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
     print(model.summary())
 
  #GENERACION OA - Overall Accuracy 
