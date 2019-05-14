@@ -33,12 +33,12 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
 ### dataSets/
    ####     DatosSOM/
                 =>...
-   ####     Indian_pines.mat
-   ####     Indian_pines_gt.mat
-   ####     Salinas.mat
-   ####     Salinas_gt.mat
-   ####     PaviaU.mat
-   ####     PaviaU_gt.mat
+   #####     Indian_pines.mat
+   #####     Indian_pines_gt.mat
+   #####     Salinas.mat
+   #####     Salinas_gt.mat
+   #####     PaviaU.mat
+   #####     PaviaU_gt.mat
 ### unsupervisedRemoteSensing/
    #### package/
 		=>cargarHSI.py
