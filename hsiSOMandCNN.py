@@ -6,10 +6,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 from package.prepararDatos import PrepararDatos
 from package.firmasEspectrales import FirmasEspectrales
+from package.dataLogger import DataLogger
 from keras import layers
 from keras import models
 from keras import regularizers
-from io import open
+import numpy as np
 
 def loadSomData(name_data):
     dicData = {'IndianPines' : ['C:/Users/david/Documents/dataSets/DatosSOM7/dataSOM_1.mat', 'dataSOM', 'C:/Users/david/Documents/dataSets/Indian_pines_gt.mat', 'indian_pines_gt'],
@@ -50,15 +51,17 @@ dataSet = 'IndianPines'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 imagen, groundTruth = loadSomData(dataSet)
 
-nlogg = 'logger_'+dataSet+'SOMCNN.txt'
-fichero = open(nlogg,'w')  
-fichero.write('Datos SOM + INCEPTION')   
+#CREAR FICHERO DATA LOGGER 
+logger = DataLogger(dataSet+'SOMCNN')  
+
 #FIRMAS ESPECTRALES
 espectros = FirmasEspectrales(imagen, groundTruth)
 firmas = espectros.promediarFirmas() # Promedios de todas las firmas espectrales
 #GRAFICAR FIRMAS ESPECTRALES
 espectros.graficarFirmas(firmas) # Grafica de los promedios de todas las firmas espectrales
 #COMIENZAN LAS ITERACIONES
+OA = 0
+vectOA = np.zeros(numTest)
 for i in range(0, numTest):
     #PREPARAR DATOS PARA ENTRENAMIENTO
     preparar = PrepararDatos(imagen, groundTruth, False)
@@ -87,19 +90,10 @@ for i in range(0, numTest):
 
     #EVALUAR MODELO
     test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
-    print(test_acc)
-
+    vectOA[i] = test_acc
+    OA = OA+test_acc
     #LOGGER DATOS DE ENTRENAMIENTO
-    #CREAR DATA LOGGER
-    loss = history.history['loss']
-    val_loss = history.history['val_loss']
-    acc = history.history['acc']
-    val_acc = history.history['val_acc']
-    fichero.write('\n'+str(loss))
-    fichero.write('\n'+str(val_loss))
-    fichero.write('\n'+str(acc))
-    fichero.write('\n'+str(val_acc))
-        
+    logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
     model.save('hsiSOM_CNN2D'+str(i)+'.h5')
 
@@ -108,4 +102,4 @@ datosSalida = model.predict(datosPrueba)
 datosSalida = preparar.predictionToImage(datosSalida)
 #GRAFICAS
 graficarHsi_VS(groundTruth, datosSalida)
-fichero.close()
+logger.close()

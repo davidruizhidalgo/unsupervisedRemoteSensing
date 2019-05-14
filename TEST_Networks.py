@@ -9,31 +9,30 @@ from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
 from package.MorphologicalProfiles import morphologicalProfiles
+from package.dataLogger import DataLogger
 from keras import layers 
 from keras import models
-import matplotlib.pyplot as plt
-import numpy as np
 from keras.models import load_model
 from keras.utils import to_categorical
+import matplotlib.pyplot as plt
+import numpy as np
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, cohen_kappa_score
-from io import open
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 10
-dataSet = 'Salinas'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+numTest = 1
+dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
-nlogg = 'logger_'+dataSet+'_TEST.txt'
-fichero = open(nlogg,'w')  
-fichero.write('Datos EAP + INCPTION')                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+#CREAR FICHERO DATA LOGGER 
+logger = DataLogger(dataSet+'_TEST')                          #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-#imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
-imagenPCA = pca.pca_calculate(imagen, componentes=4)
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+#imagenPCA = pca.pca_calculate(imagen, componentes=4)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 mp = morphologicalProfiles()
@@ -43,7 +42,7 @@ for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenEAP, groundTruth, False)
     #CARGAR RED INCEPTION
-    model = load_model('hsiINCEPTION'+str(i)+'.h5')        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+    model = load_model('hsiCNN2D'+str(i)+'.h5')        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
     print(model.summary())
 
  #GENERACION OA - Overall Accuracy 
@@ -72,9 +71,8 @@ for i in range(0, numTest):
     print('OA = '+ str(OA))                          #Overall Accuracy 
     print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
     print('kappa = '+ str(kappa))                    #Kappa Coefficient
-
-    fichero.write('\n'+'OA = '+ str(OA))
-    fichero.write('\n'+'AA = '+ str(AA)+' ='+ str(ClassAA))
-    fichero.write('\n'+'kappa = '+ str(kappa))
     
-fichero.close()
+    #GENERACION DATA LOGGER 
+    logger.savedataPerformance(OA, ClassAA, kappa)
+    
+logger.close() 

@@ -41,10 +41,13 @@ class CargarHsi:
         plt.colorbar()
         plt.show()
 
-    def graficarHsi_VS(self, img_1, img_2):
+    def graficarHsi_VS(self, img_1, img_2, cmap ='fc'):
         plt.figure(1)
         plt.subplot(1,2,1)
         plt.imshow(img_1)
         plt.subplot(1,2,2)
-        plt.imshow(img_2)
+        if cmap == 'fc':
+            plt.imshow(img_2)
+        else:
+            plt.imshow(img_2, cmap='Greys',  interpolation='nearest')
         plt.show()

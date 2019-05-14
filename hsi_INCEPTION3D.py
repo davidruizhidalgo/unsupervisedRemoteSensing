@@ -11,6 +11,7 @@
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
+from package.dataLogger import DataLogger
 from keras import layers
 from keras.models import Model
 from keras.layers import Input
@@ -18,7 +19,7 @@ from keras.layers import Flatten
 from keras.layers import Dense
 from keras.optimizers import SGD
 import matplotlib.pyplot as plt
-from io import open
+import numpy as np
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
@@ -28,16 +29,16 @@ data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
-nlogg = 'logger_'+dataSet+'.txt'
-fichero = open(nlogg,'w')  
-fichero.write('Datos PCA + INCEPTION 3D')
+#CREAR FICHERO DATA LOGGER 
+logger = DataLogger(dataSet)  
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
 #imagenPCA = pca.pca_calculate(imagen, componentes=4)
 print(imagenPCA.shape)
-
+OA = 0
+vectOA = np.zeros(numTest)
 for i in range(0, numTest):
     #PREPARAR DATOS PARA ENTRENAMIENTO
     preparar = PrepararDatos(imagenPCA, groundTruth, False)
@@ -78,25 +79,18 @@ for i in range(0, numTest):
 
     #EVALUAR MODELO
     test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
-    print(test_acc)
-    
+    vectOA[i] = test_acc
+    OA = OA+test_acc
     #LOGGER DATOS DE ENTRENAMIENTO
-    #CREAR DATA LOGGER
-    loss = history.history['loss']
-    val_loss = history.history['val_loss']
-    acc = history.history['acc']
-    val_acc = history.history['val_acc']
-    fichero.write('\n'+str(loss))
-    fichero.write('\n'+str(val_loss))
-    fichero.write('\n'+str(acc))
-    fichero.write('\n'+str(val_acc))
-        
+    logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    model.save('hsi_INCEPTION3D'+str(i)+'.h5')
+    model.save('hsiINCEPTION3D'+str(i)+'.h5')
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
+print('dataOA = '+ str(vectOA)) 
+print('OA = '+ str(OA/numTest)) 
 datosSalida = model.predict(datosPrueba)
 datosSalida = preparar.predictionToImage(datosSalida)
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
-fichero.close()
+logger.close()
