@@ -30,25 +30,25 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
                 AA - Average Accuracy : promedio generado entre los porcentajes de aciertos de cada una de las clases
                 k - Kappa Coefficient : El coeficiente Kappa se genera a partir de una prueba estadística para evaluar la precisión de la clasificación. Básicamente, Kappa evalúa qué tan bien se realizó la clasificación en comparación con la asignación de valores aleatorios, es decir, evalua si la clasificación funcionó mejor que la aleatoria. El coeficiente de Kappa puede variar de -1 t0 1. Un valor de 0 indica que la clasificación no es mejor que una clasificación aleatoria. Un número negativo indica que la clasificación es significativamente peor que aleatoria. Un valor cercano a 1 indica que la clasificación es significativamente mejor que aleatoria.
 - se debe respetar la siguiente estructura de archivos: 
-dataSets/
-        ||DatosSOM/
+###dataSets/
+   ####     ||DatosSOM/
                 =>...
-        ||Indian_pines.mat
-        ||Indian_pines_gt.mat
-        ||Salinas.mat
-        ||Salinas_gt.mat
-        ||PaviaU.mat
-        ||PaviaU_gt.mat
-unsupervisedRemoteSensing/
-	||package/
+   ####     ||Indian_pines.mat
+   ####     ||Indian_pines_gt.mat
+   ####     ||Salinas.mat
+   ####     ||Salinas_gt.mat
+   ####     ||PaviaU.mat
+   ####     ||PaviaU_gt.mat
+###unsupervisedRemoteSensing/
+   #### ||package/
 		=>cargarHSI.py
 		=>firmasEspectrales.py
 		=>MorphologicalProfiles.py
 		=>PCA.py
 		=>prepararDatos.py
-	||red1.py
-	||red2.py
-	||red3.py
+   ####	||net_1.py
+   ####	||net_2.py
+   ####	||net_n.py
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
 cargarHSI.py => Permite cargar un archivo .mat con la imagen hiperespectral y el groundtruth. Realiza la normalización de los valores de entrada utilizando la media y la desviación estándar de cada firma espectral. Esto permite obtener datos con media cero y desviación uno. El archivo implementa también funciones de graficar una o dos imágenes de un solo canal.
@@ -58,22 +58,24 @@ firmasEspectrales.py => Recoge las firmas espectrales de cada una de las clases 
 MorphologicalProfiles.py => Extrae los perfiles morfologicos de cada uno de los canales en una imagen. Implementa Extended Attribute Profules (EAP) para la generación de caracteristicas espaciales.
 ## 2. Análisis de firmas espectrales 
 analisisEspectral.py => Permite realizar el análisis de las firmas espectrales de cada una de las clases presentes en la imagen hiperespectral. Se promedia la firma espectral de cada clase y se grafican para observar las diferencias de los espectros.
-## 3. Prueba de Redes Entranadas
+## 3. Data Logger 
+dataLogger.py => Permite almacenar en un archivo .txt los resultados obtenidos con cualquiera de las estructuras desarrolladas. Los datos son almacenados en estructuras matriciales y pueden ser leidos por cualquier sofware de procesamiento como Matplotlib o Matlab. 
+## 4. Prueba de Redes Entranadas
 TEST_Networks.py => Carga y ejecución de las redes entrenadas. Genera los coeficientes OA, AA y kappa.  
-## 4. Clasificación de una HSI usando EAP y una 2D CNN
+## 5. Clasificación de una HSI usando EAP y una 2D CNN
 hsiCNN2D.py => Entrenamiento de una  red convolucional 2d para clasificación usando HSI. Se utiliza PCA y EAP para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-## 5. Clasificación de una HSI usando un Modelo Inseption
+## 6. Clasificación de una HSI usando un Modelo Inseption
 hsiINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de características espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs de la imagen original.
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
 Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
-## 6. Clasificación de una HSI usando 3D CNN
+## 7. Clasificación de una HSI usando 3D CNN
 hsiCNN3D.py => Entrenamiento de una  red convolucional 3d para clasificación usando HSI. Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce un tensor 5D de la imagen original para la generacion de caracteristicas a partir de la convolucion. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-## 7. Clasificación de una HSI usando un Modelo Inseption 3D
+## 8. Clasificación de una HSI usando un Modelo Inseption 3D
 hsiINCEPTION3D.py => Se utiliza la topología de red de grafos INCEPTION con una modificacion para CNN 3D, para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Se extrae un tensor 5D utilizando una ventana sxs de la imagen original.
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
-## 8. Clasificación de una HSI usando SOM y CNN
+## 9. Clasificación de una HSI usando SOM y CNN
 hsiSOMandCNN.py => Entrenamiento de una  red convolucional para clasificación usando HSI. Se utiliza self organized mapas (SOM) para reduccion dimensional y estraccion de caracteristicas espectrales.
-## 9. Clasificación de una HSI usando SOM y un Modelo Inseption 
+## 10. Clasificación de una HSI usando SOM y un Modelo Inseption 
 hsiSOMandINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para clasificación usando HSI. Se utiliza self organized mapas (SOM) para reduccion dimensional y estraccion de caracteristicas espectrales.
 
 ## Esquemas NO Supervisados
