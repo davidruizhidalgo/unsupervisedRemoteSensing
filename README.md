@@ -42,7 +42,9 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
 ### unsupervisedRemoteSensing/
    #####        package/
 		        =>cargarHSI.py
-                        =>firmasEspectrales.py
+                        
+                        =>dataLogger.py
+		        =>firmasEspectrales.py
 		        =>MorphologicalProfiles.py
 		        =>PCA.py
 		        =>prepararDatos.py
