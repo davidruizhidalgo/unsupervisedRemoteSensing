@@ -31,24 +31,24 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
                 k - Kappa Coefficient : El coeficiente Kappa se genera a partir de una prueba estadística para evaluar la precisión de la clasificación. Básicamente, Kappa evalúa qué tan bien se realizó la clasificación en comparación con la asignación de valores aleatorios, es decir, evalua si la clasificación funcionó mejor que la aleatoria. El coeficiente de Kappa puede variar de -1 t0 1. Un valor de 0 indica que la clasificación no es mejor que una clasificación aleatoria. Un número negativo indica que la clasificación es significativamente peor que aleatoria. Un valor cercano a 1 indica que la clasificación es significativamente mejor que aleatoria.
 - se debe respetar la siguiente estructura de archivos: 
 ### dataSets/
-   ####     ||DatosSOM/
+   ####     DatosSOM/
                 =>...
-   ####     ||Indian_pines.mat
-   ####     ||Indian_pines_gt.mat
-   ####     ||Salinas.mat
-   ####     ||Salinas_gt.mat
-   ####     ||PaviaU.mat
-   ####     ||PaviaU_gt.mat
+   ####     Indian_pines.mat
+   ####     Indian_pines_gt.mat
+   ####     Salinas.mat
+   ####     Salinas_gt.mat
+   ####     PaviaU.mat
+   ####     PaviaU_gt.mat
 ### unsupervisedRemoteSensing/
-   #### ||package/
+   #### package/
 		=>cargarHSI.py
 		=>firmasEspectrales.py
 		=>MorphologicalProfiles.py
 		=>PCA.py
 		=>prepararDatos.py
-   ####	||net_1.py
-   ####	||net_2.py
-   ####	||net_n.py
+   ####	net_1.py
+   ####	net_2.py
+   ####	net_n.py
 ## 1. Package
 Paquete que contiene diferentes funciones utilizadas para el procesamiento de las imágenes hiperespectrales:
 cargarHSI.py => Permite cargar un archivo .mat con la imagen hiperespectral y el groundtruth. Realiza la normalización de los valores de entrada utilizando la media y la desviación estándar de cada firma espectral. Esto permite obtener datos con media cero y desviación uno. El archivo implementa también funciones de graficar una o dos imágenes de un solo canal.
