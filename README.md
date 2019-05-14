@@ -23,8 +23,8 @@ Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyec
         sugeridos en la línea de comandos. 
 4. git push origin master
 ### Notas: 
-- La programación de los scripts es realizada en visual studio code
-- Tener en cuenta el directorio donde se encuentran los datasets. En este caso: C:/Users/david/Documents/dataSets/
+- La programación de los scripts es realizada en python bajo el entorno de desarrollo de visual studio code
+- La ruta donde se encuentran los datasets es ../dataSets/, respecto a la carpeta principal unsupervisedRemoteSensing/ 
 - Los programas TEST_xxx.py ejecutan los modelos entrenados de las redes y proporcionan las metricas de desempeño:
                 OA - Overall Accuracy : número total de items correctamente clasificados sobre el total de elementos.
                 AA - Average Accuracy : promedio generado entre los porcentajes de aciertos de cada una de las clases
