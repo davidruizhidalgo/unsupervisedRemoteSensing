@@ -93,7 +93,7 @@ En la figura se presentan los mapas de clasificación obtenidos para los dataset
 
 En la siguiente grafica se presentan las diferencias encontradas entre los mapas de clasificación obtenidos y el ground thruth de cada uno de los conjuntos de datos analizados.  Los resultados indican que el uso de EAP y la topología de red inception mejoran de forma significativa el desempeño del sistema de clasificación. 
 
-![Scheme](images/mapasDif.png)
+![Scheme](images/mapasDiff.png)
 
 En la siguiente figura se presentan las gráficas de valor de la función de costo y exactitud de la red durante el proceso de entrenamiento.  Los resultados obtenidos corroboran de forma cuantitativa la mejora de desempeño generada por el uso de EAP y la topología de red inception.
 
