@@ -60,13 +60,21 @@ dataLogger.py => Permite almacenar en un archivo .txt los resultados obtenidos c
 ## 2. Análisis de firmas espectrales 
 analisisEspectral.py => Permite realizar el análisis de las firmas espectrales de cada una de las clases presentes en la imagen hiperespectral. Se promedia la firma espectral de cada clase y se grafican para observar las diferencias de los espectros.
 En la imagen se presentan las firmas espectrales promedio de cada una de las clases presentes en el dataset Indian Pines. En ella se puede observar la poca variabilidad entre clase que dificulta los procesos de reconocimiento y clasificación en imágenes hiperespectrales. 
+
 ![Scheme](images/firmas.png)
+
 Otro factor para tener en cuenta es el ruido generado por el fondo o elementos que no son de interés en la imagen.  La figura presenta las firmas espectrales de los pixeles de fondo en el dataset Indian Pines. La grafica permite observar el altísimo porcentaje de ruido intrínseco a la imagen hiperespectral.  
+
 ![Scheme](images/firmasFondo.png)
+
 Por otro lado, las firmas espectrales obtenidas después de un proceso de reducción dimensional con PCA muestran una mejor separabilidad entre las clases, tal como lo indican las gráficas de la imagen. 
+
 ![Scheme](images/firmasPCA.png)
+
 Adicionalmente, las firmas espectrales obtenidas después de un proceso de extracción de características utilizando PCA y EAP muestran una mayor variabilidad y por lo tanto favorecen los posteriores procesos de reconocimiento y clasificación. 
+
 ![Scheme](images/firmasEAP.png)
+
 ## 3. Prueba de Redes Entrenadas
 TEST_Networks.py => Carga y ejecución de las redes entrenadas. Genera los coeficientes OA, AA y kappa.  
 ## 4. Clasificación de una HSI usando EAP y una 2D CNN
