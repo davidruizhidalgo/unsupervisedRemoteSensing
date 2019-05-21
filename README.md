@@ -107,6 +107,7 @@ Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual e
 
 Los resultados obtenidos con las topologías de redes en 3D muestran un gran incremento del costo computacional asociado al procesamiento de las imágenes hiperespectrales. El objetivo de la implementación de los modelos en 3D fue poder realizar un procesamiento de los datos en bruto, eliminando elementos de preprocesamiento como PCA y EAP.  Sin embargo, los resultados obtenidos evidencian la necesidad de establecer una etapa de preprocesamiento orientada a la reducción dimensional. En este caso se usa PCA. La ausencia de esta etapa genera un desmejoramiento de los resultados obtenidos por el clasificador.
 Cuando se utiliza el proceso de reducción dimensional, los resultados obtenidos son similares a los obtenidos con las redes 2D, por lo cual y al hacer un balance entre la relación costo computacional vs beneficio se concluye que resulta más pertinente la implementación de esquemas de procesamiento convolucional en 2D. 
+
 ## 8. Clasificación de una HSI usando SOM y CNN
 hsiSOMandCNN.py => Entrenamiento de una red convolucional para clasificación usando HSI. Se utiliza selforganized mapas (SOM) para reducción dimensional y extracción de características espectrales.
 ## 9. Clasificación de una HSI usando SOM y un Modelo Inseption 
@@ -117,3 +118,7 @@ Anteriormente se había utilizado SOM como elemento de reducción dimensional, e
 Al utilizar SOM y redes convolucionales profundas se obtuvo un descenso en los porcentajes de exactitud obtenidos. Se considera que el esquema de reducción dimensional basado en SOM (el cual se realiza de forma unidimensional sobre el eje espectral) no resulta compatible con el esquema de clasificación 2D de las estructuras de las redes convolucionales. En este punto se considera que es necesario actualizar el esquema no supervisado de reducción dimensional basado en SOM, orientándose a un esquema que utiliza una topología de red profunda no supervisada como auto-encoders. 
 
 ## Esquemas NO Supervisados
+k-PCA
+Algebra geometrica 
+Auto-encoders
+CNN - no supervisado
