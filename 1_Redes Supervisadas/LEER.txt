@@ -18,6 +18,7 @@ unsupervisedRemoteSensing/
 		=>MorphologicalProfiles.py
 		=>PCA.py
 		=>prepararDatos.py
+		=>dataLogger.py
 	||red1.py
 	||red2.py
 	||red3.py
