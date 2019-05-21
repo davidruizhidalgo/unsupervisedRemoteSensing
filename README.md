@@ -59,6 +59,7 @@ firmasEspectrales.py => Recoge las firmas espectrales de cada una de las clases 
 MorphologicalProfiles.py => Extrae los perfiles morfológicos de cada uno de los canales en una imagen. Implementa Extended Attribute Profiles (EAP) para la generación de características espaciales.
 ## 2. Análisis de firmas espectrales 
 analisisEspectral.py => Permite realizar el análisis de las firmas espectrales de cada una de las clases presentes en la imagen hiperespectral. Se promedia la firma espectral de cada clase y se grafican para observar las diferencias de los espectros.
+![Scheme](images/firmas.png)
 ## 3. Data Logger 
 dataLogger.py => Permite almacenar en un archivo .txt los resultados obtenidos con cualquiera de las estructuras desarrolladas. Los datos son almacenados en estructuras matriciales y pueden ser leídos por cualquier sofware de procesamiento como Matplotlib o Matlab. 
 ## 4. Prueba de Redes Entrenadas
