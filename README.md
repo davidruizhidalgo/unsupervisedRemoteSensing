@@ -118,7 +118,7 @@ Anteriormente se había utilizado SOM como elemento de reducción dimensional, e
 Al utilizar SOM y redes convolucionales profundas se obtuvo un descenso en los porcentajes de exactitud obtenidos. Se considera que el esquema de reducción dimensional basado en SOM (el cual se realiza de forma unidimensional sobre el eje espectral) no resulta compatible con el esquema de clasificación 2D de las estructuras de las redes convolucionales. En este punto se considera que es necesario actualizar el esquema no supervisado de reducción dimensional basado en SOM, orientándose a un esquema que utiliza una topología de red profunda no supervisada como auto-encoders. 
 
 ## Esquemas NO Supervisados
-k-PCA
-Algebra geometrica 
-Auto-encoders
-CNN - no supervisado
+- k-PCA
+- Algebra geometrica 
+- Auto-encoders
+- CNN - no supervisado
