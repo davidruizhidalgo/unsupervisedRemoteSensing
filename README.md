@@ -78,16 +78,32 @@ Adicionalmente, las firmas espectrales obtenidas después de un proceso de extra
 ## 3. Prueba de Redes Entrenadas
 TEST_Networks.py => Carga y ejecución de las redes entrenadas. Genera los coeficientes OA, AA y kappa.  
 ## 4. Clasificación de una HSI usando EAP y una 2D CNN
-hsiCNN2D.py => Entrenamiento de una  red convolucional 2d para clasificación usando HSI. Se utiliza PCA y EAP para reducción dimensional y extracción de características espectrales. A la red convolucional se introduce una ventana sxs de la imagen original para la generación de características espaciales a partir de la convolución. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
+hsiCNN2D.py => Entrenamiento de una  red convolucional 2d para clasificación usando HSI. Se utiliza PCA y EAP para reducción dimensional y extracción de características espectrales. A la red convolucional se introduce una ventana sxs de la imagen original para la generación de características espaciales a partir de la convolución. Se utiliza como capa de salida un clasificador tipo softmax. Todas las capas utilizan entrenamiento supervisado. 
 ## 5. Clasificación de una HSI usando un Modelo Inseption
 hsiINCEPTION.py => Se utiliza la topología de red de grafos INCEPTION para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de características espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs de la imagen original.
 Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate.
-Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
+Se utiliza como capa de salida un clasificador tipo softmax. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
+En la figura se presenta el diagrama del proceso de reconocmiento y clasificación basado en EAP y una red tipo inception. 
+
+![Scheme](images/inception.png)
+
+En la figura se presentan los mapas de clasificación obtenidos para los datasets Indian Pines, Pavia University y Salinas Valley, utilizando cada uno de los algoritmos desarrollados al momento.  
+
+![Scheme](images/mapas.png)
+
+En la siguiente grafica se presentan las diferencias encontradas entre los mapas de clasificación obtenidos y el ground thruth de cada uno de los conjuntos de datos analizados.  Los resultados indican que el uso de EAP y la topología de red inception mejoran de forma significativa el desempeño del sistema de clasificación. 
+
+![Scheme](images/mapasDif.png)
+
+En la siguiente figura se presentan las gráficas de valor de la función de costo y exactitud de la red durante el proceso de entrenamiento.  Los resultados obtenidos corroboran de forma cuantitativa la mejora de desempeño generada por el uso de EAP y la topología de red inception.
+
+![Scheme](images/accuracy.png)
+
 ## 6. Clasificación de una HSI usando 3D CNN
-hsiCNN3D.py => Entrenamiento de una  red convolucional 3d para clasificación usando HSI. Se utiliza PCA para reducción dimensional y extracción de características espectrales. A la red convolucional se introduce un tensor 5D de la imagen original para la generación de características a partir de la convolución. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
+hsiCNN3D.py => Entrenamiento de una  red convolucional 3d para clasificación usando HSI. Se utiliza PCA para reducción dimensional y extracción de características espectrales. A la red convolucional se introduce un tensor 5D de la imagen original para la generación de características a partir de la convolución. Se utiliza como capa de salida un clasificador tipo softmax. Todas las capas utilizan entrenamiento supervisado. 
 ## 7. Clasificación de una HSI usando un Modelo Inseption 3D
 hsiINCEPTION3D.py => Se utiliza la topología de red de grafos INCEPTION con una modificación para CNN 3D, para la inclusión de características espectrales y espaciales en la arquitectura de la red profunda. Se extrae un tensor 5D utilizando una ventana sxs de la imagen original.
-Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate. Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
+Cada rama de la red INCEPTION tiene el mismo estado de padding='same', lo cual es necesario para mantener todas las salidas de las ramas en el mismo tamaño. Esto posibilita la ejecución de la instrucción concatenate. Se utiliza como capa de salida un clasificador tipo softmax. Todas las capas utilizan entrenamiento supervisado. Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocástico con parámetros variables. 
 ## 8. Clasificación de una HSI usando SOM y CNN
 hsiSOMandCNN.py => Entrenamiento de una red convolucional para clasificación usando HSI. Se utiliza selforganized mapas (SOM) para reducción dimensional y extracción de características espectrales.
 ## 9. Clasificación de una HSI usando SOM y un Modelo Inseption 
