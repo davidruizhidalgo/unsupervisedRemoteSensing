@@ -84,6 +84,10 @@ logger.close()
 
 #######################################################
 ##GRAFICAR TRAINING AND VALIDATION LOSS
+#acc = history.history['acc']
+#val_acc = history.history['val_acc']
+#loss = history.history['loss']
+#val_loss = history.history['val_loss']
 #plt.figure(1)
 #plt.subplot(211)
 #epochs = range(1, len(loss) + 1)
