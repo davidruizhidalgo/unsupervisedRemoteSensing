@@ -28,8 +28,7 @@ test_dogs_dir = os.path.join(test_dir, 'dogs')
 
 #MODELO DE RED PROFUNDA
 model = models.Sequential()
-model.add(layers.Conv2D(32, (3, 3), activation='relu',
-input_shape=(150, 150, 3)))
+model.add(layers.Conv2D(32, (3, 3), activation='relu',input_shape=(150, 150, 3)))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
