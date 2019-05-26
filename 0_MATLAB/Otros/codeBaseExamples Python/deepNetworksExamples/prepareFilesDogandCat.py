@@ -5,11 +5,11 @@
 import os, shutil
 # The path to the directory where the original
 # dataset was uncompressed
-original_dataset_dir = "C:/Users/david/Documents/Deep Learning Examples/dogs-vs-cats_Original/train"
+original_dataset_dir = "C:/Users/david/Downloads/DogAndCat/train"
 
 # The directory where we will
 # store our smaller dataset
-base_dir = 'C:/Users/david/Documents/Deep Learning Examples/dogs-vs-cats_Small'
+base_dir = 'C:/Users/david/Downloads/DogAndCat/dogs-vs-cats_Small'
 os.mkdir(base_dir)
 # Directories for our training,
 # validation and test splits
