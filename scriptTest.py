@@ -1,30 +1,25 @@
 #Script utilizado para el desarrollo de pruebas en el codigo. 
-import numpy as np
-import glob
+#ENTRENAMIENTO DE RED CONVOLUCIONAL 2D - CLASIFICACION HSI 
+#Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
+#una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
+#Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
+from package.cargarHsi import CargarHsi
+from package.PCA import princiapalComponentAnalysis
 import matplotlib.pyplot as plt
-from skimage.transform import resize
+import numpy as np
 
-img = plt.imread("images/inception.png")
-print(img.shape)
+#CARGAR IMAGEN HSI Y GROUND TRUTH
+dataSet = 'Salinas'
+ventana = 9 #VENTANA 2D de PROCESAMIENTO
+data = CargarHsi(dataSet)
+imagen = data.imagen
+groundTruth = data.groundTruth
 
-newSize = (300, 300)
-img_resize = resize(img, newSize, anti_aliasing=True)
-print(img_resize.shape)
-
-numImg = len(glob.glob("images/*.png"))
-images = np.zeros( (numImg,img_resize.shape[0],img_resize.shape[1],img_resize.shape[2]) )
-print(images.shape)
-
-for i in range(0,numImg):
-        images[i] = img_resize
-
-plt.figure(1)
-plt.subplot(1,2,1)
-plt.imshow(img)
-plt.subplot(1,2,2)
-plt.imshow(images[0])
-plt.show()
-
+#ANALISIS DE COMPONENTES PRINCIPALES KPCA
+pca = princiapalComponentAnalysis()
+imagenKPCA = pca.kpca_calculate(imagen, componentes = 9) # 9,4,6
+print(imagenKPCA.shape)
+pca.graficarPCA(imagenKPCA,0)
 ####### EN DESARROLLO ##########################
 # 1. Desarrollar una arquitectura de red selección de caracteristicas NO SUPERVISADA
         # k-PCA

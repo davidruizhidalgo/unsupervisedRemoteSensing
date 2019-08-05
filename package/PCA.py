@@ -3,6 +3,7 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
+from sklearn.decomposition import KernelPCA
 
 class princiapalComponentAnalysis:
     
@@ -43,6 +44,19 @@ class princiapalComponentAnalysis:
                 imagePCA[i] = imageTemp[:,:,i]
         return imagePCA
 
+    def kpca_calculate(self, imagen_in, componentes):
+        dataImagen = imagen_in.copy()
+        imageTemp = dataImagen.reshape((dataImagen.shape[0],dataImagen.shape[1]*dataImagen.shape[2])).T
+        print(imageTemp.shape)
+        kpca = KernelPCA(n_components=componentes, kernel='rbf', gamma=0.3)
+        X_transformed = kpca.fit_transform(imageTemp)
+        print(X_transformed.shape)
+        imageTemp = X_transformed.reshape( (dataImagen.shape[1], dataImagen.shape[2],X_transformed.shape[1]) )
+        imageKPCA = np.zeros( (componentes, dataImagen.shape[1], dataImagen.shape[2]) )
+        for i in range(imageKPCA.shape[0]):
+            imageKPCA[i] = imageTemp[:,:,i]
+        return imageKPCA
+        
     def graficarPCA(self,imagePCA, channel):
         plt.figure(1)
         plt.imshow(imagePCA[channel])

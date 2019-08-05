@@ -1,5 +1,5 @@
-#ENTRENAMIENTO DE RED CONVOLUCIONAL 2D - CLASIFICACION HSI 
-#Se utiliza PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
+#ENTRENAMIENTO DE RED CONVOLUCIONAL 2D usando KPCA - CLASIFICACION HSI 
+#Se utiliza K-PCA para reduccion dimensional y estraccion de caracteristicas espectrales. A la red convolucional se introduce
 #una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
 from package.cargarHsi import CargarHsi
@@ -24,16 +24,11 @@ groundTruth = data.groundTruth
 #CREAR FICHERO DATA LOGGER 
 logger = DataLogger(dataSet)      
 
-#ANALISIS DE COMPONENTES PRINCIPALES
+#ANALISIS DE COMPONENTES PRINCIPALES KPCA
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
-print(imagenPCA.shape)
+imagenPCA = pca.kpca_calculate(imagen, componentes = 9)
+print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-#ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
-mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)  #####################
-print(imagenEAP.shape)
 OA = 0
 vectOA = np.zeros(numTest)
 for i in range(0, numTest):
@@ -71,7 +66,7 @@ for i in range(0, numTest):
     #LOGGER DATOS DE ENTRENAMIENTO
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    model.save('hsiCNN2D'+str(i)+'.h5')
+    model.save('kpcaCNN'+str(i)+'.h5')
 
 #GENERAR MAPA FINAL DE CLASIFICACIÓN
 print('dataOA = '+ str(vectOA)) 
@@ -81,29 +76,3 @@ datosSalida = preparar.predictionToImage(datosSalida)
 #GRAFICAS
 data.graficarHsi_VS(groundTruth, datosSalida)
 logger.close()
-
-#######################################################
-##GRAFICAR TRAINING AND VALIDATION LOSS
-#acc = history.history['acc']
-#val_acc = history.history['val_acc']
-#loss = history.history['loss']
-#val_loss = history.history['val_loss']
-#plt.figure(1)
-#plt.subplot(211)
-#epochs = range(1, len(loss) + 1)
-#plt.plot(epochs, loss, 'bo', label='Training loss')
-#plt.plot(epochs, val_loss, 'b', label='Validation loss')
-#plt.title('Training and validation loss')
-#plt.xlabel('Epochs')
-#plt.ylabel('Loss')
-#plt.legend()
-
-#plt.subplot(212)
-#plt.plot(epochs, acc, 'bo', label='Training acc')
-#plt.plot(epochs, val_acc, 'b', label='Validation acc')
-#plt.title('Training and validation accuracy')
-#plt.xlabel('Epochs')
-#plt.ylabel('Loss')
-#plt.legend()
-#plt.show()
-##

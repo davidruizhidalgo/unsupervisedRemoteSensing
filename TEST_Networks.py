@@ -19,7 +19,7 @@ import numpy as np
 from sklearn.metrics import confusion_matrix, precision_score, recall_score, cohen_kappa_score
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
+numTest = 10
 dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -31,19 +31,21 @@ logger = DataLogger(dataSet+'_TEST')                          #=================
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+#imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+imagenPCA = pca.kpca_calculate(imagen, componentes = 9)
+print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 #imagenPCA = pca.pca_calculate(imagen, componentes=4)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
-mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)                               #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+#mp = morphologicalProfiles()
+#imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)                               #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 
 for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
-    preparar = PrepararDatos(imagenEAP, groundTruth, False)
+    preparar = PrepararDatos(imagenPCA, groundTruth, False)
     #CARGAR RED INCEPTION
-    model = load_model('hsiCNN2D'+str(i)+'.h5')        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
-    print(model.summary())
+    model = load_model('hsiCNN2D'+str(i)+'.h5')     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA 
+    print(model.summary())                                  #  ('hsiCNN2D'+str(i)+'.h5')  ('kpcaCNN'+str(i)+'.h5')  ('kpcaINCEPTION'+str(i)+'.h5') 
 
  #GENERACION OA - Overall Accuracy 
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS                         #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA

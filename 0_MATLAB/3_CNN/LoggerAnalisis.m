@@ -1,6 +1,6 @@
 clear, clc, close all;
-data2 = load('Logger/1_EAP_CNN/logger_IndianPines_TEST.txt');
-% 0_PCA_CNN 1_EAP_CNN  2_PCA_INCEPTION  3_EAP_INCEPTION
+data2 = load('Logger/00_PCA_CNN/logger_IndianPines_TEST.txt');
+% 00_PCA_CNN  6_KPCA_CNN  7_KPCA_INCEPTION 
 % IndianPines  Salinas  PaviaU
 
 OA = zeros(1,10); j=1;
