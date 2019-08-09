@@ -45,17 +45,55 @@ class princiapalComponentAnalysis:
         return imagePCA
 
     def kpca_calculate(self, imagen_in, componentes):
-        dataImagen = imagen_in.copy()
-        imageTemp = dataImagen.reshape((dataImagen.shape[0],dataImagen.shape[1]*dataImagen.shape[2])).T
-        print(imageTemp.shape)
-        kpca = KernelPCA(n_components=componentes, kernel='rbf', gamma=0.3)
-        X_transformed = kpca.fit_transform(imageTemp)
-        print(X_transformed.shape)
-        imageTemp = X_transformed.reshape( (dataImagen.shape[1], dataImagen.shape[2],X_transformed.shape[1]) )
-        imageKPCA = np.zeros( (componentes, dataImagen.shape[1], dataImagen.shape[2]) )
-        for i in range(imageKPCA.shape[0]):
-            imageKPCA[i] = imageTemp[:,:,i]
-        return imageKPCA
+        #TOMA LA PORCION DE LA IMAGEN DE TAMAÑO W
+        i = 0 #Indice x para la imagen
+        j = 0 #Indice y para la imagen  
+        W = 50 #Tamaño de subconjunto 50  por indices
+        n_componentes = 0 #Numero inicial de componentes principales
+
+        for i in range(imagen_in.shape[1]): #Recorrer x
+            i_l = i*W
+            i_h = (i+1)*W
+            if i_l >= imagen_in.shape[1]:
+                break
+            if i_h > imagen_in.shape[1]:
+                i_h = imagen_in.shape[1]
+            for j in range(imagen_in.shape[2]):  #Recorrer y
+                j_l = j*W
+                j_h = (j+1)*W
+                if j_l >= imagen_in.shape[2]:
+                    break
+                if j_h > imagen_in.shape[2]:
+                    j_h = imagen_in.shape[2]
+                
+                dataImagen = imagen_in[:, i_l:i_h, j_l:j_h]
+                imageTemp = dataImagen.reshape((dataImagen.shape[0],dataImagen.shape[1]*dataImagen.shape[2])).T  #Reorganiza para aplicar KPCA
+                #APLICA KPCA SOBRE TODOS LOS ELEMENTOS DIMENSIONALES 
+                kpca = KernelPCA( kernel='rbf' ) # n_components=None, gamma=0.01
+                X_transformed = kpca.fit_transform(imageTemp)
+                #Calcula el porcentaje de varianza de cada componente y el número de componentes a utilizar
+                if n_componentes == 0:
+                    sum_varianza = 0
+                    varianza  = kpca.lambdas_/np.sum(kpca.lambdas_)
+                    for v in range(varianza.shape[0]):
+                        sum_varianza = sum_varianza+varianza[v]
+                        if sum_varianza > 0.95:
+                            break
+                        else:
+                            n_componentes += 1
+                    if n_componentes < componentes:
+                       n_componentes = componentes
+                    if n_componentes >  imagen_in.shape[1]/2:
+                       n_componentes = componentes  
+                    ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )    
+                #RECUPERA EL NUMERO DE COMPONENTES NECESARIO
+                imageTemp = X_transformed[:,0:n_componentes].reshape( (dataImagen.shape[1], dataImagen.shape[2],n_componentes) )
+                imageKPCA = np.zeros( (n_componentes, dataImagen.shape[1], dataImagen.shape[2]) )
+                # RECONTRUIR LA SALIDA EN LA FORMA DE LA IMAGEN DE ENTRADA
+                for i in range(imageKPCA.shape[0]):
+                    imageKPCA[i] = imageTemp[:,:,i]
+                ImagenOut[:, i_l:i_h, j_l:j_h] = imageKPCA
+        return ImagenOut
         
     def graficarPCA(self,imagePCA, channel):
         plt.figure(1)

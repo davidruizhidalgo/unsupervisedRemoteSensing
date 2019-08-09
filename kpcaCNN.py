@@ -15,7 +15,7 @@ import numpy as np
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
+dataSet = 'PaviaU'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -26,7 +26,7 @@ logger = DataLogger(dataSet)
 
 #ANALISIS DE COMPONENTES PRINCIPALES KPCA
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.kpca_calculate(imagen, componentes = 9)
+imagenPCA = pca.kpca_calculate(imagen, componentes = 15)
 print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
 OA = 0

@@ -20,7 +20,7 @@ from sklearn.metrics import confusion_matrix, precision_score, recall_score, coh
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
+dataSet = 'PaviaU'                                     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -32,9 +32,10 @@ logger = DataLogger(dataSet+'_TEST')                          #=================
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 #imagenPCA = pca.pca_calculate(imagen, varianza=0.95)        #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA
-imagenPCA = pca.kpca_calculate(imagen, componentes = 9)
-print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 #imagenPCA = pca.pca_calculate(imagen, componentes=4)
+imagenPCA = pca.kpca_calculate(imagen, componentes = 15)
+print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
 #mp = morphologicalProfiles()
@@ -44,7 +45,7 @@ for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenPCA, groundTruth, False)
     #CARGAR RED INCEPTION
-    model = load_model('hsiCNN2D'+str(i)+'.h5')     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA 
+    model = load_model('kpcaINCEPTION'+str(i)+'.h5')     #==========================> CAMBIAR DE ACUERDO A LA PRUEBA REALIZADA 
     print(model.summary())                                  #  ('hsiCNN2D'+str(i)+'.h5')  ('kpcaCNN'+str(i)+'.h5')  ('kpcaINCEPTION'+str(i)+'.h5') 
 
  #GENERACION OA - Overall Accuracy 
@@ -77,4 +78,4 @@ for i in range(0, numTest):
     #GENERACION DATA LOGGER 
     logger.savedataPerformance(OA, ClassAA, kappa)
     
-logger.close() 
+logger.close()

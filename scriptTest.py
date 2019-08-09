@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-dataSet = 'Salinas'
+dataSet = 'PaviaU'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -17,7 +17,8 @@ groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES KPCA
 pca = princiapalComponentAnalysis()
-imagenKPCA = pca.kpca_calculate(imagen, componentes = 9) # 9,4,6
+print(imagen.shape)
+imagenKPCA = pca.kpca_calculate(imagen, componentes = 15) # 9,4,6
 print(imagenKPCA.shape)
 pca.graficarPCA(imagenKPCA,0)
 ####### EN DESARROLLO ##########################
