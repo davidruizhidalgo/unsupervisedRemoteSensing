@@ -12,24 +12,25 @@ class morphologicalProfiles:
     def __str__(self):
         pass
 
-    def thresholdsValues(self, data, num_t=10):
+    def thresholdsValues(self, data, num_t=10):  ####MODIFICAR
         thresholds = np.linspace(data.min(),data.max(),num_t+2)
         thresholds = thresholds[1:-1]
         return thresholds
 
-    def thinning(self,imageChannel, threshold):
+    def thinning(self,imageChannel, threshold):  ####MODIFICAR
         image_binary = imageChannel < threshold
-        out_thin =imageChannel*morphology.thin(image_binary)
+        out_thin = imageChannel*morphology.thin(image_binary)   #MAX
         return out_thin
 
-    def thickening(self,imageChannel, threshold):
+    def thickening(self,imageChannel, threshold):  ####MODIFICAR
         selem = morphology.disk(1)
         image_binary = imageChannel < threshold
-        out_thic = imageChannel*morphology.dilation(image_binary, selem)
+        out_thic = imageChannel*morphology.dilation(image_binary, selem) # MIN
         return out_thic
 
     def EAP(self, imagen, num_thresholds=10): #Extended Attribute Profiles
         dataImage = imagen.copy()
+        dataImage = (dataImage-dataImage.min())/(dataImage.max()-dataImage.min())
         ImageEAP = np.zeros( ((2*num_thresholds+1)*dataImage.shape[0],dataImage.shape[1],dataImage.shape[2]) )
         k=0
         for i in range(dataImage.shape[0]):

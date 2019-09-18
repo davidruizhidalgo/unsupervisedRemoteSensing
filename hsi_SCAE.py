@@ -18,6 +18,20 @@ from keras.models import Model
 from keras.optimizers import SGD
 from keras import regularizers
 
+# FUNCION DE COSTO MODIFICADA
+import keras.backend as K
+def euclidean_distance_loss(y_true, y_pred):
+    """
+    Euclidean distance loss
+    https://en.wikipedia.org/wiki/Euclidean_distance
+    :param y_true: TensorFlow/Theano tensor
+    :param y_pred: TensorFlow/Theano tensor of the same shape as y_true
+    :return: float
+    """
+    #np.arccos(K.sum(K.square(y_pred*y_true), axis=-1)/(K.sum(K.square(y_pred), axis=-1)*K.sum(K.square(y_true), axis=-1)))  
+    return K.sqrt(K.sum(K.square(y_pred - y_true), axis=-1))
+
+
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
 dataSet = 'IndianPines'
