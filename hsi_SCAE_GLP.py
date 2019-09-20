@@ -39,14 +39,20 @@ imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
 print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED ATTRIBUTE PROFILES
+#mp = morphologicalProfiles()
+#imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)  
+#print(imagenEAP.shape)
+
+#ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEAP = mp.EAP(imagenPCA, num_thresholds=6)  
-print(imagenEAP.shape)
+imagenEEP = mp.EEP(imagenPCA, num_levels=10)    
+print(imagenEEP.shape)
+
 OA = 0
 vectOA = np.zeros(numTest)
 for i in range(0, numTest):
     #PREPARAR DATOS PARA ENTRENAMIENTO
-    preparar = PrepararDatos(imagenEAP, groundTruth, False)
+    preparar = PrepararDatos(imagenEEP, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
     #########################################################################################################################

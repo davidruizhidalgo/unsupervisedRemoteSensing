@@ -1,6 +1,6 @@
 ESTRUCTURA DE ARCHIVOS
-Para ejecutar cualquiera de estos archivos, deben ser copiados en la misma carpeta del compendio
-de funciones package. Igualmente se debe respetar la siguiente estructura de archivos. 
+Para ejecutar cualquiera de estos archivos, deben ser copiados en la carpeta de directorio
+principal (unsupervisedRemoteSensing/). Igualmente se debe respetar la siguiente estructura de archivos. 
 
 dataSets/
         ||DatosSOM/

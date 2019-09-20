@@ -22,11 +22,11 @@ class CargarHsi:
             data_t[i] = data[i].T 
 
         #NORMALIZAR DATOS DE ENTRADA
-        data_t = (data_t-data_t.min())/(data_t.max()-data_t.min())
-        #mean = data_t.mean(axis=0)
-        #data_t -= mean
-        #std = data_t.std(axis=0)
-        #data_t /= std
+        #data_t = (data_t-data_t.min())/(data_t.max()-data_t.min())
+        mean = data_t.mean(axis=0)
+        data_t -= mean
+        std = data_t.std(axis=0)
+        data_t /= std
         self.imagen = data_t.copy()   #IMAGEN DE ENTRADA NORMALIZADA
         #CARGAR GROUND TRUTH
         mat = sio.loadmat(dicData[name_data][2]) # Cargar archivo Ground Truth .mat
