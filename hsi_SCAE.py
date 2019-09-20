@@ -56,7 +56,7 @@ print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=10)    
+imagenEEP = mp.EEP(imagenPCA, num_levels=6)    
 print(imagenEEP.shape)
 
 OA = 0
