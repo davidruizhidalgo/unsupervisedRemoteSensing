@@ -13,7 +13,9 @@ Este proyecto contiene diferentes aplicaciones con código desarrollado en pytho
 7. conda install pylint
 8. conda install scikit-learn
 9. conda install -c conda-forge scikit-image
-10. En el directorio 3_siamxt-master ejecutar: python septup.py install
+10. conda install pydot
+11. En el directorio 3_siamxt-master ejecutar: python septup.py install
+
 
 El toolbox siamxt se descarga desde https://github.com/rmsouza01/siamxt. Para su ejecución es necesario preinstalar Visual Studio Build Tools 2019 
 ### Sincronización con Repositorio en GitHub

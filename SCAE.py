@@ -1,14 +1,3 @@
-#Script utilizado para el desarrollo de pruebas en el codigo. 
-####### EN DESARROLLO ##########################
-# 1. Desarrollar una arquitectura de red selección de caracteristicas NO SUPERVISADA - Capa de Salida FINE-TUNNING
-        # CNN Autoendoder
-        # Grafo de CNN autoencoders
-        # Evaluar funciones de distancia en la funcion de costo
-        # Evaluar estrategias de concatenacion en BSCAE
-
-# 2. Desarrollar un esquema de data augmentation => prepararDatos.py
-# 4. Revisar documentacion reciente del estado del arte.
-
 #STACKED CONVOLUTIONAL AUTOENCODER con capas de reconstrucción tipo refinement_layer
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
@@ -84,7 +73,7 @@ for i in range(0, numTest):
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
     ######################STACKED CONVOLUTIONAL AUTOENCODER#################################################################################################
-    epochs = 2 #número de iteraciones
+    epochs = 50 #número de iteraciones
     input_img = Input(shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])) #tensor de entrada
     nd_scae = [64, 32, 16] #dimension de cada uno de los autoencoders
     #convolutional autoencoders
