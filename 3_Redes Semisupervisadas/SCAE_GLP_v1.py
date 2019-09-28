@@ -193,5 +193,4 @@ datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)
 logger.close()
 #GRAFICAR TRAINING AND VALIDATION LOSS
-acc = history.history['acc']
 data.graficar_history(history)

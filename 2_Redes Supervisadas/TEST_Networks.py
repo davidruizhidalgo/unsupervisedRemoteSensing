@@ -1,4 +1,4 @@
-#PRUEBA DE REDES PROFUNDAS.
+#PRUEBA DE REDES PROFUNDAS SUPERVISADAS.
 # Se crea el archivo xxx_TEST.txt y se carga las redes entrenadas para econtrar: 
     #Overall Accuracy 
     #Average Accuracy 
