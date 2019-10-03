@@ -137,8 +137,8 @@ SCAE_GLP_v1.py => Greedy Layer-Wise Pretraining se utiliza como esquema de preen
 BCAE_v1.py => Branches Convolutional  Autoencoder implementa el encoder y el decoder convolucional utilizando la arquitectura de la red INCEPTION para aprender una representación de las caracteristicas de los datos de entrada. Con el encoder entrenado se implementa una capa de fine tunning para el ejuste de la ultima capa del clasificador.  El proceso utiliza una ventana sxs de la imagen original para la generacion de caracteristicas espaciales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression.  
 ## 15. Stacked Convolutional  Autoencoder (SCAE) versión 2
-SCAE_v1.py => Se implemeta una estructura de autoencoders convolucionales apilados para la etapa no supervisada de extracción de caracteristicas  con capas de reconstrucción tipo refinement_layer. PCA y EEP es utilizado como esquema inicial de reducción dimensional y extraccción de caracteristicas. Se implementa el encoder y el decoder convolucional para aprender una representación de las caracteristicas de los datos de entrada. Con el encoder entrenado se implementa una capa de fine tunning supervisada para el ejuste de la ultima capa del clasificador. 
+SCAE_v2.py => Se implemeta una estructura de autoencoders convolucionales apilados para la etapa no supervisada de extracción de caracteristicas  con capas de reconstrucción tipo refinement_layer. PCA y EEP es utilizado como esquema inicial de reducción dimensional y extraccción de caracteristicas. Se implementa el encoder y el decoder convolucional para aprender una representación de las caracteristicas de los datos de entrada. Con el encoder entrenado se implementa una capa de fine tunning supervisada para el ejuste de la ultima capa del clasificador. 
 ## 16. Branches Convolutional  Autoencoder (BSCAE) versión 2
-En desarrollo........
+BSCAE_v2.py => En desarrollo........
 ## 17. Feature Extraction and Classifier
 FE_Classifiers.py => Carga las redes profundas no supervisadas para extracción de caracteristicas e implementa capas de clasificación para evaluar el desempeño final del sistema. 
