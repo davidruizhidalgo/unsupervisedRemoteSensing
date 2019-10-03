@@ -176,7 +176,10 @@ class PrepararDatos:
 
     def predictionToImage(self, dataPrediction):
         imgSalida = np.zeros((self.groundTruth.shape[0],self.groundTruth.shape[1]))
-        datosSalida = dataPrediction.argmax(axis=1)
+        if dataPrediction.ndim>1:
+            datosSalida = dataPrediction.argmax(axis=1)
+        else:
+            datosSalida = dataPrediction
         
         for i in range(self.indices_org.shape[1]):
             imgSalida[self.indices_org[0,i],self.indices_org[1,i]] = datosSalida[i]

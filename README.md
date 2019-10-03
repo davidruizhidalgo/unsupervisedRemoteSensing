@@ -141,4 +141,4 @@ SCAE_v1.py => Se implemeta una estructura de autoencoders convolucionales apilad
 ## 16. Branches Convolutional  Autoencoder (BSCAE) versión 2
 En desarrollo........
 ## 17. Feature Extraction and Classifier
-FE_Classifier.py => Carga las redes profundas no supervisadas para extracción de caracteristicas e implementa capas de clasificación para evaluar el desempeño final del sistema. 
+FE_Classifiers.py => Carga las redes profundas no supervisadas para extracción de caracteristicas e implementa capas de clasificación para evaluar el desempeño final del sistema. 
