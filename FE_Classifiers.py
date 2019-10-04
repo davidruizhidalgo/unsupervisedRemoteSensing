@@ -94,7 +94,7 @@ def accuracy(y_true, y_pred):
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
-dataSet = 'IndianPines'
+dataSet = 'PaviaU'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -118,7 +118,7 @@ datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
 ######################LOAD STACKED CONVOLUTIONAL AUTOENCODER#####################################################
 epochs = 50 #número de iteraciones
-encoder = load_model('FE_SCAE01.h5', custom_objects={'euclidean_distance_loss': euclidean_distance_loss})   
+encoder = load_model('FE_BCAE02.h5', custom_objects={'euclidean_distance_loss': euclidean_distance_loss})   
 print(encoder.summary()) 
 
 #Generar caracteristicicas con los datos de entrada
@@ -128,11 +128,11 @@ features_test = encoder.predict(datosPrueba)
 history = 0
 
 ################################## CLASIFICADOR RIEMANN #########################################################
-#classifier, features_test = riemann_classifier(features_tr, etiquetasEntrenamiento, features_test,  method='tan')
+classifier, features_test = riemann_classifier(features_tr, etiquetasEntrenamiento, features_test,  method='tan')
 #################################################################################################################
 
 ################################## CLASIFICADOR SVM #############################################################
-classifier, features_test = svm_classifier(features_tr, etiquetasEntrenamiento, features_test, kernel='linear')
+#classifier, features_test = svm_classifier(features_tr, etiquetasEntrenamiento, features_test, kernel='linear')
 #################################################################################################################
 
 ##################################CLASIFICADOR LOGISTIC REGRESSION###############################################

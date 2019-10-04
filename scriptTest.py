@@ -5,7 +5,10 @@
             #Desempeño con EEP:  +/- 85% acc
             #SVM lineal and rbf  +/- 92% acc  and +/- 85% acc
             #Riemannian Geometry +/- 80% acc
-        # Grafo de CNN autoencoders
+        # Grafo de CNN autoencoders and full conected network +/- 80% acc
+            #Desempeño con EEP:  +/- 96% acc
+            #SVM lineal and rbf  +/- 98% acc  and +/- 90% acc
+            #Riemannian Geometry +/- 99% acc
         # Evaluar modificaciones en la funcion de costo
         # Evaluar estrategias de concatenacion en BSCAE
 
