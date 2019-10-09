@@ -65,8 +65,8 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
-dataSet = 'IndianPines'
+numTest = 10
+dataSet = 'Salinas'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -77,13 +77,13 @@ logger = DataLogger(dataSet)
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
+#imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+imagenPCA = pca.pca_calculate(imagen, componentes=4)
 print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=6)    
+imagenEEP = mp.EEP(imagenPCA, num_levels=5)    
 print(imagenEEP.shape)
 
 OA = 0
@@ -145,3 +145,8 @@ data.graficarHsi_VS(groundTruth, datosSalida)
 data.graficar_history(history)
 K.clear_session()
 logger.close()
+
+print('Vector OA:')
+print(vectOA)
+print('OA')
+print(OA/numTest)
