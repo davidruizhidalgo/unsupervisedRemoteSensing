@@ -71,7 +71,7 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-#logger = DataLogger(dataSet) 
+logger = DataLogger(dataSet) 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
@@ -128,7 +128,7 @@ for i in range(0, numTest):
     vectOA[i] = test_acc
     OA = OA+test_acc
     #LOGGER DATOS DE ENTRENAMIENTO
-    #logger.savedataTrain(history)
+    logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
     classifier.save('C_BCAE'+str(i)+'.h5')
 ###########################GRAFICAS Y SALIDAS###############################
@@ -138,4 +138,4 @@ datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)
 data.graficar_history(history)
 K.clear_session()
-#logger.close()
+logger.close()
