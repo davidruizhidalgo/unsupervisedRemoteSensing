@@ -119,7 +119,7 @@ datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
 ######################LOAD STACKED CONVOLUTIONAL AUTOENCODER#####################################################
 epochs = 50 #número de iteraciones
-encoder = load_model(os.path.join("6_data Logger/SCAE_v2", dataSet,'FE_SCAE01.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss})    
+encoder = load_model(os.path.join("6_data Logger/SCAE_v2", dataSet,'FE_SCAE0.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss})    
 print(encoder.summary()) 
 
 #Generar caracteristicicas con los datos de entrada
