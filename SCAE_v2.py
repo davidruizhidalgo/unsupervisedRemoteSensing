@@ -65,7 +65,7 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 10
+numTest = 1
 dataSet = 'Salinas'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
