@@ -9,7 +9,10 @@ import os
 class DataLogger:
 
     def __init__(self, fileName = 'mylogger', folder = 'myfolder'):
-        mypath = os.path.join("6_data Logger", folder, fileName)
+        if fileName[-4:] == 'TEST':
+            mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
+        else:
+            mypath = os.path.join("6_data Logger", folder, fileName)
         #Crear el directorio
         if os.path.exists(mypath):
             pass

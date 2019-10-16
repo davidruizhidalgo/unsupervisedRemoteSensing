@@ -66,10 +66,9 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
     autoencoder = Model(input_tensor, output_tensor)
     return autoencoder
 ###########################PROGRAMA PRINCIPAL################################################################################################################
-
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
-dataSet = 'Salinas'
+numTest = 10
+dataSet = 'IndianPines'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -80,13 +79,13 @@ logger = DataLogger(dataSet,'SCAE_v2')
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-#imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-imagenPCA = pca.pca_calculate(imagen, componentes=4)
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+#imagenPCA = pca.pca_calculate(imagen, componentes=4)
 print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=5)    
+imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
 print(imagenEEP.shape)
 
 OA = 0

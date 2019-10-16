@@ -12,7 +12,7 @@
         # Evaluar modificaciones en la funcion de costo
         # Evaluar estrategias de concatenacion en BSCAE
 
-# 2. Desarrollar un esquema de data augmentation => prepararDatos.py
+# 2. Evaluar un esquema de data augmentation => prepararDatos.py
 # 4. Revisar documentacion reciente del estado del arte.
 
 import matplotlib.pyplot as plt

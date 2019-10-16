@@ -65,7 +65,7 @@ def cae(N , input_tensor, nb_bands, kernel_size, l2_loss):
 ###########################PROGRAMA PRINCIPAL###################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
-dataSet = 'PaviaU'
+dataSet = 'IndianPines'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -82,7 +82,7 @@ print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=6)    
+imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
 print(imagenEEP.shape)
 
 OA = 0

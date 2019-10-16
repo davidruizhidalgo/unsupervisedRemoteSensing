@@ -13,6 +13,7 @@ from sklearn.metrics import accuracy_score
 import matplotlib.pyplot as plt
 from sklearn import svm
 import numpy as np
+import os
 
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, Add
 from keras.layers import UpSampling2D, Dropout, Conv2DTranspose
@@ -36,7 +37,7 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 def euclidean_distance_loss(y_true, y_pred):
     return K.sqrt(K.sum(K.square(y_pred - y_true), axis=-1))
 
-def lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion):
+def lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion, epochs):
     input_features = Input(shape=(features_tr.shape[1],features_tr.shape[2],features_tr.shape[3]))
     fullconected = Flatten()(input_features)
     fullconected = Dense(128, activation = 'relu')(fullconected) 
@@ -94,7 +95,7 @@ def accuracy(y_true, y_pred):
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
-dataSet = 'PaviaU'
+dataSet = 'IndianPines'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -108,7 +109,7 @@ print(imagenPCA.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=6)    
+imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
 print(imagenEEP.shape)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
@@ -118,7 +119,7 @@ datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
 ######################LOAD STACKED CONVOLUTIONAL AUTOENCODER#####################################################
 epochs = 50 #número de iteraciones
-encoder = load_model('FE_BCAE02.h5', custom_objects={'euclidean_distance_loss': euclidean_distance_loss})   
+encoder = load_model(os.path.join("6_data Logger/SCAE_v2", dataSet,'FE_SCAE01.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss})    
 print(encoder.summary()) 
 
 #Generar caracteristicicas con los datos de entrada
@@ -136,7 +137,7 @@ classifier, features_test = riemann_classifier(features_tr, etiquetasEntrenamien
 #################################################################################################################
 
 ##################################CLASIFICADOR LOGISTIC REGRESSION###############################################
-#classifier, history = lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion)
+#classifier, history = lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion, epochs)
 #################################################################################################################
 
 ############################## GRAFICAS Y SALIDAS ###############################################################
