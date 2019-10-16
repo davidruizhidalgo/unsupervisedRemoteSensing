@@ -4,6 +4,8 @@
 #Con el encoder entrenado se implementa una capa de fine tunning para el ejuste de la ultima capa del clasificador. 
 #El proceso utiliza una ventana sxs de la imagen original para la generacion de caracteristicas espaciales-espectrales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression.  
+import warnings
+warnings.filterwarnings('ignore')
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
@@ -12,6 +14,7 @@ from package.dataLogger import DataLogger
 
 import matplotlib.pyplot as plt
 import numpy as np
+import os 
 
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, Add
 from keras.layers import UpSampling2D, Dropout, Conv2DTranspose
@@ -73,7 +76,7 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet) 
+logger = DataLogger(dataSet,'SCAE_v2') 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
@@ -94,7 +97,7 @@ for i in range(0, numTest):
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
     ######################STACKED CONVOLUTIONAL AUTOENCODER#################################################################################################
-    epochs = 50 #número de iteraciones
+    epochs = 2 #número de iteraciones
     input_img = Input(shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3])) #tensor de entrada
     nd_scae = [64, 32, 16] #dimension de cada uno de los autoencoders
     #convolutional autoencoders
@@ -115,7 +118,7 @@ for i in range(0, numTest):
         encoder = autoencoder.layers[-1].output
     #######################MODELO STACKED AUTOENCODER##################################################################
     encoder = Model(inputs = autoencoder.input, outputs = autoencoder.layers[-1].output)
-    encoder.save('FE_SCAE'+str(i)+'.h5')
+    encoder.save(os.path.join(logger.path,'FE_SCAE'+str(i)+'.h5'))
     features = encoder.predict(datosEntrenamiento)
     features_val = encoder.predict(datosValidacion)
     ##################################CLASIFICADOR CAPA DE SALIDA###############################################
@@ -136,9 +139,9 @@ for i in range(0, numTest):
     #LOGGER DATOS DE ENTRENAMIENTO
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    classifier.save('C_SCAE'+str(i)+'.h5')
+    classifier.save(os.path.join(logger.path,'C_SCAE'+str(i)+'.h5'))
 ###########################GRAFICAS Y SALIDAS###############################
-plot_model(encoder, to_file='SCAEmodel.png')
+plot_model(encoder, to_file=os.path.join(logger.path,'SCAEmodel.png'))
 datosSalida = classifier.predict(features_out)
 datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)
@@ -146,7 +149,5 @@ data.graficar_history(history)
 K.clear_session()
 logger.close()
 
-print('Vector OA:')
-print(vectOA)
-print('OA')
-print(OA/numTest)
+
+

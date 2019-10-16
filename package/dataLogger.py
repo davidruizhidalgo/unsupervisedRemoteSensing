@@ -4,12 +4,21 @@ import math
 import numpy as np
 import matplotlib.pyplot as plt
 from io import open
+import os 
 
 class DataLogger:
 
-    def __init__(self, fileName = 'mylogger'):
-        nlogg = 'logger_'+fileName+'.txt'
+    def __init__(self, fileName = 'mylogger', folder = 'myfolder'):
+        mypath = os.path.join("6_data Logger", folder, fileName)
+        #Crear el directorio
+        if os.path.exists(mypath):
+            pass
+        else:
+            os.makedirs(mypath)
+
+        nlogg = os.path.join(mypath,"logger_"+fileName+".txt")
         self.fichero = open(nlogg,'w')  
+        self.path = mypath
 
     def allocateVect(self, vector):
         for dato in vector:

@@ -11,6 +11,7 @@ from package.dataLogger import DataLogger
 
 import matplotlib.pyplot as plt
 import numpy as np
+import os 
 
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, Add, concatenate
 from keras.layers import UpSampling2D, Dropout, Conv2DTranspose
@@ -71,7 +72,7 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet) 
+logger = DataLogger(dataSet,'BSCAE_v2') 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
@@ -109,7 +110,7 @@ for i in range(0, numTest):
     
     ################################### BRANCHES OF STACKED AUTOENCODERS ##########################################################################################
     encoder = Model(inputs = input_img, outputs = output)
-    encoder.save('FE_BCAE'+str(i)+'.h5')
+    encoder.save(os.path.join(logger.path,'FE_BCAE'+str(i)+'.h5'))
     features = encoder.predict(datosEntrenamiento)
     features_val = encoder.predict(datosValidacion)
     ##################################CLASIFICADOR CAPA DE SALIDA###############################################
@@ -130,9 +131,9 @@ for i in range(0, numTest):
     #LOGGER DATOS DE ENTRENAMIENTO
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    classifier.save('C_BCAE'+str(i)+'.h5')
+    classifier.save(os.path.join(logger.path,'C_BCAE'+str(i)+'.h5'))
 ###########################GRAFICAS Y SALIDAS###############################
-plot_model(encoder, to_file='BCAEmodel.png')
+plot_model(encoder, to_file=os.path.join(logger.path,'BCAEmodel.png'))
 datosSalida = classifier.predict(features_out)
 datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)
