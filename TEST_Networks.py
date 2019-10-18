@@ -76,9 +76,10 @@ def reshapeFeatures(features_test):
     return features_test
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
+numTest = 10
 riemann = True
 net = 'SCAE'  # SCAE  BCAE
-numTest = 10
+test = 'SCAE_v2' # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
 dataSet = 'IndianPines'
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -86,7 +87,7 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet+'_TEST','SCAE_v2') 
+logger = DataLogger(dataSet+'_TEST',test) 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()

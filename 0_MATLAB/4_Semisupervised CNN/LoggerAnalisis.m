@@ -1,19 +1,22 @@
 clear, clc, close all;
-data2 = load('Logger/7_KPCA_INCEPTION/logger_PaviaU_TEST.txt');
-% 00_PCA_CNN  6_KPCA_CNN  7_KPCA_INCEPTION 
-% IndianPines  Salinas  PaviaU
+
+dataset = 'IndianPines';  % IndianPines  Salinas  PaviaU
+test = 'SCAE_v2';         %  pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+
+path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
+data = load(path);
 
 OA = zeros(1,10); j=1;
 for i=1:3:30
-    OA(j) = data2(i,1);
+    OA(j) = data(i,1);
     j=j+1;
 end
 OA_std = std(OA);
 OA = sum(OA)/10;
 
-AA = zeros(10,size(data2,2)); j=1;
+AA = zeros(10,size(data,2)); j=1;
 for i=2:3:30
-    AA(j,:) = data2(i,:);
+    AA(j,:) = data(i,:);
     j = j+1;
 end
 SDT_AA = std(AA);
@@ -23,7 +26,7 @@ AA_P = sum(AA)/(numel(AA)-1);
 
 kappa = zeros(1,10); j=1;
 for i=3:3:30
-    kappa(j) = data2(i,1);
+    kappa(j) = data(i,1);
     j=j+1;
 end
 kappa_std = std(kappa); 

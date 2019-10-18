@@ -66,13 +66,14 @@ def cae(N , input_tensor, nb_bands, kernel_size, l2_loss):
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
 dataSet = 'IndianPines'
+test = 'BSCAE_v2' # pcaBSCAE_v2 BSCAE_v2
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet,'BSCAE_v2') 
+logger = DataLogger(dataSet, test) 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
