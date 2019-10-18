@@ -78,9 +78,11 @@ def reshapeFeatures(features_test):
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
 riemann = True
-net = 'SCAE'  # SCAE  BCAE
-test = 'SCAE_v2' # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
 dataSet = 'IndianPines'
+net = 'SCAE'  # SCAE  BCAE
+test = 'SCAE_v2'  # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
+fe_eep = True     # false for PCA, true for EEP 
+
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -91,18 +93,19 @@ logger = DataLogger(dataSet+'_TEST',test)
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
-print(imagenPCA.shape)
+imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+#imagenFE = pca.pca_calculate(imagen, componentes=4)
+print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
-mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
-print(imagenEEP.shape)
+if fe_eep:    
+    mp = morphologicalProfiles()
+    imagenFE = mp.EEP(imagenFE, num_levels=4)    
+    print(imagenFE.shape)
 
 for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
-    preparar = PrepararDatos(imagenEEP, groundTruth, False)
+    preparar = PrepararDatos(imagenFE, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS 
 

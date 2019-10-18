@@ -64,9 +64,11 @@ def cae(N , input_tensor, nb_bands, kernel_size, l2_loss):
     return autoencoder
 ###########################PROGRAMA PRINCIPAL###################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
-numTest = 1
+numTest = 10
 dataSet = 'IndianPines'
 test = 'BSCAE_v2' # pcaBSCAE_v2 BSCAE_v2
+fe_eep = True     # false for PCA, true for EEP 
+
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -77,20 +79,21 @@ logger = DataLogger(dataSet, test)
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
-print(imagenPCA.shape)
+imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+#imagenFE = pca.pca_calculate(imagen, componentes=4)
+print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
-mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
-print(imagenEEP.shape)
+if fe_eep:    
+    mp = morphologicalProfiles()
+    imagenFE = mp.EEP(imagenFE, num_levels=4)    
+    print(imagenFE.shape)
 
 OA = 0
 vectOA = np.zeros(numTest)
 for i in range(0, numTest):
     #PREPARAR DATOS PARA ENTRENAMIENTO
-    preparar = PrepararDatos(imagenEEP, groundTruth, False)
+    preparar = PrepararDatos(imagenFE, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
     ################################## CONVOLUTIONAL AUTOENCODERs################################################################################################
