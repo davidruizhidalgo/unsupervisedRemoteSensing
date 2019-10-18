@@ -41,6 +41,26 @@ from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 def euclidean_distance_loss(y_true, y_pred):
     return K.sqrt(K.sum(K.square(y_pred - y_true), axis=-1))
 
+def riemann_classifier(features_tr, etiquetasEntrenamiento, method='tan'):
+    #Reshape features (n_samples, m_filters, p_features)
+    features_tr = features_tr.reshape(features_tr.shape[0],features_tr.shape[1]*features_tr.shape[2],features_tr.shape[3])
+    features_tr = np.transpose(features_tr, (0, 2, 1))
+    #Reshape labels from categorical 
+    etiquetasEntrenamiento = np.argmax(etiquetasEntrenamiento, axis=1)
+
+    #Riemannian Classifier using Minimum Distance to Riemannian Mean
+    covest = Covariances(estimator='lwf')
+    if method == 'mdm':
+        mdm = MDM()
+        classifier = make_pipeline(covest,mdm)
+    if method == 'tan':
+        ts = TangentSpace()
+        lda = LinearDiscriminantAnalysis()
+        classifier = make_pipeline(covest,ts,lda)
+    
+    classifier.fit(features_tr, etiquetasEntrenamiento)
+    return classifier
+
 def accuracy(y_true, y_pred):
     if y_true.ndim>1:
         y_true = np.argmax(y_true, axis=1)
@@ -50,7 +70,13 @@ def accuracy(y_true, y_pred):
     OA = accuracy_score(y_true, y_pred)
     return OA
 
+def reshapeFeatures(features_test):
+    features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
+    features_test = np.transpose(features_test, (0, 2, 1))
+    return features_test
+
 #CARGAR IMAGEN HSI Y GROUND TRUTH
+riemann = True
 net = 'SCAE'  # SCAE  BCAE
 numTest = 10
 dataSet = 'IndianPines'
@@ -73,19 +99,28 @@ mp = morphologicalProfiles()
 imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
 print(imagenEEP.shape)
 
-
 for i in range(0, numTest):
     #PREPARAR DATOS PARA EJECUCIÓN
     preparar = PrepararDatos(imagenEEP, groundTruth, False)
+    datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS 
 
-    #CARGAR MODELOS ENTRENADOS
+    #CARGAR MODELOS ENTRENADOS DE EXTRACIÓN DE CARACTERISTICAS
     encoder = load_model(os.path.join(logger.path,'FE_'+net+str(i)+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
-    classifier = load_model(os.path.join(logger.path,'C_'+net+str(i)+'.h5')) 
-    
-    #GENERACION OA - Overall Accuracy 
-    #UTILIZA EL TOTAL DE MUESTRAS       
+    #Generar caracteristicicas con los datos de entrada
+    features_tr = encoder.predict(datosEntrenamiento)
     features_test = encoder.predict(datosPrueba)
+    
+    #GENERACION OA - Overall Accuracy     
+    if riemann: 
+    ################################## CLASIFICADOR RIEMANN #########################################################
+        classifier = riemann_classifier(features_tr, etiquetasEntrenamiento, method='tan')
+        features_test = reshapeFeatures(features_test)
+    #################################################################################################################
+    else:
+    ##################################CLASIFICADOR LOGISTIC REGRESSION###############################################
+        classifier = load_model(os.path.join(logger.path,'C_'+net+str(i)+'.h5')) 
+    #################################################################################################################
     datosSalida = classifier.predict(features_test)
     OA = accuracy(etiquetasPrueba, datosSalida)                #EVALUAR MODELO
  
@@ -95,16 +130,19 @@ for i in range(0, numTest):
     for j in range(1,groundTruth.max()+1):                      #QUITAR 1 para incluir datos del fondo
         datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,j)    #MUESTRAS DE UNA CLASE                 
         features_class = encoder.predict(datosClase)
+        if riemann:
+            features_class = reshapeFeatures(features_class)                   # SOLO PARA RIEMMANIAN CLASSIFIER
         claseSalida = classifier.predict(features_class)
         ClassAA[j] = accuracy(etiquetasClase, claseSalida)                     #EVALUAR MODELO PARA LA CLASE
         AA += ClassAA[j]
     AA /= groundTruth.max()                                                    #SUMAR 1 para incluir datos del fondo
 
     #GENERACION Kappa Coefficient
-    datosSalida = datosSalida.argmax(axis=1)
+    if not riemann:
+        datosSalida = datosSalida.argmax(axis=1)
     etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
     kappa = cohen_kappa_score(etiquetasPrueba, datosSalida)
-
+    
     print('OA = '+ str(OA))                          #Overall Accuracy 
     print('AA = '+ str(AA)+' ='+ str(ClassAA))       #Average Accuracy 
     print('kappa = '+ str(kappa))                    #Kappa Coefficient
