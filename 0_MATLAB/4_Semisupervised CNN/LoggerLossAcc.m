@@ -27,9 +27,9 @@ acc = sum(acc)/10;
 
 figure
 subplot(2,1,1)
-errorbar(x,loss,std_loss); hold on; grid on
+plot(x,loss,'-o'); hold on; grid on  %std_loss
 subplot(2,1,2)
-errorbar(x,acc,std_acc); hold on; grid on
+plot(x,acc, '-o'); hold on; grid on  %std_acc
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -54,9 +54,9 @@ std_acc = std(acc);
 acc = sum(acc)/10;
 
 subplot(2,1,1)
-errorbar(x,loss,std_loss); grid on
+plot(x,loss,'-x'); grid on
 subplot(2,1,2)
-errorbar(x,acc,std_acc); grid on
+plot(x,acc,'-x'); grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -81,9 +81,9 @@ std_acc = std(acc);
 acc = sum(acc)/10;
 
 subplot(2,1,1)
-errorbar(x,loss,std_loss); grid on
+plot(x,loss,'-p'); grid on
 subplot(2,1,2)
-errorbar(x,acc,std_acc); grid on
+plot(x,acc,'-p'); grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -108,13 +108,15 @@ std_acc = std(acc);
 acc = sum(acc)/10;
 
 subplot(2,1,1)
-errorbar(x,loss,std_loss); grid on
+plot(x,loss,'-d'); grid on
 legend('PCA+SCAE','EEP+SCAE','PCA+BCAE','EEP+BCAE')
+% legend('SCAE','BCAE')
 title('Training Loss'); ylabel('loss')
 subplot(2,1,2)
-errorbar(x,acc,std_acc); grid on
+plot(x,acc,'-d'); grid on
 legend('PCA+SCAE','EEP+SCAE','PCA+BCAE','EEP+BCAE','Location','SouthEast')
-title('Training Accuracy'); ylabel('loss'); xlabel('epoch')
+% legend('SCAE','BCAE','Location','SouthEast')
+title('Training Accuracy'); ylabel('accuracy'); xlabel('epoch')
 
 
 

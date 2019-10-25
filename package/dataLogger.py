@@ -8,8 +8,10 @@ import os
 
 class DataLogger:
 
-    def __init__(self, fileName = 'mylogger', folder = 'myfolder'):
+    def __init__(self, fileName = 'mylogger', folder = 'myfolder', save = True):
         if fileName[-4:] == 'TEST':
+            mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
+        elif fileName[-4:] == 'RIEM':
             mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
         else:
             mypath = os.path.join("6_data Logger", folder, fileName)
@@ -20,13 +22,16 @@ class DataLogger:
             os.makedirs(mypath)
 
         nlogg = os.path.join(mypath,"logger_"+fileName+".txt")
-        self.fichero = open(nlogg,'w')  
+        if save: 
+            self.fichero = open(nlogg,'w')  
         self.path = mypath
+        self.save = save
 
     def allocateVect(self, vector):
-        for dato in vector:
-            self.fichero.write(str(dato)+'\t')
-        self.fichero.write('\n')
+        if self.save:
+            for dato in vector:
+                self.fichero.write(str(dato)+'\t')
+            self.fichero.write('\n')
 
     def savedataTrain(self, history):
         loss = history.history['loss']
@@ -49,4 +54,5 @@ class DataLogger:
         self.allocateVect(kappa_v)                              #Kappa Coefficient
 
     def close(self):
-        self.fichero.close()
+        if self.save:
+            self.fichero.close()
