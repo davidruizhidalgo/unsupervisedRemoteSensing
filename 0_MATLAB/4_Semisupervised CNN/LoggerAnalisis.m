@@ -2,35 +2,36 @@ clear, clc, close all;
 
 dataset = 'IndianPines';  % IndianPines  Salinas  PaviaU
 test = 'SCAE_v2';         %  pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+numTest = 10;             % número de pruebas
 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
 data = load(path);
 
-OA = zeros(1,10); j=1;
-for i=1:3:30
+OA = zeros(1,numTest); j=1;
+for i=1:3:3*numTest
     OA(j) = data(i,1);
     j=j+1;
 end
 OA_std = std(OA);
-OA = sum(OA)/10;
+OA = sum(OA)/numTest;
 
-AA = zeros(10,size(data,2)); j=1;
-for i=2:3:30
+AA = zeros(numTest,size(data,2)); j=1;
+for i=2:3:3*numTest
     AA(j,:) = data(i,:);
     j = j+1;
 end
 SDT_AA = std(AA);
 STD_AA_P = sum(SDT_AA)/(numel(SDT_AA)-1);
-AA = sum(AA)/10;
+AA = sum(AA)/numTest;
 AA_P = sum(AA)/(numel(AA)-1);
 
-kappa = zeros(1,10); j=1;
-for i=3:3:30
+kappa = zeros(1,numTest); j=1;
+for i=3:3:3*numTest
     kappa(j) = data(i,1);
     j=j+1;
 end
 kappa_std = std(kappa); 
-kappa = sum(kappa)/10;
+kappa = sum(kappa)/numTest;
 
 disp('AA')
 disp(AA')
