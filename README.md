@@ -21,7 +21,7 @@ El toolbox siamxt se descarga desde https://github.com/rmsouza01/siamxt. Para su
 ### Sincronización con Repositorio en GitHub
 Descargar git.exe de https://git-scm.com/ y en la carpeta contenedora del proyecto introducir los siguientes comandos:
 1. git clone https://github.com/davidruizhidalgo/unsupervisedRemoteSensing.git
-2. git add.
+2. git add .
 3. git commit -m "Mensaje especificando características de la actualización"
         Si es la primera vez en el repositorio se deben introducir los datos de usuario e email con los comandos 
         sugeridos en la línea de comandos. 
