@@ -44,11 +44,12 @@ class princiapalComponentAnalysis:
                 imagePCA[i] = imageTemp[:,:,i]
         return imagePCA
 
-    def kpca_calculate(self, imagen_in, componentes):
+    def kpca_calculate(self, imagen_in, componentes = None):
         #TOMA LA PORCION DE LA IMAGEN DE TAMAÑO W
         i = 0 #Indice x para la imagen
         j = 0 #Indice y para la imagen  
         W = 50 #Tamaño de subconjunto 50  por indices
+        fx_pc = 10 #Numero fijo de componentes
         n_componentes = 0 #Numero inicial de componentes principales
 
         for i in range(imagen_in.shape[1]): #Recorrer x
@@ -72,20 +73,28 @@ class princiapalComponentAnalysis:
                 kpca = KernelPCA( kernel='rbf' ) # n_components=None, gamma=0.01
                 X_transformed = kpca.fit_transform(imageTemp)
                 #Calcula el porcentaje de varianza de cada componente y el número de componentes a utilizar
-                if n_componentes == 0:
-                    sum_varianza = 0
-                    varianza  = kpca.lambdas_/np.sum(kpca.lambdas_)
-                    for v in range(varianza.shape[0]):
-                        sum_varianza = sum_varianza+varianza[v]
-                        if sum_varianza > 0.95:
-                            break
-                        else:
-                            n_componentes += 1
-                    if n_componentes < componentes:
-                       n_componentes = componentes
-                    if n_componentes >  imagen_in.shape[1]/2:
-                       n_componentes = componentes  
-                    ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )    
+                if componentes != None :
+                    n_componentes = componentes
+                    ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )  
+                else:
+                    if n_componentes == 0:
+                        sum_varianza = 0
+                        varianza  = kpca.lambdas_/np.sum(kpca.lambdas_)
+                        for v in range(varianza.shape[0]):
+                            sum_varianza = sum_varianza+varianza[v]
+                            if sum_varianza > 0.95:
+                                break
+                            else:
+                                n_componentes += 1
+                        if n_componentes < fx_pc:
+                            print('pc find:'+str(n_componentes))
+                            n_componentes = fx_pc
+                            print('msn 1: fix number of PC used') 
+                        if n_componentes >  imagen_in.shape[0]/2:
+                            print('pc find:'+str(n_componentes))
+                            n_componentes = fx_pc 
+                            print('msn 2: fix number of PC used') 
+                        ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )  
                 #RECUPERA EL NUMERO DE COMPONENTES NECESARIO
                 imageTemp = X_transformed[:,0:n_componentes].reshape( (dataImagen.shape[1], dataImagen.shape[2],n_componentes) )
                 imageKPCA = np.zeros( (n_componentes, dataImagen.shape[1], dataImagen.shape[2]) )
