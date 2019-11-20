@@ -1,5 +1,5 @@
 clear, clc, close all;
-data = load('Logger/00_PCA_CNN/logger_PaviaU.txt');
+data = load('Logger/00_PCA_CNN/logger_IndianPines.txt');
 x=1:size(data,2);
 loss=zeros(10,size(data,2)); j=1;
 for i=1:4:40
@@ -48,7 +48,7 @@ plot(x,acc,'-o'); hold on; grid on
 % plot(x,acc,'-x'); grid on
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-data = load('Logger/7_KPCA_INCEPTION/logger_PaviaU.txt');
+data = load('Logger/7_KPCA_INCEPTION/logger_IndianPines.txt');
 x=1:size(data,2);
 loss=zeros(10,size(data,2)); j=1;
 for i=1:4:40
@@ -68,9 +68,9 @@ acc = sum(acc)/10;
 
 subplot(2,1,1)
 plot(x,loss,'-p'); grid on
-legend('PCA+CNN','KPCA+Inceprion')
+legend('PCA+CNN','KPCA+Inception')
 title('Función de Costo'); ylabel('Costo')
 subplot(2,1,2)
 plot(x,acc,'-p'); grid on
-legend('PCA+CNN','KPCA+Inceprion','Location','SouthEast')
+legend('PCA+CNN','KPCA+Inception','Location','SouthEast')
 title('Precisión Entrenamiento'); ylabel('Precisión'); xlabel('iteraciones')

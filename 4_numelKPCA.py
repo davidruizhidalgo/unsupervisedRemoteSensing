@@ -16,7 +16,7 @@ from keras import backend as K
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
+dataSet = 'PaviaU'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -30,7 +30,7 @@ vectAA = np.zeros(numTest)
 vectkappa = np.zeros(numTest)
 for i in tqdm(range(0, numTest)):
     #PREPARAR DATOS PARA ENTRENAMIENTO
-    imagenPCA = pca.kpca_calculate(imagen, componentes= 2*i+2)
+    imagenPCA = pca.kpca_calculate(imagen, componentes= 2*i+2) 
     print(imagenPCA.shape)
     print('DIMENSIONAL REDUCTION DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     preparar = PrepararDatos(imagenPCA, groundTruth, False)

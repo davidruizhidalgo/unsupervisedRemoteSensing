@@ -44,7 +44,8 @@ class princiapalComponentAnalysis:
                 imagePCA[i] = imageTemp[:,:,i]
         return imagePCA
 
-    def kpca_calculate(self, imagen_in, componentes = None):
+    def kpca_calculate(self, imagenInput, componentes = None):
+        imagen_in = imagenInput.copy()
         #TOMA LA PORCION DE LA IMAGEN DE TAMAÑO W
         i = 0 #Indice x para la imagen
         j = 0 #Indice y para la imagen  
@@ -74,8 +75,9 @@ class princiapalComponentAnalysis:
                 X_transformed = kpca.fit_transform(imageTemp)
                 #Calcula el porcentaje de varianza de cada componente y el número de componentes a utilizar
                 if componentes != None :
-                    n_componentes = componentes
-                    ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )  
+                    if n_componentes == 0:
+                        n_componentes = componentes
+                        ImagenOut = np.zeros( (n_componentes, imagen_in.shape[1], imagen_in.shape[2]) )  
                 else:
                     if n_componentes == 0:
                         sum_varianza = 0
