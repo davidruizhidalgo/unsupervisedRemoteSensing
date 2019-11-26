@@ -17,3 +17,26 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+from package.cargarHsi import CargarHsi
+from package.PCA import princiapalComponentAnalysis
+
+#CARGAR IMAGEN HSI Y GROUND TRUTH
+dataSet = 'Jasper'
+ventana = 9 #VENTANA 2D de PROCESAMIENTO
+data = CargarHsi(dataSet)
+imagen = data.imagen
+groundTruth = data.groundTruth
+print(imagen.shape)
+print(imagen.max())
+
+#ANALISIS DE COMPONENTES PRINCIPALES
+pca = princiapalComponentAnalysis()
+imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
+#imagenPCA = pca.pca_calculate(imagen, componentes=4)
+print(imagenPCA.shape)
+
+data.graficarHsi_VS(imagenPCA[0],groundTruth)
+
+
+
+

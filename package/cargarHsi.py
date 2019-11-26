@@ -11,8 +11,12 @@ class CargarHsi:
     def __init__(self,name_data):
         dicData = {'IndianPines' : ["../dataSets/Indian_pines.mat", 'indian_pines_corrected', "../dataSets/Indian_pines_gt.mat", 'indian_pines_gt'],
                     'Salinas' : ["../dataSets/Salinas.mat", 'salinas_corrected', "../dataSets/Salinas_gt.mat", 'salinas_gt'],
+                    'SalinasA' : ["../dataSets/SalinasA.mat", 'salinasA_corrected', "../dataSets/SalinasA_gt.mat", 'salinasA_gt'],
                     'Pavia' : ["../dataSets/Pavia.mat", 'pavia', "../dataSets/Pavia_gt.mat", 'pavia_gt'],
-                    'PaviaU' : ["../dataSets/PaviaU.mat", 'paviaU', "../dataSets/PaviaU_gt.mat", 'paviaU_gt'], }
+                    'PaviaU' : ["../dataSets/PaviaU.mat", 'paviaU', "../dataSets/PaviaU_gt.mat", 'paviaU_gt'], 
+                    'Urban210' : ["../dataSets/Urban210.mat", 'imagenOut', "../dataSets/Urban210_gt.mat", 'imagenOut_gt'],
+                    'Samson' : ["../dataSets/samson.mat", 'imagenOut', "../dataSets/samson_gt.mat", 'imagenOut_gt'],
+                    'Jasper' : ["../dataSets/Jasper.mat", 'imagenOut', "../dataSets/Jasper_gt.mat", 'imagenOut_gt'],}
         #CARGAR CUBO DE DATOS
         mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
         data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array

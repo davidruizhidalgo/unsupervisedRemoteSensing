@@ -1,0 +1,9 @@
+ARCHIVO settings.json
+
+
+    "python.linting.pylintArgs": [
+        "--unsubscriptable-object",
+        "--errors-only",
+        "--load-plugins",
+        "pylint_django"
+    ],
