@@ -79,9 +79,9 @@ def reshapeFeatures(features_test):
 numTest = 10
 riemann = True
 dataSet = 'IndianPines'
-net = 'SCAE'  # SCAE  BCAE
-test = 'SCAE_v2'  # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
-fe_eep = True     # false for PCA, true for EEP 
+net = 'SCAE'      # SCAE  BCAE
+test = 'pcaSCAE_v2'  # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
+fe_eep = False     # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -93,8 +93,8 @@ logger = DataLogger(dataSet+'_TEST',test)
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-#imagenFE = pca.pca_calculate(imagen, componentes=4)
+#imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+imagenFE = pca.pca_calculate(imagen, componentes=4)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
@@ -159,4 +159,5 @@ for i in range(0, numTest):
 datosSalida = classifier.predict(features_test)
 imagenSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, imagenSalida)
+K.clear_session()
 logger.close()

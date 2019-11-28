@@ -68,9 +68,10 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
-test = 'SCAE_v2' # pcaSCAE_v2 SCAE_v2
-fe_eep = True    # false for PCA, true for EEP 
+dataSet = 'SalinasA'
+test = 'pcaSCAE_v2' # pcaSCAE_v2 SCAE_v2
+save = True     # false to avoid create logger
+fe_eep = False    # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -78,12 +79,12 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet,test) 
+logger = DataLogger(dataSet,test,save) 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-#imagenFE = pca.pca_calculate(imagen, componentes=4)
+#imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+imagenFE = pca.pca_calculate(imagen, componentes=4)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
@@ -121,7 +122,8 @@ for i in range(0, numTest):
         encoder = autoencoder.layers[-1].output
     #######################MODELO STACKED AUTOENCODER##################################################################
     encoder = Model(inputs = autoencoder.input, outputs = autoencoder.layers[-1].output)
-    encoder.save(os.path.join(logger.path,'FE_SCAE'+str(i)+'.h5'))
+    if save:
+        encoder.save(os.path.join(logger.path,'FE_SCAE'+str(i)+'.h5'))
     features = encoder.predict(datosEntrenamiento)
     features_val = encoder.predict(datosValidacion)
     ##################################CLASIFICADOR CAPA DE SALIDA###############################################
@@ -142,7 +144,8 @@ for i in range(0, numTest):
     #LOGGER DATOS DE ENTRENAMIENTO
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    classifier.save(os.path.join(logger.path,'C_SCAE'+str(i)+'.h5'))
+    if save:
+        classifier.save(os.path.join(logger.path,'C_SCAE'+str(i)+'.h5'))
 ###########################GRAFICAS Y SALIDAS###############################
 plot_model(encoder, to_file=os.path.join(logger.path,'SCAEmodel.png'))
 datosSalida = classifier.predict(features_out)

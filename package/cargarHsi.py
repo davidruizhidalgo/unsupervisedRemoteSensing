@@ -14,7 +14,7 @@ class CargarHsi:
                     'SalinasA' : ["../dataSets/SalinasA.mat", 'salinasA_corrected', "../dataSets/SalinasA_gt.mat", 'salinasA_gt'],
                     'Pavia' : ["../dataSets/Pavia.mat", 'pavia', "../dataSets/Pavia_gt.mat", 'pavia_gt'],
                     'PaviaU' : ["../dataSets/PaviaU.mat", 'paviaU', "../dataSets/PaviaU_gt.mat", 'paviaU_gt'], 
-                    'Urban210' : ["../dataSets/Urban210.mat", 'imagenOut', "../dataSets/Urban210_gt.mat", 'imagenOut_gt'],
+                    'Urban' : ["../dataSets/Urban210.mat", 'imagenOut', "../dataSets/Urban210_gt.mat", 'imagenOut_gt'],
                     'Samson' : ["../dataSets/samson.mat", 'imagenOut', "../dataSets/samson_gt.mat", 'imagenOut_gt'],
                     'Jasper' : ["../dataSets/Jasper.mat", 'imagenOut', "../dataSets/Jasper_gt.mat", 'imagenOut_gt'],}
         #CARGAR CUBO DE DATOS

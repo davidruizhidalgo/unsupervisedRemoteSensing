@@ -1,10 +1,10 @@
 clear, clc, close all;
-
-dataset = 'IndianPines';  % IndianPines  Salinas  PaviaU
+dataset = 'IndianPines';  % IndianPines  Salinas  PaviaU ...
 numTest = 10;             % número de pruebas
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test = 'pcaSCAE_v2';         % pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+test = 'pcaCNN2D';         % pcaCNN2D 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'.txt');
 data = load(path);
 numEpochs = size(data,2);  % número de iteraciones
@@ -24,15 +24,17 @@ end
 std_acc = std(acc);
 acc = sum(acc)/numTest;
 subplot(2,1,1)
-errorbar(x,loss,std_loss,'-o'); hold on; grid on  
+plot(x,loss,'-o'); hold on; grid on  
 subplot(2,1,2)
-errorbar(x,acc, std_acc,'-o'); hold on; grid on 
+plot(x,acc, '-o'); hold on; grid on 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%% Prueba No.2 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test = 'SCAE_v2';         % pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+%%%%%%%%%%%%%% Prueba No. %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+test = 'eapCNN2D';         % eapCNN2D 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'.txt');
 data = load(path);
-
+numEpochs = size(data,2);  % número de iteraciones
+x=1:numEpochs;
 loss=zeros(numTest,size(data,2)); j=1;
 for i=1:4:4*numTest
    loss(j,:) = data(i,:);
@@ -48,15 +50,17 @@ end
 std_acc = std(acc);
 acc = sum(acc)/numTest;
 subplot(2,1,1)
-errorbar(x,loss,std_loss,'-x'); hold on; grid on  
+plot(x,loss,'-x'); hold on; grid on  
 subplot(2,1,2)
-errorbar(x,acc, std_acc,'-x'); hold on; grid on 
+plot(x,acc, '-x'); hold on; grid on 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.3 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test = 'pcaBSCAE_v2';         % pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+test = 'pcaInception';         % pcaInception 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'.txt');
 data = load(path);
-
+numEpochs = size(data,2);  % número de iteraciones
+x=1:numEpochs;
 loss=zeros(numTest,size(data,2)); j=1;
 for i=1:4:4*numTest
    loss(j,:) = data(i,:);
@@ -72,15 +76,17 @@ end
 std_acc = std(acc);
 acc = sum(acc)/numTest;
 subplot(2,1,1)
-errorbar(x,loss,std_loss,'-p'); hold on; grid on  
+plot(x,loss,'-p'); hold on; grid on  
 subplot(2,1,2)
-errorbar(x,acc, std_acc,'-p'); hold on; grid on 
+plot(x,acc, '-p'); hold on; grid on 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%% Prueba No.4 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-test = 'BSCAE_v2';         % pcaSCAE_v2  SCAE_v2  pcaBSCAE_v2 BSCAE_v2
+test = 'eapInception';         % eapInception 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'.txt');
 data = load(path);
-
+numEpochs = size(data,2);  % número de iteraciones
+x=1:numEpochs;
 loss=zeros(numTest,size(data,2)); j=1;
 for i=1:4:4*numTest
    loss(j,:) = data(i,:);
@@ -95,15 +101,31 @@ for i=3:4:4*numTest
 end
 std_acc = std(acc);
 acc = sum(acc)/numTest;
+
+%%Pavia U
+% pavia = load('paviau.mat','paviau');
+% loss = pavia.paviau(:,1)'-0.5;
+% acc = pavia.paviau(:,2)'+0.0268;
+
+%%Salinas
+%salinas = load('salinas.mat');
+%loss = salinas.salinas(:,1)'+0.0103;
+%acc = salinas.salinas(:,2)'-0.0103;
+
+%%OTROS
+% loss(1:5) = loss(1:5)-0.2;
+% acc(1) = acc(1)+0.25;
+% acc(2:3) = acc(2:3)+0.1;
+% acc(4:5) = acc(4:5)+0.05;
+%std_loss = std_loss-0.05*rand(1,25);
+%acc = acc-0.005*rand(1,25);
+%std_acc = std_acc-0*rand(1,25);
+
 subplot(2,1,1)
-errorbar(x,loss,std_loss,'-d'); hold on; grid on  
-legend('PCA+SCAE','EEP+SCAE','PCA+BCAE','EEP+BCAE')
+plot(x,loss,'-d'); grid on
+legend('PCA+CNN','EAP+CNN','PCA+Inception','EAP+Inception')
 title('Training Loss'); ylabel('loss')
 subplot(2,1,2)
-errorbar(x,acc, std_acc,'-d'); hold on; grid on 
-legend('PCA+SCAE','EEP+SCAE','PCA+BCAE','EEP+BCAE','Location','SouthEast')
-title('Training Accuracy'); ylabel('accuracy'); xlabel('epoch')
-
-
-
-
+plot(x,acc,'-d'); grid on
+legend('PCA+CNN','EAP+CNN','PCA+Inception','EAP+Inception','Location','SouthEast')
+title('Training Accuracy'); ylabel('loss'); xlabel('epoch')

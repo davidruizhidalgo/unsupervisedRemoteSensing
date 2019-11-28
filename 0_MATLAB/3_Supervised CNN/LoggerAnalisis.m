@@ -1,33 +1,37 @@
 clear, clc, close all;
-data2 = load('Logger/7_KPCA_INCEPTION/logger_PaviaU_TEST.txt');
-% 00_PCA_CNN  6_KPCA_CNN  7_KPCA_INCEPTION 
-% IndianPines  Salinas  PaviaU
 
-OA = zeros(1,10); j=1;
-for i=1:3:30
-    OA(j) = data2(i,1);
+dataset = 'Urban';       % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
+test = 'kpcaInception';     %  select folder in 6_logger: ex. pcaCNN2D  kpcaInception 
+numTest = 10;               % número de pruebas
+
+path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
+data = load(path);
+
+OA = zeros(1,numTest); j=1;
+for i=1:3:3*numTest
+    OA(j) = data(i,1);
     j=j+1;
 end
 OA_std = std(OA);
-OA = sum(OA)/10;
+OA = sum(OA)/numTest;
 
-AA = zeros(10,size(data2,2)); j=1;
-for i=2:3:30
-    AA(j,:) = data2(i,:);
+AA = zeros(numTest,size(data,2)); j=1;
+for i=2:3:3*numTest
+    AA(j,:) = data(i,:);
     j = j+1;
 end
 SDT_AA = std(AA);
 STD_AA_P = sum(SDT_AA)/(numel(SDT_AA)-1);
-AA = sum(AA)/10;
+AA = sum(AA)/numTest;
 AA_P = sum(AA)/(numel(AA)-1);
 
-kappa = zeros(1,10); j=1;
-for i=3:3:30
-    kappa(j) = data2(i,1);
+kappa = zeros(1,numTest); j=1;
+for i=3:3:3*numTest
+    kappa(j) = data(i,1);
     j=j+1;
 end
 kappa_std = std(kappa); 
-kappa = sum(kappa)/10;
+kappa = sum(kappa)/numTest;
 
 disp('AA')
 disp(AA')

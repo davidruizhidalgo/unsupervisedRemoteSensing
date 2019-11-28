@@ -1,53 +1,40 @@
-#RED PROFUNDA CON KPCA y TOPOLOGIA DE GRAFO INCEPTION - CLASIFICACION HSI 
-#Se utiliza KPCA y una topologia de red de grafos INCEPTION para la inclusion de caracteristicas espectrales y espaciales en la arquitectura de 
-#la red profunda. Esto se logra utilizando redes convolucionales con diferentes tamaños de ventana; 1x1 para el manejo de caracteristicas 
-#espectrales y 3x3 o 2x2 para el manejo de posibles dependencias espaciales. Se extrae entonces un tensor 4D utilizando una ventana sxs 
-#de la imagen original.
-#Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression. Todas las capas utilizan entrenamiento supervisado. 
-#Para el entrenamiento se utiliza el algoritmo de optimización de gradiente descendente estocastico con parametros variables. 
-import warnings
-warnings.filterwarnings('ignore')
+# Numero de K-PCA y red Inception
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
-from package.MorphologicalProfiles import morphologicalProfiles 
-from package.dataLogger import DataLogger
+from sklearn.metrics import cohen_kappa_score
 from keras import layers
 from keras.models import Model
 from keras.layers import Input
 from keras.layers import Flatten
 from keras.layers import Dense
 from keras.optimizers import SGD
-from keras import backend as K 
 import matplotlib.pyplot as plt
 import numpy as np
-import os 
+from tqdm import tqdm
+from keras import backend as K 
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'Urban'
-test = 'kpcaInception' # pcaInception kpcaInception 
-
+dataSet = 'PaviaU'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
-#CREAR FICHERO DATA LOGGER 
-logger = DataLogger(fileName = dataSet, folder = test, save = True) 
-
-#ANALISIS DE COMPONENTES PRINCIPALES
+#ANALISIS DE COMPONENTES PRINCIPALES PCA o KPCA
 pca = princiapalComponentAnalysis()
-imagenFE = pca.kpca_calculate(imagen, componentes = 15)
-print('K-PCA DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
-OA = 0
 vectOA = np.zeros(numTest)
-for i in range(0, numTest):
+vectAA = np.zeros(numTest)
+vectkappa = np.zeros(numTest)
+for i in tqdm(range(0, numTest)):
     #PREPARAR DATOS PARA ENTRENAMIENTO
-    preparar = PrepararDatos(imagenFE, groundTruth, False)
+    imagenPCA = pca.kpca_calculate(imagen, componentes= 2*i+2) 
+    print(imagenPCA.shape)
+    print('DIMENSIONAL REDUCTION DONE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    preparar = PrepararDatos(imagenPCA, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
-    datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
     #DEFINICION RED CONVOLUCIONAL INCEPTION 
     input_tensor = Input(shape=(datosEntrenamiento.shape[1],datosEntrenamiento.shape[2],datosEntrenamiento.shape[3]))
@@ -82,22 +69,32 @@ for i in range(0, numTest):
     model.compile(loss='categorical_crossentropy', optimizer=sgd, metrics=['accuracy'])
     history = model.fit(datosEntrenamiento,etiquetasEntrenamiento,epochs=epochs,batch_size=256,validation_data=(datosValidacion, etiquetasValidacion))
 
-    #EVALUAR MODELO
-    test_loss, test_acc = model.evaluate(datosPrueba, etiquetasPrueba)
-    vectOA[i] = test_acc
-    OA = OA+test_acc
-    #LOGGER DATOS DE ENTRENAMIENTO
-    logger.savedataTrain(history)
-    #GUARDAR MODELO DE RED CONVOLUCIONAL
-    model.save(os.path.join(logger.path,test+str(i)+'.h5'))
+    #EVALUAR MODELO DE RED CONVOLUCIONAL
+    #GENERACION OA - Overall Accuracy 
+    datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS                      
+    test_loss, OA = model.evaluate(datosPrueba, etiquetasPrueba)            #EVALUAR MODELO
+    vectOA[i] = OA                                                          #Almacena el OA de cada prueba
+    #GENERACION AA - Average Accuracy 
+    AA = 0 
+    ClassAA = np.zeros(groundTruth.max()+1)
+    for j in range(1,groundTruth.max()+1):                                   #QUITAR 1 para incluir datos del fondo
+        datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,j) #MUESTRAS DE UNA CLASE                 
+        test_loss, ClassAA[j] = model.evaluate(datosClase, etiquetasClase)   #EVALUAR MODELO PARA LA CLASE
+        AA += ClassAA[j]
+    AA /= groundTruth.max()                                                  #SUMAR 1 para incluir datos del fondo
+    vectAA[i] = AA                                                           #Almacena el AA de cada prueba
+    
+    #GENERACION Kappa Coefficient
+    datosSalida = model.predict(datosPrueba)
+    datosSalida = datosSalida.argmax(axis=1)
+    etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
+    kappa = cohen_kappa_score(etiquetasPrueba, datosSalida)
+    vectkappa[i] = kappa
 
-#GENERAR MAPA FINAL DE CLASIFICACIÓN
-print('dataOA = '+ str(vectOA)) 
-print('OA = '+ str(OA/numTest)) 
-datosSalida = model.predict(datosPrueba)
-datosSalida = preparar.predictionToImage(datosSalida)
-#GRAFICAS
-data.graficarHsi_VS(groundTruth, datosSalida)
-data.graficar_history(history)
+    print('Iteration '+ str(i+1)+' DONE !!!!!!')                          #Overall Accuracy 
+
+#SALIDA INDICES DE DESEMPEÑO
+print('OA = '+ str(vectOA))                          #Overall Accuracy 
+print('AA = '+ str(vectAA))                          #Average Accuracy 
+print('kappa = '+ str(vectkappa))                    #Kappa Coefficient
 K.clear_session()
-logger.close()
