@@ -68,7 +68,7 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'SalinasA'
+dataSet = 'Urban'
 test = 'pcaSCAE_v2' # pcaSCAE_v2 SCAE_v2
 save = True     # false to avoid create logger
 fe_eep = False    # false for PCA, true for EEP 
@@ -84,7 +84,7 @@ logger = DataLogger(dataSet,test,save)
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 #imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-imagenFE = pca.pca_calculate(imagen, componentes=4)
+imagenFE = pca.pca_calculate(imagen, componentes=18)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES

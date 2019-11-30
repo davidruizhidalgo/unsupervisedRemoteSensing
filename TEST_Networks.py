@@ -77,8 +77,8 @@ def reshapeFeatures(features_test):
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-riemann = True
-dataSet = 'IndianPines'
+riemann = False
+dataSet = 'Urban'
 net = 'SCAE'      # SCAE  BCAE
 test = 'pcaSCAE_v2'  # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
 fe_eep = False     # false for PCA, true for EEP 
@@ -94,7 +94,7 @@ logger = DataLogger(dataSet+'_TEST',test)
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 #imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-imagenFE = pca.pca_calculate(imagen, componentes=4)
+imagenFE = pca.pca_calculate(imagen, componentes=18)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES

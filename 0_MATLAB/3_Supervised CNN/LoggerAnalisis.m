@@ -1,7 +1,7 @@
 clear, clc, close all;
 
-dataset = 'Urban';       % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
-test = 'kpcaInception';     %  select folder in 6_logger: ex. pcaCNN2D  kpcaInception 
+dataset = 'IndianPines';       % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
+test = 'pcaSCAE_v2';     %  select folder in 6_logger: ex. pcaCNN2D pcaSCAE_v2  kpcaInception 
 numTest = 10;               % número de pruebas
 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
