@@ -66,7 +66,7 @@ def cae(N , input_tensor, nb_bands, kernel_size, l2_loss):
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
 dataSet = 'IndianPines'
-test = 'BSCAE_v2' # pcaBSCAE_v2 BSCAE_v2
+test = 'BCAE'     # pcaBCAE BCAE
 fe_eep = True     # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
@@ -114,7 +114,7 @@ for i in range(0, numTest):
     
     ################################### BRANCHES OF STACKED AUTOENCODERS ##########################################################################################
     encoder = Model(inputs = input_img, outputs = output)
-    encoder.save(os.path.join(logger.path,'FE_BCAE'+str(i)+'.h5'))
+    encoder.save(os.path.join(logger.path,'FE_'+test+str(i)+'.h5'))
     features = encoder.predict(datosEntrenamiento)
     features_val = encoder.predict(datosValidacion)
     ##################################CLASIFICADOR CAPA DE SALIDA###############################################
@@ -135,9 +135,9 @@ for i in range(0, numTest):
     #LOGGER DATOS DE ENTRENAMIENTO
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
-    classifier.save(os.path.join(logger.path,'C_BCAE'+str(i)+'.h5'))
+    classifier.save(os.path.join(logger.path,'C_'+test+str(i)+'.h5'))
 ###########################GRAFICAS Y SALIDAS###############################
-plot_model(encoder, to_file=os.path.join(logger.path,'BCAEmodel.png'))
+plot_model(encoder, to_file=os.path.join(logger.path,test+'model.png'))
 datosSalida = classifier.predict(features_out)
 datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)

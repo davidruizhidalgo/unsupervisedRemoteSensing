@@ -69,8 +69,8 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
 dataSet = 'Urban'
-test = 'pcaSCAE_v2' # pcaSCAE_v2 SCAE_v2
-save = True     # false to avoid create logger
+test = 'pcaSCAE'  # pcaSCAE SCAE
+save = True       # false to avoid create logger
 fe_eep = False    # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
@@ -123,7 +123,7 @@ for i in range(0, numTest):
     #######################MODELO STACKED AUTOENCODER##################################################################
     encoder = Model(inputs = autoencoder.input, outputs = autoencoder.layers[-1].output)
     if save:
-        encoder.save(os.path.join(logger.path,'FE_SCAE'+str(i)+'.h5'))
+        encoder.save(os.path.join(logger.path,'FE_'+test+str(i)+'.h5'))
     features = encoder.predict(datosEntrenamiento)
     features_val = encoder.predict(datosValidacion)
     ##################################CLASIFICADOR CAPA DE SALIDA###############################################
@@ -145,9 +145,9 @@ for i in range(0, numTest):
     logger.savedataTrain(history)
     #GUARDAR MODELO DE RED CONVOLUCIONAL
     if save:
-        classifier.save(os.path.join(logger.path,'C_SCAE'+str(i)+'.h5'))
+        classifier.save(os.path.join(logger.path,'C_'+test+str(i)+'.h5'))
 ###########################GRAFICAS Y SALIDAS###############################
-plot_model(encoder, to_file=os.path.join(logger.path,'SCAEmodel.png'))
+plot_model(encoder, to_file=os.path.join(logger.path,test+'model.png'))
 datosSalida = classifier.predict(features_out)
 datosSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, datosSalida)

@@ -79,8 +79,7 @@ def reshapeFeatures(features_test):
 numTest = 10
 riemann = False
 dataSet = 'Urban'
-net = 'SCAE'      # SCAE  BCAE
-test = 'pcaSCAE_v2'  # pcaSCAE_v2 SCAE_v2 pcaBSCAE_v2 BSCAE_v2
+test = 'pcaSCAE'  # pcaSCAE SCAE pcaBCAE BCAE
 fe_eep = False     # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
@@ -110,7 +109,7 @@ for i in range(0, numTest):
     datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)   #TOTAL MUESTRAS 
 
     #CARGAR MODELOS ENTRENADOS DE EXTRACIÓN DE CARACTERISTICAS
-    encoder = load_model(os.path.join(logger.path,'FE_'+net+str(i)+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
+    encoder = load_model(os.path.join(logger.path,'FE_'+test+str(i)+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
     #Generar caracteristicicas con los datos de entrada
     features_tr = encoder.predict(datosEntrenamiento)
     features_test = encoder.predict(datosPrueba)
@@ -123,7 +122,7 @@ for i in range(0, numTest):
     #################################################################################################################
     else:
     ##################################CLASIFICADOR LOGISTIC REGRESSION###############################################
-        classifier = load_model(os.path.join(logger.path,'C_'+net+str(i)+'.h5')) 
+        classifier = load_model(os.path.join(logger.path,'C_'+test+str(i)+'.h5')) 
     #################################################################################################################
     datosSalida = classifier.predict(features_test)
     OA = accuracy(etiquetasPrueba, datosSalida)                #EVALUAR MODELO
