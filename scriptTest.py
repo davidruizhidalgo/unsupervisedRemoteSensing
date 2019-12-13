@@ -15,6 +15,9 @@
 # 2. Evaluar un esquema de data augmentation => prepararDatos.py
 # 4. Revisar documentacion reciente del estado del arte.
 
+# pylint: disable=E1136  # pylint/issues/3139
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 from package.cargarHsi import CargarHsi

@@ -13,7 +13,7 @@ from keras import backend as K
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
+dataSet = 'Urban'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen

@@ -16,7 +16,7 @@ from keras import backend as K
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'PaviaU'
+dataSet = 'Pavia'
 ventana = 9 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
