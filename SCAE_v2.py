@@ -4,6 +4,9 @@
 #Con el encoder entrenado se implementa una capa de fine tunning para el ejuste de la ultima capa del clasificador. 
 #El proceso utiliza una ventana sxs de la imagen original para la generacion de caracteristicas espaciales-espectrales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression.  
+
+#np.seterr(divide='ignore', invalid='ignore')
+
 import warnings
 warnings.filterwarnings('ignore')
 from package.cargarHsi import CargarHsi
