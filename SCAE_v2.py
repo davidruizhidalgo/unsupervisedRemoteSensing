@@ -5,7 +5,7 @@
 #El proceso utiliza una ventana sxs de la imagen original para la generacion de caracteristicas espaciales-espectrales a partir de la convolucion. 
 #Se utiliza como capa de salida un clasificador tipo Multinomial logistic regression.  
 
-#np.seterr(divide='ignore', invalid='ignore')
+# pylint: disable=E1136  # pylint/issues/3139
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -68,6 +68,7 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
     output_tensor = Conv2D(nb_bands, (1, 1), activation='relu', strides=1, padding='same', kernel_regularizer=regularizers.l2(l2_loss), kernel_initializer=initializers.glorot_normal())(refinement1)
     autoencoder = Model(input_tensor, output_tensor)
     return autoencoder
+
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
