@@ -1,6 +1,7 @@
 #Permite cargar datos de una imagen HSI y retornarlos en formato numpy
 #Permite normalizar los datos de entrada
 #Permite graficar un canal de la imagen o el ground truth
+# pylint: disable=E1136  # pylint/issues/3139
 
 import scipy.io as sio
 import numpy as np
@@ -16,7 +17,8 @@ class CargarHsi:
                     'PaviaU' : ["../dataSets/PaviaU.mat", 'paviaU', "../dataSets/PaviaU_gt.mat", 'paviaU_gt'], 
                     'Urban' : ["../dataSets/Urban210.mat", 'imagenOut', "../dataSets/Urban210_gt.mat", 'imagenOut_gt'],
                     'Samson' : ["../dataSets/samson.mat", 'imagenOut', "../dataSets/samson_gt.mat", 'imagenOut_gt'],
-                    'Jasper' : ["../dataSets/Jasper.mat", 'imagenOut', "../dataSets/Jasper_gt.mat", 'imagenOut_gt'],}
+                    'Jasper' : ["../dataSets/Jasper.mat", 'imagenOut', "../dataSets/Jasper_gt.mat", 'imagenOut_gt'],
+                    'KSC' : ["../dataSets/KSC.mat", 'KSC', "../dataSets/KSC_gt.mat", 'KSC_gt'],}
         #CARGAR CUBO DE DATOS
         mat = sio.loadmat(dicData[name_data][0]) # Cargar archivo .mat
         data = np.array(mat[dicData[name_data][1]]) # Convertir a numpy array

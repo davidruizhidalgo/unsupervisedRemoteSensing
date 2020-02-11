@@ -23,3 +23,10 @@ import numpy as np
 from package.cargarHsi import CargarHsi
 from package.PCA import princiapalComponentAnalysis
 
+
+dataSet = 'KSC'
+data = CargarHsi(dataSet)
+imagen = data.imagen
+groundTruth = data.groundTruth
+
+data.graficarHsi(groundTruth)
