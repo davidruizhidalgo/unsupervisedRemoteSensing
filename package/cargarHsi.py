@@ -6,6 +6,7 @@
 import scipy.io as sio
 import numpy as np
 import matplotlib.pyplot as plt
+import os 
 
 class CargarHsi:
     
@@ -83,3 +84,20 @@ class CargarHsi:
             plt.ylabel('Loss')
             plt.legend()
             plt.show()
+
+    def saveHsi(self,imageChannel,name):
+        plt.figure()
+        plt.imshow(imageChannel)
+        plt.colorbar()
+        plt.savefig(name)
+
+    def saveHsi_VS(self, img_1, img_2, name, cmap ='fc'):
+        plt.figure(1)
+        plt.subplot(1,2,1)
+        plt.imshow(img_1)
+        plt.subplot(1,2,2)
+        if cmap == 'fc':
+            plt.imshow(img_2)
+        else:
+            plt.imshow(img_2, cmap='Greys',  interpolation='nearest')
+        plt.savefig(name)
