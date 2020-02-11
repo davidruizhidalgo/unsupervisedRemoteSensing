@@ -30,5 +30,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os 
 
+###########################PROGRAMA PRINCIPAL################################################################################################################
+dataSet = 'IndianPines'
+test = 'eapInception'   # pcaInception eapInception
+save = True             # false to avoid create logger
+fe_eap = True           # false for PCA, true for EAP 
+
+data = CargarHsi(dataSet)
+imagen = data.imagen
+groundTruth = data.groundTruth
+print(imagen.shape)
+
 #CARGAR REDES LRC, RIE y SVM 
 #GENERAR MATRIZ DE CONFUSION
