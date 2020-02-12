@@ -17,6 +17,7 @@ Este proyecto contiene diferentes aplicaciones con código desarrollado en pytho
 11. conda install -c conda-forge tqdm
 12. En el directorio 4_siamxt-master ejecutar: python septup.py install
 13. pip install pyriemann
+14. conda install -c plotly plotly-orca psutil requests
 
 El toolbox siamxt se descarga desde https://github.com/rmsouza01/siamxt. Para su ejecución es necesario preinstalar Visual Studio Build Tools 2019 
 ### Sincronización con Repositorio en GitHub
