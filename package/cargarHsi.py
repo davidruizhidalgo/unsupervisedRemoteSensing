@@ -90,6 +90,8 @@ class CargarHsi:
         plt.imshow(imageChannel)
         plt.colorbar()
         plt.savefig(name)
+        plt.clf()
+        plt.close()
 
     def saveHsi_VS(self, img_1, img_2, name, cmap ='fc'):
         plt.figure(1)
@@ -101,3 +103,5 @@ class CargarHsi:
         else:
             plt.imshow(img_2, cmap='Greys',  interpolation='nearest')
         plt.savefig(name)
+        plt.clf()
+        plt.close()
