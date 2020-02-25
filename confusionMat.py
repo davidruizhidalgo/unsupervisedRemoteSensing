@@ -92,11 +92,11 @@ def reshapeFeaturesRIE(features_test):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 ###########################CARGAR IMAGEN HSI, GROUND TRUTH e INICIAR LOGGER##################################################################################
 numTest = 10
-dataSet = 'IndianPines'
+dataSet = 'KSC'
 test = 'eapInception'    # pcaInception eapInception
 save = False             # false to avoid create logger
 fe_eap = True            # false for PCA, true for EAP 
-vectNets =[0, 0, 0, 0]   # [FE, LRC, RIE, SVM]   
+vectNets =[9, 9, 9, 9]   # [FE, LRC, RIE, SVM]   5, 4, 9
 
 data = CargarHsi(dataSet)
 imagen = data.imagen

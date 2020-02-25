@@ -1,10 +1,12 @@
 clear, clc, close all;
 
-dataset = 'IndianPines';       % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
-test = 'pcaSCAE_v2';     %  select folder in 6_logger: ex. pcaCNN2D pcaSCAE_v2  kpcaInception 
-numTest = 10;               % número de pruebas
+dataset = 'KSC';        % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
+test = 'pcaInception';          % Select folder in 6_logger: ex. pcaCNN2D pcaSCAE_v2  kpcaInception  eapInception
+numTest = 10;                   % número de pruebas
+classifier = '_RIE';            % Clasificador _LRC  _RIE   _SVM
 
-path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
+% path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
+path = strcat('../../6_data Logger/',test,'/',dataset,classifier,'/logger_',dataset,classifier,'.txt');
 data = load(path);
 
 OA = zeros(1,numTest); j=1;
