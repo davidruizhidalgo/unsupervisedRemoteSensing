@@ -1,6 +1,6 @@
 clear, clc, close all;
 
-dataset = 'KSC';        % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
+dataset = 'PaviaU';        % IndianPines  Salinas  PaviaU SalinasA Pavia Urban
 test = 'pcaInception';          % Select folder in 6_logger: ex. pcaCNN2D pcaSCAE_v2  kpcaInception  eapInception
 numTest = 10;                   % número de pruebas
 classifier = '_RIE';            % Clasificador _LRC  _RIE   _SVM
