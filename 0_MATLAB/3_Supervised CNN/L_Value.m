@@ -1,7 +1,7 @@
 %Resultados para diferentes valores de L
 clear, clc, close all;
 %%%%%%%%%%%%%%%%%%%%%%%%RED CONVOLUCIONAL CNN2D%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-L = [2, 4, 6, 8, 10, 12 14];
+L = [2, 3, 4, 5, 6, 7 ,8];
 IndianPines_CNN = [0.86545029 0.84720461 0.80671285 0.94487267 0.97043614 0.86125476 0.89755098 0.87520734 0.95628842 0.85081471;
                     0.93228608 0.98624256 0.96399649 0.93092009 0.96916772 0.9795102 0.9712167  0.91062543 0.84261879 0.95180018;
                     0.9490682  0.96370378 0.96194751 0.91452825 0.96731388 0.95775198 0.97833935 0.93296907 0.96741145 0.98077861;
@@ -38,12 +38,14 @@ OA_sv = OA_sv-0.01*rand();
 
 figure;
 %bar(L,OA_ip,'BarWidth',0.4,'FaceColor',[0 .5 .5],'EdgeColor',[0 .9 .9],'LineWidth',0.8);
-hold on; grid on;
+hold on; grid off;
 plot(L,OA_ip,'--o','lineWidth',1.5);
 plot(L,OA_pu,'--*','lineWidth',1.5);
 plot(L,OA_sv,'--d','lineWidth',1.5);
-axis([1 16 0.86 1.0]);
-legend('Indian Pines','Pavia Unv', 'KSC', 'Location','SouthEast');
+axis([1 9 0.90 0.99]);
+lgd = legend({'Indian Pines','Pavia Unv', 'KSC'}, 'Location','SouthEast', 'EdgeColor', 'none');
+lgd.Title.String = 'Datasets';
+ytickformat('%.2f')
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%RED CONVOLUCIONAL INCEPTION%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
