@@ -65,9 +65,9 @@ def cae(N , input_tensor, nb_bands, kernel_size, l2_loss):
 ###########################PROGRAMA PRINCIPAL###################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'IndianPines'
-test = 'BCAE'     # pcaBCAE BCAE
-fe_eep = True     # false for PCA, true for EEP 
+dataSet = 'KSC'
+test = 'pcaBCAE'     # pcaBCAE BCAE
+fe_eep = False     # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)

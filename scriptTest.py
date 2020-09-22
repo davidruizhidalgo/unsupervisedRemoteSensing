@@ -47,20 +47,14 @@ import os
 
 #############################################################################################################################################################
 ###########################PROGRAMA PRINCIPAL################################################################################################################
-dataSet = 'IndianPines'
-test = 'eapInception'   # pcaInception eapInception
-save = True             # false to avoid create logger
-fe_eap = True           # false for PCA, true for EAP 
+dataSet = 'KSC'
+fe_eap = False           # false for PCA, true for EAP 
 
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 print(imagen.shape)
 
-########################CREAR FICHEROS DATA LOGGER########################################################################################################### 
-logger_LRC = DataLogger(fileName = dataSet+'_LRC', folder = test, save = save)  
-path = logger_LRC.path
-print(path)
 ###########################INICIAL FEATURE EXTRACTION########################################################################################################
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
