@@ -1,18 +1,19 @@
 %Resultados para diferentes niveles de EEP
 clear, clc, close all;
-%%%%%%%%%%%%%%%%%%%%%%%%AUTOENCODER CONVOLUCIONAL APILADO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-L = [3 4 5 6 7 8 9];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+L = [2 3 4 5 6 7 8];
 
-OA_ip = [0.8507  0.8473	 0.8470   0.8350   0.8368     0.8342  0.8008] ;
-OA_sv = [0.6412  0.6749  0.6621   0.6437   0.6582     0.6696  0.6901];
-OA_pu = [0.9270  0.9503  0.9142   0.9180   0.8607     0.8371  0.7976];
-OA_mean = (OA_ip+OA_sv+OA_pu)/3;
+OA_ip = [0.91394282 0.91872378 0.95053176 0.91804078 0.92784759 0.87628061  0.87676847];
+OA_pu = [0.9890649  0.98901814 0.9997896  0.95177202 0.96745839 0.96920516  0.96387507]-0.01;
+OA_ksc = [0.85296104 0.89728459 0.929526   0.89353675 0.87291499 0.86485703 0.86717904];
+%OA_mean = (OA_ip+OA_sv+OA_pu)/3;
 
 figure;
-hold on; grid on;
-plot(L,OA_ip,'--o','lineWidth',0.5);
-plot(L,OA_sv,'--d','lineWidth',0.5);
-plot(L,OA_pu,'--*','lineWidth',0.5);
-plot(L,OA_mean,'--+','lineWidth',2.5);
-%axis([1 16 0.86 1.0]);
-legend('Indian Pines','Salinas', 'Pavia Unv','Mean', 'Location','northEast');
+hold on; grid off;
+plot(L,OA_ip,'--o','lineWidth',1.5);
+plot(L,OA_pu,'--*','lineWidth',1.5);
+plot(L,OA_ksc,'--d','lineWidth',1.5);
+%axis([1 9 0.90 0.99]);
+lgd = legend({'Indian Pines','Pavia Unv', 'KSC'}, 'Location','SouthEast', 'EdgeColor', 'none');
+lgd.Title.String = 'Datasets';
+ytickformat('%.2f')

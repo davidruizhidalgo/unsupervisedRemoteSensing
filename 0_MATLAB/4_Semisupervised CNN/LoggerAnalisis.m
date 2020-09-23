@@ -15,6 +15,9 @@ for i=1:3:3*numTest
 end
 OA = OA - delta;
 OA_std = std(OA);
+disp('########################')
+disp(OA)
+disp('########################')
 OA = sum(OA)/numTest;
 
 AA = zeros(numTest,size(data,2)); j=1;

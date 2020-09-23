@@ -1,20 +1,17 @@
 # Level_EEP
 # pylint: disable=E1136  # pylint/issues/3139
 
+import warnings
+warnings.filterwarnings('ignore')
 from package.cargarHsi import CargarHsi
 from package.prepararDatos import PrepararDatos
 from package.PCA import princiapalComponentAnalysis
 from package.MorphologicalProfiles import morphologicalProfiles
-from keras.layers import Input, Dense, Conv2D, Flatten, Dropout, concatenate
-from keras.layers import UpSampling2D, Dropout, Conv2DTranspose, MaxPooling2D, Add
-from keras.layers.normalization import BatchNormalization
-from keras.models import Model
+from package.dataLogger import DataLogger
+from keras import layers
+from keras import models
 from keras import regularizers
 from keras import backend as K 
-from keras import layers
-from keras.optimizers import SGD
-from keras import initializers
-from sklearn.metrics import cohen_kappa_score
 import matplotlib.pyplot as plt
 import numpy as np
 import os 
@@ -22,28 +19,31 @@ import os
 
 #############################################################################################################################################################
 ###########################PROGRAMA PRINCIPAL################################################################################################################
-numTest = 1
-dataSet = 'IndianPines'
+numTest = 7
+ventana = 9 #VENTANA 2D de PROCESAMIENTO
+dataSet = 'KSC'
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 print(imagen.shape)
 
 ###########################INICIAL FEATURE EXTRACTION########################################################################################################
-#ANALISIS DE COMPONENTES PRINCIPALES
-pca = princiapalComponentAnalysis()
-imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-print(imagenFE.shape)
-
-#ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
-mp = morphologicalProfiles()
-imagenFE = mp.EEP(imagenFE, num_levels=2)   
-print(imagenFE.shape)
-
-###################CONVOLUTIONAL NEURAL NETWORK################################################################################################################
 OA = 0
 vectOA = np.zeros(numTest)
+level_EP=[3,4,5,6,7,8,9]
 for i in range(0, numTest):
+    #ANALISIS DE COMPONENTES PRINCIPALES
+    pca = princiapalComponentAnalysis()
+    imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+    print(imagenFE.shape)
+
+    #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
+    mp = morphologicalProfiles()
+    imagenFE = mp.EEP(imagenFE, num_levels=level_EP[i])   
+    print(imagenFE.shape)
+
+    ###################CONVOLUTIONAL NEURAL NETWORK################################################################################################################
+
     #PREPARAR DATOS PARA ENTRENAMIENTO
     preparar = PrepararDatos(imagenFE, groundTruth, False)
     datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,30,ventana)
@@ -77,4 +77,6 @@ for i in range(0, numTest):
     OA = OA+test_acc
     
 #MOSTRAR OVERALL ACCURACY
-print('OA = '+ str(OA/numTest)) 
+print('OA:')
+print(vectOA) 
+K.clear_session()

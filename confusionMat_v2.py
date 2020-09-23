@@ -39,6 +39,9 @@ from sklearn.utils.multiclass import unique_labels
 from scipy.stats import binom
 
 ###########################FUNCIONES#########################################################################################################################
+def euclidean_distance_loss(y_true, y_pred):
+    return K.sqrt(K.sum(K.square(y_pred - y_true), axis=-1))
+
 def plotlyConfusionMatrix(true_labels, pred_labels, class_names): 
   cm = confusion_matrix(true_labels, pred_labels).astype(float)
   sum_hor = cm.sum(axis=1)
@@ -78,25 +81,12 @@ def plotlyConfusionMatrix(true_labels, pred_labels, class_names):
           )
   fig = go.Figure(data=data, layout=layout)
   return fig
-
-def reshapeFeaturesSVM(features_test):
-    features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
-    features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2])
-    return features_test
-
-def reshapeFeaturesRIE(features_test):
-    features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
-    features_test = np.transpose(features_test, (0, 2, 1))
-    return features_test
-
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 ###########################CARGAR IMAGEN HSI, GROUND TRUTH e INICIAR LOGGER##################################################################################
-numTest = 10
 dataSet = 'KSC'
-test = 'eapInception'    # pcaInception eapInception
-save = False             # false to avoid create logger
+test =  'BCAE'          # test folder
 fe_eap = True            # false for PCA, true for EAP 
-vectNets =[9, 9, 9, 9]   # [FE, LRC, RIE, SVM]   5, 4, 9
+vectNets =[5, 5]          # [FE, LRC]   
 
 data = CargarHsi(dataSet)
 imagen = data.imagen
@@ -106,41 +96,37 @@ print(imagen.shape)
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-#imagenFE = pca.pca_calculate(imagen, componentes=10)
+#imagenFE = pca.pca_calculate(imagen, componentes=18)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
 if fe_eap:    
     mp = morphologicalProfiles()
-    imagenFE = mp.EAP(imagenFE, num_thresholds=6)    
+    imagenFE = mp.EEP(imagenFE, num_levels=4)    
     print(imagenFE.shape)
 
 ########################ENLAZAR FICHEROS DATA LOGGER########################################################################################################### 
-logger_LRC = DataLogger(fileName = dataSet+'_LRC', folder = test, save = save)   
-logger_RIE = DataLogger(fileName = dataSet+'_RIE', folder = test, save = save) 
-logger_SVM = DataLogger(fileName = dataSet+'_SVM', folder = test, save = save) 
+logger_LRC = DataLogger(fileName = dataSet, folder = test, save = False) 
 ########################PREPARAR DATOS PARA VALIDACION#########################################################################################################
-ventana = 9  #VENTANA 2D de PROCESAMIENTO
+ventana = 8  #VENTANA 2D de PROCESAMIENTO
 preparar = PrepararDatos(imagenFE, groundTruth, False)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)    
 ########################CARGAR FEATURE EXTRACTION NETWORK######################################################################################################
-feNet = load_model(os.path.join(logger_LRC.path,test+str(vectNets[0])+'.h5'))
+feNet = load_model(os.path.join(logger_LRC.path,'FE_'+test+str(vectNets[0])+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
 #Generar caracteristicas con la FE Net
 features_test = feNet.predict(datosPrueba)
+
 ########################LOGISTIC REGRESSION CLASSIFIER#########################################################################################################
-lrcNet = load_model(os.path.join(logger_LRC.path,test+str(vectNets[1])+'_LRC.h5'))
-lrcSalida = lrcNet.predict(datosPrueba)
+lrcNet = load_model(os.path.join(logger_LRC.path,'C_'+test+str(vectNets[1])+'.h5'))
+lrcSalida = lrcNet.predict(features_test)
 print('LOGISTIC REGRESSION CLASSIFIER DONE!!!!!!!!!!!!!!!!!!!!!!!!!')
-########################RIEMANNIAN  CLASSIFIER#################################################################################################################
-rieNet = joblib.load(os.path.join(logger_RIE.path,test+'_RIE'+str(vectNets[2])+'.pkl')) 
-features_rie = reshapeFeaturesRIE(features_test)
-rieSalida = rieNet.predict(features_rie)
-print('RIEMANNIAN CLASSIFIER DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-########################SUPPORT VECTOR MACHINE CLASSIFIER######################################################################################################
-svmNet = joblib.load(os.path.join(logger_SVM.path,test+'_SVM'+str(vectNets[2])+'.pkl')) 
-features_svm = reshapeFeaturesSVM(features_test)
-svmSalida = svmNet.predict(features_svm)
-print('SUPPORT VECTOR MACHINE  DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+####################################GENERAR MAPA FINAL DE CLASIFICACIÓN#####################################################################
+imagenSalida = preparar.predictionToImage(lrcSalida)
+data.graficarHsi_VS(groundTruth, imagenSalida)
+#COMPARACION
+dataCompare = np.absolute(groundTruth-imagenSalida)
+dataCompare = (dataCompare > 0) * 1 
+data.graficarHsi_VS(imagenSalida, dataCompare, cmap ='bw')
 ########################AJUSTAR DATOS DE SALIDA################################################################################################################
 class_names = []
 for i in range(1,groundTruth.max()+1):
@@ -149,18 +135,9 @@ if etiquetasPrueba.ndim>1:
     etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
 if lrcSalida.ndim>1:
     lrcSalida = lrcSalida.argmax(axis=1)
-if rieSalida.ndim>1:
-    rieSalida = rieSalida.argmax(axis=1)
-if svmSalida.ndim>1:
-    svmSalida = svmSalida.argmax(axis=1)
 ########################GENERAR MATRIZ DE CONFUSION############################################################################################################
 fig_lrc = plotlyConfusionMatrix(true_labels=etiquetasPrueba, pred_labels=lrcSalida, class_names=class_names)
 fig_lrc.write_image(os.path.join(logger_LRC.path,'confusionMat_'+str(vectNets[1])+'.png'))
-
-fig_rie = plotlyConfusionMatrix(true_labels=etiquetasPrueba, pred_labels=rieSalida, class_names=class_names)
-fig_rie.write_image(os.path.join(logger_RIE.path,'confusionMat_'+str(vectNets[2])+'.png'))
-
-fig_svm = plotlyConfusionMatrix(true_labels=etiquetasPrueba, pred_labels=svmSalida, class_names=class_names)
-fig_svm.write_image(os.path.join(logger_SVM.path,'confusionMat_'+str(vectNets[3])+'.png'))
+K.clear_session()
 print('CONFUSION MATRIX DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 ###############################################################################################################################################################
