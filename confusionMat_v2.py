@@ -83,10 +83,10 @@ def plotlyConfusionMatrix(true_labels, pred_labels, class_names):
   return fig
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 ###########################CARGAR IMAGEN HSI, GROUND TRUTH e INICIAR LOGGER##################################################################################
-dataSet = 'KSC'
-test =  'BCAE'          # test folder
-fe_eap = True            # false for PCA, true for EAP 
-vectNets =[5, 5]          # [FE, LRC]   
+dataSet = 'PaviaU'
+test =  'pcaBCAE'          # test folder
+fe_eap = False            # false for PCA, true for EAP 
+vectNets =[0, 0]          # [FE, LRC]   
 
 data = CargarHsi(dataSet)
 imagen = data.imagen

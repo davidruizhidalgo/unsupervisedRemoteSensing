@@ -17,3 +17,5 @@ plot(L,OA_ksc,'--d','lineWidth',1.5);
 lgd = legend({'Indian Pines','Pavia Unv', 'KSC'}, 'Location','SouthEast', 'EdgeColor', 'none');
 lgd.Title.String = 'Datasets';
 ytickformat('%.2f')
+xlabel('No. of Extrema Values') 
+ylabel('Accuracy') 

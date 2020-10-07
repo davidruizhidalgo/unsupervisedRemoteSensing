@@ -1,9 +1,9 @@
 clear, clc, close all;
 
-dataset = 'KSC';  % IndianPines  PaviaU KSC
-test = 'BCAE';         % pcaSCAE pcaBCAE BCAE
-numTest = 10;             % número de pruebas
-delta = 0.0;
+dataset = 'KSC';        % IndianPines  PaviaU KSC
+test = 'DBN';           % pcaSCAE pcaBCAE BCAE DBN 
+numTest = 10;           % número de pruebas
+delta = 0.01;
 
 path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
 data = load(path);
