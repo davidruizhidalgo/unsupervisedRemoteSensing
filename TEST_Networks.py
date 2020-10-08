@@ -37,6 +37,8 @@ from pyriemann.classification import MDM
 from pyriemann.tangentspace import TangentSpace
 from sklearn.pipeline import make_pipeline
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+from sklearn import svm
+from sklearn.externals import joblib
 
 def euclidean_distance_loss(y_true, y_pred):
     return K.sqrt(K.sum(K.square(y_pred - y_true), axis=-1))
@@ -61,6 +63,17 @@ def riemann_classifier(features_tr, etiquetasEntrenamiento, method='tan'):
     classifier.fit(features_tr, etiquetasEntrenamiento)
     return classifier
 
+def svm_classifier(features_tr, etiquetasEntrenamiento, kernel='linear'):
+    #Reshape features (n_samples, m_features)
+    features_tr = features_tr.reshape(features_tr.shape[0],features_tr.shape[1]*features_tr.shape[2],features_tr.shape[3])
+    features_tr = features_tr.reshape(features_tr.shape[0],features_tr.shape[1]*features_tr.shape[2])
+    #Reshape labels from categorical 
+    etiquetasEntrenamiento = np.argmax(etiquetasEntrenamiento, axis=1)
+    #SVM Classifier one-against-one
+    classifier = svm.SVC(gamma='scale', decision_function_shape='ovo', kernel=kernel, verbose=True)
+    classifier.fit(features_tr,etiquetasEntrenamiento)
+    return classifier
+
 def accuracy(y_true, y_pred):
     if y_true.ndim>1:
         y_true = np.argmax(y_true, axis=1)
@@ -70,17 +83,21 @@ def accuracy(y_true, y_pred):
     OA = accuracy_score(y_true, y_pred)
     return OA
 
-def reshapeFeatures(features_test):
-    features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
-    features_test = np.transpose(features_test, (0, 2, 1))
+def reshapeFeatures(features_test, method='RIEM'):
+    if method == 'RIEM':
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
+        features_test = np.transpose(features_test, (0, 2, 1))
+    else: 
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2])
     return features_test
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-riemann = False
-dataSet = 'KSC'
-test = 'pcaBCAE'  # pcaSCAE SCAE pcaBCAE BCAE
-fe_eep = False     # false for PCA, true for EEP 
+dataSet =   'KSC'            # Hyperspectral image dataset
+algorithm = 'SVMC'           # LRCL RIEM SVMC
+test = 'BCAE'                # pcaSCAE SCAE pcaBCAE BCAE
+fe_eep = True                # false for PCA, true for EEP 
 
 ventana = 8 #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
@@ -88,12 +105,11 @@ imagen = data.imagen
 groundTruth = data.groundTruth
 
 #CREAR FICHERO DATA LOGGER 
-logger = DataLogger(dataSet+'_TEST',test) 
+logger = DataLogger(dataSet+'_'+algorithm,test, save=True) 
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-#imagenFE = pca.pca_calculate(imagen, componentes=18)
 print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
@@ -115,12 +131,19 @@ for i in range(0, numTest):
     features_test = encoder.predict(datosPrueba)
     
     #GENERACION OA - Overall Accuracy     
-    if riemann: 
+    if algorithm == 'RIEM': 
     ################################## CLASIFICADOR RIEMANN #########################################################
         classifier = riemann_classifier(features_tr, etiquetasEntrenamiento, method='tan')
-        features_test = reshapeFeatures(features_test)
+        joblib.dump(classifier, os.path.join(logger.path,test+'_'+algorithm+str(i)+'.pkl')) 
+        features_test = reshapeFeatures(features_test, algorithm)
     #################################################################################################################
-    else:
+    if algorithm == 'SVMC': 
+    ################################## CLASIFICADOR SVM #############################################################
+        classifier = svm_classifier(features_tr, etiquetasEntrenamiento, kernel='linear')
+        joblib.dump(classifier, os.path.join(logger.path,test+'_'+algorithm+str(i)+'.pkl')) 
+        features_test = reshapeFeatures(features_test, algorithm)
+    #################################################################################################################
+    if algorithm == 'LRCL': 
     ##################################CLASIFICADOR LOGISTIC REGRESSION###############################################
         classifier = load_model(os.path.join(logger.path,'C_'+test+str(i)+'.h5')) 
     #################################################################################################################
@@ -133,15 +156,17 @@ for i in range(0, numTest):
     for j in range(1,groundTruth.max()+1):                      #QUITAR 1 para incluir datos del fondo
         datosClase, etiquetasClase = preparar.extraerDatosClase2D(ventana,j)    #MUESTRAS DE UNA CLASE                 
         features_class = encoder.predict(datosClase)
-        if riemann:
-            features_class = reshapeFeatures(features_class)                   # SOLO PARA RIEMMANIAN CLASSIFIER
+        if algorithm == 'LRCL':
+            pass
+        else:
+            features_class = reshapeFeatures(features_class, algorithm)        # SOLO PARA RIEMMANIAN CLASSIFIER
         claseSalida = classifier.predict(features_class)
         ClassAA[j] = accuracy(etiquetasClase, claseSalida)                     #EVALUAR MODELO PARA LA CLASE
         AA += ClassAA[j]
     AA /= groundTruth.max()                                                    #SUMAR 1 para incluir datos del fondo
 
     #GENERACION Kappa Coefficient
-    if not riemann:
+    if algorithm == 'LRCL':                                                     #SI EL CLASIFICADOR ES LR
         datosSalida = datosSalida.argmax(axis=1)
     etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
     kappa = cohen_kappa_score(etiquetasPrueba, datosSalida)

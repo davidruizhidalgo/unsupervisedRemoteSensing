@@ -81,63 +81,82 @@ def plotlyConfusionMatrix(true_labels, pred_labels, class_names):
           )
   fig = go.Figure(data=data, layout=layout)
   return fig
+
+def reshapeFeatures(features_test, method='RIEM'):
+    if method == 'RIEM':
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
+        features_test = np.transpose(features_test, (0, 2, 1))
+    else: 
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2],features_test.shape[3])
+        features_test = features_test.reshape(features_test.shape[0],features_test.shape[1]*features_test.shape[2])
+    return features_test
+
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 ###########################CARGAR IMAGEN HSI, GROUND TRUTH e INICIAR LOGGER##################################################################################
-dataSet = 'PaviaU'
-test =  'pcaBCAE'          # test folder
-fe_eap = False            # false for PCA, true for EAP 
-vectNets =[0, 0]          # [FE, LRC]   
+dataSet = 'IndianPines'
+test =    'BCAE'          # test folder
+algorithm = 'RIEM'        # LRCL, SVMC, RIEM
+fe_eep = True             # false for PCA, true for EEP 
+vectNets =[0, 0, 0, 0]    # [FE, LRCL, SVMC, RIEM]   
 
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 print(imagen.shape)
-###########################INICIAL FEATURE EXTRACTION########################################################################################################
+###########################INICIAL FEATURE EXTRACTION#########################################################################################################
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
 imagenFE = pca.pca_calculate(imagen, varianza=0.95)
-#imagenFE = pca.pca_calculate(imagen, componentes=18)
 print(imagenFE.shape)
-
-#ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
-if fe_eap:    
+##########################EXTENDED EXTINTION PROFILES##########################################################################################################
+if fe_eep:    
     mp = morphologicalProfiles()
     imagenFE = mp.EEP(imagenFE, num_levels=4)    
     print(imagenFE.shape)
-
 ########################ENLAZAR FICHEROS DATA LOGGER########################################################################################################### 
-logger_LRC = DataLogger(fileName = dataSet, folder = test, save = False) 
+logger = DataLogger(fileName = dataSet, folder = test, save = False) 
 ########################PREPARAR DATOS PARA VALIDACION#########################################################################################################
 ventana = 8  #VENTANA 2D de PROCESAMIENTO
 preparar = PrepararDatos(imagenFE, groundTruth, False)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)    
 ########################CARGAR FEATURE EXTRACTION NETWORK######################################################################################################
-feNet = load_model(os.path.join(logger_LRC.path,'FE_'+test+str(vectNets[0])+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
+feNet = load_model(os.path.join(logger.path,'FE_'+test+str(vectNets[0])+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss}) 
 #Generar caracteristicas con la FE Net
 features_test = feNet.predict(datosPrueba)
 
-########################LOGISTIC REGRESSION CLASSIFIER#########################################################################################################
-lrcNet = load_model(os.path.join(logger_LRC.path,'C_'+test+str(vectNets[1])+'.h5'))
-lrcSalida = lrcNet.predict(features_test)
-print('LOGISTIC REGRESSION CLASSIFIER DONE!!!!!!!!!!!!!!!!!!!!!!!!!')
-####################################GENERAR MAPA FINAL DE CLASIFICACIÓN#####################################################################
-imagenSalida = preparar.predictionToImage(lrcSalida)
+############################### CLASSIFIER ALGORITHM############################################################################################################
+########################LOGISTIC REGRESSION CLASSIFIER##########################################################################################################
+if algorithm == 'LRCL':
+  classifier = load_model(os.path.join(logger.path,'C_'+test+str(vectNets[1])+'.h5')) 
+  print('LOGISTIC REGRESSION CLASSIFIER DONE!!!!!!!!!!!!!!!!!!!!!!!!!')
+#########################RIEMANIAN CLASSIFIER####################################################################################################################
+if algorithm == 'SVMC': 
+  classifier = joblib.load(os.path.join(logger.path,test+'_'+algorithm+str(vectNets[2])+'.pkl')) 
+  features_test = reshapeFeatures(features_test, algorithm)
+#########################SVM CLASSIFIER##########################################################################################################################
+if algorithm == 'RIEM': 
+  classifier = joblib.load(os.path.join(logger.path,test+'_'+algorithm+str(vectNets[3])+'.pkl')) 
+  features_test = reshapeFeatures(features_test, algorithm)
+#################################################################################################################################################################
+####################################GENERAR MAPA FINAL DE CLASIFICACIÓN##########################################################################################
+datosSalida = classifier.predict(features_test)
+imagenSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, imagenSalida)
-#COMPARACION
+##############################IMAGEN DE COMPARACION##############################################################################################################
 dataCompare = np.absolute(groundTruth-imagenSalida)
 dataCompare = (dataCompare > 0) * 1 
 data.graficarHsi_VS(imagenSalida, dataCompare, cmap ='bw')
-########################AJUSTAR DATOS DE SALIDA################################################################################################################
+########################AJUSTAR DATOS DE SALIDA#################################################################################################################
 class_names = []
 for i in range(1,groundTruth.max()+1):
     class_names.append('Class '+str(i))
 if etiquetasPrueba.ndim>1:
     etiquetasPrueba = etiquetasPrueba.argmax(axis=1)
-if lrcSalida.ndim>1:
-    lrcSalida = lrcSalida.argmax(axis=1)
+if datosSalida.ndim>1:
+    datosSalida = datosSalida.argmax(axis=1)
 ########################GENERAR MATRIZ DE CONFUSION############################################################################################################
-fig_lrc = plotlyConfusionMatrix(true_labels=etiquetasPrueba, pred_labels=lrcSalida, class_names=class_names)
-fig_lrc.write_image(os.path.join(logger_LRC.path,'confusionMat_'+str(vectNets[1])+'.png'))
+fig_lrc = plotlyConfusionMatrix(true_labels=etiquetasPrueba, pred_labels=datosSalida, class_names=class_names)
+fig_lrc.write_image(os.path.join(logger.path,'confusionMat_'+algorithm+str(vectNets[1])+'.png'))
 K.clear_session()
 print('CONFUSION MATRIX DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 ###############################################################################################################################################################

@@ -95,52 +95,53 @@ def accuracy(y_true, y_pred):
 
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 1
-dataSet = 'IndianPines'
-ventana = 8 #VENTANA 2D de PROCESAMIENTO
+dataSet = 'KSC'
+test =    'BCAE'   # Feature extraction network
+fe_eep = True      # false for PCA, true for EEP 
+
+ventana = 8        #VENTANA 2D de PROCESAMIENTO
 data = CargarHsi(dataSet)
 imagen = data.imagen
 groundTruth = data.groundTruth
 
 #ANALISIS DE COMPONENTES PRINCIPALES
 pca = princiapalComponentAnalysis()
-imagenPCA = pca.pca_calculate(imagen, varianza=0.95)
-#imagenPCA = pca.pca_calculate(imagen, componentes=4)
-print(imagenPCA.shape)
+imagenFE = pca.pca_calculate(imagen, varianza=0.95)
+print(imagenFE.shape)
 
 #ESTIMACIÓN DE EXTENDED EXTINTION PROFILES
-mp = morphologicalProfiles()
-imagenEEP = mp.EEP(imagenPCA, num_levels=4)    
-print(imagenEEP.shape)
+if fe_eep:    
+    mp = morphologicalProfiles()
+    imagenFE = mp.EEP(imagenFE, num_levels=4)    
+    print(imagenFE.shape)
 
 #PREPARAR DATOS PARA ENTRENAMIENTO
-preparar = PrepararDatos(imagenEEP, groundTruth, False)
+preparar = PrepararDatos(imagenFE, groundTruth, False)
 datosEntrenamiento, etiquetasEntrenamiento, datosValidacion, etiquetasValidacion = preparar.extraerDatos2D(50,20,ventana)
 datosPrueba, etiquetasPrueba = preparar.extraerDatosPrueba2D(ventana)
 
 ######################LOAD STACKED CONVOLUTIONAL AUTOENCODER#####################################################
-epochs = 50 #número de iteraciones
-encoder = load_model(os.path.join("6_data Logger/SCAE_v2", dataSet,'FE_SCAE0.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss})    
-print(encoder.summary()) 
+FE_model = load_model(os.path.join("6_data Logger", test, dataSet,'FE_'+test+str(0)+'.h5'), custom_objects={'euclidean_distance_loss': euclidean_distance_loss})    
+print(FE_model.summary()) 
 
 #Generar caracteristicicas con los datos de entrada
-features_tr = encoder.predict(datosEntrenamiento)
-features_val = encoder.predict(datosValidacion)
-features_test = encoder.predict(datosPrueba)
-history = 0
+features_tr = FE_model.predict(datosEntrenamiento)
+features_val = FE_model.predict(datosValidacion)
+features_test = FE_model.predict(datosPrueba)
 
-################################## CLASIFICADOR RIEMANN #########################################################
-classifier, features_test = riemann_classifier(features_tr, etiquetasEntrenamiento, features_test,  method='tan')
-#################################################################################################################
+################################## CLASIFICADOR RIEMANN #################################################################
+#classifier, features_test = riemann_classifier(features_tr, etiquetasEntrenamiento, features_test,  method='tan')
+#########################################################################################################################
 
-################################## CLASIFICADOR SVM #############################################################
+################################## CLASIFICADOR SVM #####################################################################
 #classifier, features_test = svm_classifier(features_tr, etiquetasEntrenamiento, features_test, kernel='linear')
-#################################################################################################################
+#########################################################################################################################
 
-##################################CLASIFICADOR LOGISTIC REGRESSION###############################################
-#classifier, history = lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion, epochs)
-#################################################################################################################
+##################################CLASIFICADOR LOGISTIC REGRESSION#######################################################
+#classifier, history = lr_classifier(features_tr, features_val, etiquetasEntrenamiento, etiquetasValidacion, epochs = 50)
+#########################################################################################################################
 
-############################## GRAFICAS Y SALIDAS ###############################################################
+############################## GRAFICAS Y SALIDAS #######################################################################
 datosSalida = classifier.predict(features_test)
 imagenSalida = preparar.predictionToImage(datosSalida)
 data.graficarHsi_VS(groundTruth, imagenSalida)

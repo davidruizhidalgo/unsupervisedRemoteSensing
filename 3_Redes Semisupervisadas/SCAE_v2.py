@@ -72,7 +72,7 @@ def cae(N , input_tensor, input_layer,nb_bands, l2_loss):
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 #CARGAR IMAGEN HSI Y GROUND TRUTH
 numTest = 10
-dataSet = 'Urban'
+dataSet = 'KSC'
 test = 'pcaSCAE'  # pcaSCAE SCAE
 save = True       # false to avoid create logger
 fe_eep = False    # false for PCA, true for EEP 

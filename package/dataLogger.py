@@ -13,6 +13,10 @@ class DataLogger:
             mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
         elif fileName[-4:] == 'RIEM':
             mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
+        elif fileName[-4:] == 'SVMC':
+            mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
+        elif fileName[-4:] == 'LRCL':
+            mypath = os.path.join("6_data Logger", folder, fileName[0:-5])
         else:
             mypath = os.path.join("6_data Logger", folder, fileName)
         #Crear el directorio
