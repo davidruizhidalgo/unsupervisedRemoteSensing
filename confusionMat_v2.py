@@ -93,11 +93,11 @@ def reshapeFeatures(features_test, method='RIEM'):
 
 ###########################PROGRAMA PRINCIPAL################################################################################################################
 ###########################CARGAR IMAGEN HSI, GROUND TRUTH e INICIAR LOGGER##################################################################################
-dataSet = 'IndianPines'
+dataSet = 'KSC'
 test =    'BCAE'          # test folder
 algorithm = 'RIEM'        # LRCL, SVMC, RIEM
 fe_eep = True             # false for PCA, true for EEP 
-vectNets =[0, 0, 0, 0]    # [FE, LRCL, SVMC, RIEM]   
+vectNets = [1, 1, 1, 1]    # [FE, LRCL, SVMC, RIEM]   
 
 data = CargarHsi(dataSet)
 imagen = data.imagen

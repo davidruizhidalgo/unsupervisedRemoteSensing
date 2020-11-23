@@ -1,11 +1,11 @@
 clear, clc, close all;
 
 dataset = 'KSC';        % IndianPines  PaviaU KSC
-test = 'DBN';           % pcaSCAE pcaBCAE BCAE DBN 
-numTest = 10;           % número de pruebas
-delta = 0.01;
+test = 'BCAE';                  % pcaSCAE pcaBCAE BCAE DBN 
+numTest = 10;                   % número de pruebas
+delta = 0.00;
 
-path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_TEST.txt');
+path = strcat('../../6_data Logger/',test,'/',dataset,'/logger_',dataset,'_RIEM.txt');
 data = load(path);
 
 OA = zeros(1,numTest); j=1;
